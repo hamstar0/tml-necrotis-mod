@@ -1,0 +1,45 @@
+v1
+-	@MH: Remove spam tag mods
+-	Add a UI bar to show necrotis resistance and affliction status
+	-	...
+	-	Create graphic (a glass tube)
+-	Implement Dilluted Ectoplasm
+	-	Spawn from pots (require Pot Luck)
+
+	-	Show item on map
+	-	Add persistence
+	-	Implement consume behavior (clears necrosis, adds potion sickness)
+	-	Create graphic
+	-	Define item
+	-	@Plan
+		-	Spawns from pots
+		-	Stays around, and is visible on the map
+		-	Only a net can catch it
+		-	When consumed:
+			-	Adds necrotis resistance
+			-	Reduces a small amount of necrotis
+			-	Adds potion sickness; must abait before re-consuming
+-	Apply debuff at varying rates based on area
+	-	Implement rate apply function
+	-	Define rates
+	-	@Plan for rates:
+		-	Sky: -1s/min
+		-	Oceans: -1s/min (+5s/min night)
+		-	Town: -1s/min (except blood moons)
+		-	Above ground: +0s/min (+5s/min night)
+		-	Under ground: +10s/min
+		-	Dungeon: +60s/min
+		-	Hell: -5s/min
+		-	UG Jungle: +5s/min
+		-	UG Corruption/Crimson: +20s/min
+		-	UG Desert/Ice: +10s/min
+-	Create "debuff"
+	-	Modify behaviors
+		-	Reduce max hp
+		-	Limit paralysis
+		-	Do not restrict jumping
+		-	No longer cause damage
+	-	Import from AM
+-	Create stop-gap display of necrotis resistance and affliction
+-	Define resistance and affliction amounts
+-	Define mod
