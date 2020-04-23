@@ -118,12 +118,15 @@ namespace Necrotis {
 
 		////
 
+		[Range( 0f, 1f )]
+		[DefaultValue( 1f / 4f )]
+		public float DillutedEctoplasmPotDropChance { get; set; } = 1f / 4f;
+
 		[ReloadRequired]
 		public bool DillutedEctoplasmRecipeEnabled { get; set; } = false;
 
 		[Range( 0f, 1f )]
 		[DefaultValue( 1f / 3f )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float DillutedEctoplasmFortifyPercent { get; set; } = 1f / 3f;
 	}
 }

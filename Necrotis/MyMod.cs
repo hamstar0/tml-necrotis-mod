@@ -1,8 +1,13 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using static Terraria.ModLoader.ModContent;
+using HamstarHelpers.Services.Configs;
+using Necrotis.Items;
+using PotLuck;
 
 
 namespace Necrotis {
@@ -25,8 +30,35 @@ namespace Necrotis {
 
 		////////////////
 
+		public override void Load() {
+		}
+
 		public override void Unload() {
 			NecrotisMod.Instance = null;
+		}
+
+
+		public override void PostSetupContent() {
+			var potluckConfig = ModConfigStack.GetConfigAtOrDefault<PotLuckConfig>( 100 );
+			potluckConfig.PotEntries.Clear();
+			potluckConfig.PotEntries.Add(
+				new PotEntry {
+					PercentChance = NecrotisConfig.Instance.DillutedEctoplasmPotDropChance,
+					HardModeOnly = false,
+					IsSurface = true,
+					IsCaves = true,
+					IsUnderworld = true,
+					ItemDefs = new List<PotItemEntry> {
+						new PotItemEntry {
+							MinStack = 1,
+							MaxStack = 1,
+							ItemDef = new ItemDefinition( ModContent.ItemType<DillutedEctoplasmItem>() )
+						}
+					}
+				}
+			);
+
+			PotLuckConfig.Instance.OverlayChanges( potluckConfig );
 		}
 
 

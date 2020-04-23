@@ -1,11 +1,12 @@
 v1
 -	@MH: Remove spam tag mods
 -	Add a UI bar to show necrotis resistance and affliction status
-	-	...
-	-	Create graphic (a glass tube)
+	-	Render stat to element
+	-	Define UI element
+	-	Create Ankh graphic
+
 -	Implement Dilluted Ectoplasm
 	-	Spawn from pots (require Pot Luck)
-
 	-	Show item on map
 	-	Add persistence
 	-	Implement consume behavior (clears necrosis, adds potion sickness)
