@@ -42,7 +42,7 @@ namespace Necrotis {
 			if( this.NecrotisResistPercent < 0f ) {
 				this.player.AddBuff( BuffType<NecrotisDeBuff>(), 2 );
 			}
-DebugHelpers.Print( "necrotis", "necrotis%: "+this.NecrotisResistPercent.ToString("N2") );
+//DebugHelpers.Print( "necrotis", "necrotis%: "+this.NecrotisResistPercent.ToString("N2") );
 		}
 	}
 }
