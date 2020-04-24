@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -17,15 +16,16 @@ namespace Necrotis.Items {
 		////////////////
 
 		public override bool CanPickup( Player player ) {
-			return !player.HasBuff( BuffID.PotionSickness );
+			//return !player.HasBuff( BuffID.PotionSickness );
+			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+			return myplayer.NecrotisResistPercent < 0.95f;
 		}
 
 		public override bool OnPickup( Player player ) {
-			if( player.HasBuff( BuffID.PotionSickness ) ) {
+			/*if( player.HasBuff( BuffID.PotionSickness ) ) {
 				return false;
 			}
-
-			player.AddBuff( BuffID.PotionSickness, 60 * 60 );
+			player.AddBuff( BuffID.PotionSickness, 60 * 60 );*/
 
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
