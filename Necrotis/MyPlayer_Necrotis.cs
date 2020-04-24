@@ -40,32 +40,39 @@ namespace Necrotis {
 
 			// Dirt layer
 			else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
+				bool isOther = false;
 				// Dungeon
 				if( plr.ZoneDungeon ) {
 					addNecrotis( NecrotisConfig.Instance.DungeonAfflicationIncreasePerTick, "NecrotisCtx_Dungeon" );
+					isOther = true;
 				}
 				// Corruption/crimson
 				if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
 					addNecrotis( NecrotisConfig.Instance.CorruptionAfflicationIncreasePerTick, "NecrotisCtx_UndCorr" );
+					isOther = true;
 				}
 				// Hallow
 				if( plr.ZoneHoly ) {
 					addNecrotis( NecrotisConfig.Instance.HallowAfflicationIncreasePerTick, "NecrotisCtx_UndHallow" );
+					isOther = true;
 				}
 				// Desert
 				if( plr.ZoneUndergroundDesert ) {	//plr.ZoneDesert ) {
 					addNecrotis( NecrotisConfig.Instance.DesertAfflicationIncreasePerTick, "NecrotisCtx_UndDesert" );
+					isOther = true;
 				}
 				// Ice
 				if( plr.ZoneSnow ) {
 					addNecrotis( NecrotisConfig.Instance.SnowAfflicationIncreasePerTick, "NecrotisCtx_UndIce" );
+					isOther = true;
 				}
 				// Jungle
 				if( plr.ZoneJungle ) {
 					addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_UndJung" );
+					isOther = true;
 				}
 				// Empty
-				else {
+				if( !isOther ) {
 					addNecrotis( NecrotisConfig.Instance.UndergroundAfflicationIncreasePerTick, "NecrotisCtx_Und" );
 				}
 			}
@@ -73,33 +80,34 @@ namespace Necrotis {
 
 			// Surface
 			else if( yPos > (WorldHelpers.SurfaceLayerTopTileY << 4) ) {
+				bool isBeach = xPos >= WorldHelpers.BeachEastTileX || xPos <= WorldHelpers.BeachEastTileX;
 				// Beach
-				if( xPos >= WorldHelpers.BeachEastTileX || xPos <= WorldHelpers.BeachEastTileX ) {
+				if( isBeach ) {
 					addNecrotis( NecrotisConfig.Instance.BeachAfflicationIncreasePerTick, "NecrotisCtx_Beach" );
 				}
 				// Corruption/crimson
-				else if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
+				if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
 					addNecrotis( NecrotisConfig.Instance.CorruptionAfflicationIncreasePerTick, "NecrotisCtx_Corr" );
 				}
 				// Hallow
-				else if( plr.ZoneHoly ) {
+				if( plr.ZoneHoly ) {
 					addNecrotis( NecrotisConfig.Instance.HallowAfflicationIncreasePerTick, "NecrotisCtx_Hallow" );
 				}
 				// Desert
-				else if( plr.ZoneDesert ) {
+				if( !isBeach && plr.ZoneDesert ) {
 					addNecrotis( NecrotisConfig.Instance.DesertAfflicationIncreasePerTick, "NecrotisCtx_Desert" );
 				}
 				// Ice
-				else if( plr.ZoneSnow ) {
+				if( plr.ZoneSnow ) {
 					addNecrotis( NecrotisConfig.Instance.SnowAfflicationIncreasePerTick, "NecrotisCtx_Snow" );
 				}
 				// Jungle
-				else if( plr.ZoneJungle ) {
+				if( plr.ZoneJungle ) {
 					addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_Jungle" );
 				}
 
 				// Night or Eclipse
-				if( !Main.dayTime || Main.eclipse ) {
+				if( !isTown && (!Main.dayTime || Main.eclipse) ) {
 					addNecrotis( NecrotisConfig.Instance.NightOrEclipseAfflicationIncreasePerTick, "NecrotisCtx_Night" );
 				}
 			}
@@ -120,7 +128,8 @@ namespace Necrotis {
 				if( amt > 0f ) {
 					amt *= 0.25f;	// Slower decrease
 				} else {
-					amt *= 4f;	// Faster recovery
+					//amt *= 4f;  // Faster recovery
+					this.NecrotisResistPercent = 0;
 				}
 			}
 
