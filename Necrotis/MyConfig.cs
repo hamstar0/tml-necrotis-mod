@@ -33,6 +33,17 @@ namespace Necrotis {
 
 		////////////////
 
+		[Range( -4096, 4096 )]
+		[DefaultValue( -336 )]
+		public int AnkhScreenPositionX { get; set; } = -336;
+
+		[Range( -1024, 1024 )]
+		[DefaultValue( 22 )]
+		public int AnkhScreenPositionY { get; set; } = 22;
+
+
+		////
+
 		[Range(0f, 1f)]
 		[DefaultValue( 1f / 60f )]
 		public float ResistPercentDropPerTick { get; set; } = 1f / 60f;
