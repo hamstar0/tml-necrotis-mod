@@ -3,28 +3,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using HamstarHelpers.Helpers.World;
 
 
 namespace Necrotis.Buffs {
 	partial class NecrotisDeBuff : ModBuff {
-		public static bool IsBeingAfflicted( Player player ) {
-			return player.ZoneDungeon && player.position.Y > ( WorldHelpers.RockLayerTopTileY << 4 );
-		}
-
-		/*public static float GetPercentAfflicted( Player player ) {
-			int buffIdx = player.FindBuffIndex( ModContent.BuffType<NecrotisDebuff>() );
-			if( buffIdx == -1 ) {
-				return 0f;
-			}
-
-			int currDuration = player.buffTime[ buffIdx ];
-			return (float)currDuration / (float)NecrotisConfig.Instance.NecrotisMaxAfflictionTickDuration;
-		}*/
-
-
-		////////////////
-
 		public static void ApplyEffect( Player player, float percent ) {
 			NecrotisDeBuff.ApplyMovementEffects( player, percent );
 			NecrotisDeBuff.ApplyHealthEffects( player, percent );
@@ -91,36 +73,6 @@ namespace Necrotis.Buffs {
 			r *= 0.7f;
 			g *= 0.85f;
 			b *= 0.7f;
-		}
-
-
-
-		////////////////
-
-		public override void SetDefaults() {
-			this.DisplayName.SetDefault( "Necrotis" );
-			this.Description.SetDefault(
-				"You feel your life energy draining"
-				+ "\n" + "Worsens as it increases"
-			);
-
-			Main.debuff[this.Type] = true;
-			//Main.buffNoTimeDisplay[this.Type] = true;
-			//Main.buffNoSave[this.Type] = true;
-		}
-
-
-		////////////////
-
-		public override void Update( Player player, ref int buffIndex ) {
-			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-
-			float percent = -myplayer.NecrotisResistPercent;
-			if( percent <= 0f ) {
-				return;
-			}
-
-			NecrotisDeBuff.ApplyEffect( player, percent );
 		}
 	}
 }
