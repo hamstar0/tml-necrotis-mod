@@ -26,10 +26,10 @@ namespace Necrotis {
 				NecrotisConfig.Instance.AnkhScreenPositionY
 			);
 			if( pos.X < 0 ) {
-				pos.X = Main.screenWidth - pos.X;
+				pos.X = Main.screenWidth + pos.X;
 			}
 			if( pos.Y < 0 ) {
-				pos.Y = Main.screenHeight - pos.Y;
+				pos.Y = Main.screenHeight + pos.Y;
 			}
 
 			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
@@ -59,9 +59,12 @@ namespace Necrotis {
 
 				var area = new Rectangle( (int)pos.X, (int)pos.Y, bgTex.Width, bgTex.Height );
 				if( area.Contains(Main.mouseX, Main.mouseY) ) {
+					float percent = myplayer.NecrotisResistPercent * 100f;
+					if( percent < 0f ) { percent = 0f; }
+						
 					Main.spriteBatch.DrawString(
 						spriteFont: Main.fontMouseText,
-						text: (myplayer.NecrotisResistPercent*100f).ToString("N0")+"% Necrotis Resist",
+						text: percent.ToString("N0")+"% Necrotis Resist",
 						position: Main.MouseScreen + new Vector2(0f, 24f),
 						color: myplayer.NecrotisResistPercent > 0f
 							? Color.White

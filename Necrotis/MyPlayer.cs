@@ -8,7 +8,7 @@ using Necrotis.Buffs;
 
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
-		public float NecrotisResistPercent { get; internal set; } = 0f;
+		public float NecrotisResistPercent { get; internal set; } = 0.01f;
 
 
 		////

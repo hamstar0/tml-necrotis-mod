@@ -38,7 +38,11 @@ namespace Necrotis {
 
 
 		public override void PostSetupContent() {
-			var potluckConfig = ModConfigStack.GetConfigAtOrDefault<PotLuckConfig>( 100 );
+			var potluckConfig = ModConfigStack.GetConfigAt<PotLuckConfig>( 100 );
+			if( potluckConfig == null ) {
+				potluckConfig = new PotLuckConfig();
+			}
+
 			potluckConfig.PotEntries.Clear();
 			potluckConfig.PotEntries.Add(
 				new PotEntry {
