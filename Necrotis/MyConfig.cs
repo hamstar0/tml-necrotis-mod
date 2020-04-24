@@ -81,50 +81,50 @@ namespace Necrotis {
 
 		////
 
-		[Range( -360f, 360f )]
-		[DefaultValue( -0.05f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * -2f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float UnderworldAfflicationIncreasePerTick { get; set; } = -0.05f / 60f;
+		public float UnderworldAfflicationIncreasePerTick { get; set; } = 1f / (60f * -2f);	// -2m
 
-		[Range( -360f, 360f )]
-		[DefaultValue( 0.60f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 1f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DungeonAfflicationIncreasePerTick { get; set; } = 0.60f / 60f;
+		public float DungeonAfflicationIncreasePerTick { get; set; } = 1f / (60f * 1f); // 1m
 
-		[Range( -360f, 360f )]
-		[DefaultValue( 0.20f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 2f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float CorruptionAfflicationIncreasePerTick { get; set; } = 0.20f / 60f;
+		public float CorruptionAfflicationIncreasePerTick { get; set; } = 1f / (60f * 2f);  // 2m
 
-		[Range( -360f, 360f )]
-		[DefaultValue( 0.01f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 3f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HallowAfflicationIncreasePerTick { get; set; } = 0.01f / 60f;
+		public float HallowAfflicationIncreasePerTick { get; set; } = 1f / (60f * 3f);	// 3m
 
-		[Range( -360f, 360f )]
-		[DefaultValue( 0.05f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 4f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DesertAfflicationIncreasePerTick { get; set; } = 0.05f / 60f;
+		public float DesertAfflicationIncreasePerTick { get; set; } = 1f / (60f * 4f);	// 4m
 
-		[Range( -360f, 360f )]
-		[DefaultValue( 0.05f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 3f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SnowAfflicationIncreasePerTick { get; set; } = 0.05f / 60f;
+		public float SnowAfflicationIncreasePerTick { get; set; } = 1f / (60f * 3f);	// 3n
 
-		[Range( -360f, 360f )]
-		[DefaultValue( 0.025f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 4f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float JungleAfflicationIncreasePerTick { get; set; } = 0.025f / 60f;
+		public float JungleAfflicationIncreasePerTick { get; set; } = 1f / (60f * 4f);	// 4m
 
-		[Range( -360f, 360f )]
-		[DefaultValue( -0.01f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * -5f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float BeachAfflicationIncreasePerTick { get; set; } = -0.01f / 60f;
+		public float BeachAfflicationIncreasePerTick { get; set; } = 1f / (60f * -5f);	// -5m
 
-		[Range( -360f, 360f )]
-		[DefaultValue( -0.01f / 60f )]
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * -2f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SkyAfflicationIncreasePerTick { get; set; } = -0.01f / 60f;
+		public float SkyAfflicationIncreasePerTick { get; set; } = 1f / (60f * -2f);	// -2m
 
 
 		////

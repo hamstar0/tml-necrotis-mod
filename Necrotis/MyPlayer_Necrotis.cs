@@ -83,6 +83,15 @@ namespace Necrotis {
 
 		public void AddNecrotis( float amt, bool quiet=false ) {
 			float old = this.NecrotisResistPercent;
+
+			if( this.NecrotisResistPercent < 0f ) {	// If afflicted
+				if( amt > 0f ) {
+					amt *= 0.5f;	// Slower decrease
+				} else {
+					amt *= 2f;	// Faster recovery
+				}
+			}
+
 			this.NecrotisResistPercent -= amt;
 
 			if( this.NecrotisResistPercent < -1f ) {
