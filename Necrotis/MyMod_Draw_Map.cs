@@ -32,7 +32,7 @@ namespace Necrotis {
 					color: Color.White,
 					rotation: 0f,
 					origin: origin,
-					scale: 1f,
+					scale: 0.25f,
 					effects: SpriteEffects.None,
 					layerDepth: 1f
 				);

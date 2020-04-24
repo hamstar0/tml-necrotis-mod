@@ -9,8 +9,8 @@ namespace Necrotis.Buffs {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis" );
 			this.Description.SetDefault(
-				"You feel your life energy draining"
-				+ "\n" + "Worsens as it increases"
+				"You feel your life energy diminished"
+				+ "\n" + "Reduces max life, speed, life regen"
 			);
 
 			Main.debuff[this.Type] = true;

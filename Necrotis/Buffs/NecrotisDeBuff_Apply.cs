@@ -14,6 +14,8 @@ namespace Necrotis.Buffs {
 		}
 
 
+		////
+
 		private static void ApplyMovementEffects( Player player, float afflictPerc ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
 
@@ -41,6 +43,12 @@ namespace Necrotis.Buffs {
 			}
 		}
 
+
+		public static void ApplyLifeRegenEffect( Player player, float afflictPerc ) {
+			player.lifeRegen = (int)((float)player.lifeRegen * (1f - afflictPerc));
+		}
+
+
 		private static void ApplyHealthEffects( Player player, float afflictPerc ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
 
@@ -51,6 +59,7 @@ namespace Necrotis.Buffs {
 
 			player.lifeRegen = (int)((float)player.lifeRegen * effectPerc);
 		}
+
 
 		private static void ApplyDebuffEffects( Player player, float afflictPerc ) {
 			NecrotisConfig config = NecrotisConfig.Instance;

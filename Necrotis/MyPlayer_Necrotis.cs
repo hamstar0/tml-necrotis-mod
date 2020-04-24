@@ -10,7 +10,17 @@ using HamstarHelpers.Helpers.World;
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
 		private void UpdateNecrotisForCurrentContext() {
+			Player plr = this.player;
+			int xPos = (int)plr.position.X;
+			int yPos = (int)plr.position.Y;
+			bool isTown = plr.townNPCs > 1f && !Main.bloodMoon && !Main.eclipse;
+
+			//
+
 			void addNecrotis( float amt, string ctx ) {
+				if( amt > 0f && isTown ) {
+					return;
+				}
 				this.AddNecrotis( amt );
 
 				if( NecrotisConfig.Instance.DebugModeInfo ) {
@@ -20,10 +30,6 @@ namespace Necrotis {
 
 			//
 
-			Player plr = this.player;
-			int xPos = (int)plr.position.X;
-			int yPos = (int)plr.position.Y;
-			
 			// Underworld
 			if( yPos > (WorldHelpers.UnderworldLayerTopTileY << 4) ) {
 				addNecrotis( NecrotisConfig.Instance.HellAfflicationIncreasePerTick, "NecrotisCtx_Hell" );
@@ -91,6 +97,11 @@ namespace Necrotis {
 				else if( plr.ZoneJungle ) {
 					addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_Jungle" );
 				}
+
+				// Night or Eclipse
+				if( !Main.dayTime || Main.eclipse ) {
+					addNecrotis( NecrotisConfig.Instance.NightOrEclipseAfflicationIncreasePerTick, "NecrotisCtx_Night" );
+				}
 			}
 
 			// Sky
@@ -107,9 +118,9 @@ namespace Necrotis {
 
 			if( this.NecrotisResistPercent < 0f ) {	// If afflicted
 				if( amt > 0f ) {
-					amt *= 0.5f;	// Slower decrease
+					amt *= 0.25f;	// Slower decrease
 				} else {
-					amt *= 2f;	// Faster recovery
+					amt *= 4f;	// Faster recovery
 				}
 			}
 

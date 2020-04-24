@@ -5,12 +5,12 @@ v1.1
 
 v1
 -	@MH: Remove spam tag mods
--	Modify debuff
-	-	No bleeding (nil-regen inlined)
-	-	Potion sickness debuff constant
-	-	Cannot pick up hearts
-	-	Increase movement speed slightly
+-	@Test map icons for ectoplasm
 
+-	Add night/eclipse drain rate
+-	Resist buildup when at a town, except during blood moon or eclipse
+-	Modify debuff
+	-	Increase movement speed
 	-	Tint player
 -	Add rates for above ground corruption/crimson, generic underground
 -	Tweak rates

@@ -48,6 +48,15 @@ namespace Necrotis {
 
 		////////////////
 
+		public override void UpdateLifeRegen() {
+			if( this.NecrotisResistPercent < 0f ) {
+				NecrotisDeBuff.ApplyLifeRegenEffect( this.player, -this.NecrotisResistPercent );
+			}
+		}
+
+
+		////////////////
+
 		public override void DrawEffects( PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright ) {
 			if( this.NecrotisResistPercent < 0f ) {
 				NecrotisDeBuff.ApplyVisualFX( this.player, ref r, ref g, ref b );

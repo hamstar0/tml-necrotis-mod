@@ -59,12 +59,12 @@ namespace Necrotis {
 
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 0.35f )]
-		public float DebuffPercentUntilLowestMovement { get; set; } = 0.35f;
+		[DefaultValue( 0.01f )]
+		public float DebuffPercentUntilLowestMovement { get; set; } = 0.01f;
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 0.35f )]
-		public float LowestPercentOfMovementProducedByDebuff { get; set; } = 0.35f;
+		[DefaultValue( 0.75f )]
+		public float LowestPercentOfMovementProducedByDebuff { get; set; } = 0.75f;
 
 
 		[DefaultValue( true )]
@@ -74,9 +74,7 @@ namespace Necrotis {
 		public bool DebuffReducesJumpHeight { get; set; } = false;
 
 
-		public NullablePercent DebuffPercentBeforeBleeding { get; set; } = new NullablePercent {
-			Percent = 0.99f
-		};
+		public NullablePercent DebuffPercentBeforeBleeding { get; set; } = null;	// new NullablePercent { Percent = 0.99f };
 
 		public NullablePercent DebuffPercentBeforePoisoned { get; set; } = null;
 
@@ -134,6 +132,11 @@ namespace Necrotis {
 		[DefaultValue( 1f / (60f * 60f * -2f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float SkyAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * -2f);	// -2m
+
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 60f * 4f) )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float NightOrEclipseAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 4f);	// 4m
 
 
 		////
