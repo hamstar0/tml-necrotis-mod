@@ -86,9 +86,14 @@ namespace Necrotis {
 		////
 
 		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 60f * 3f) )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float UndergroundAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 3f);	// 3m
+
+		[Range( -1f, 1f )]
 		[DefaultValue( 1f / (60f * 60f * -2f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float UnderworldAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * -2f);	// -2m
+		public float HellAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * -2f);	// -2m
 
 		[Range( -1f, 1f )]
 		[DefaultValue( 1f / (60f * 60f * 1f) )]

@@ -20,45 +20,47 @@ namespace Necrotis {
 
 			//
 
-			int xPos = (int)this.player.position.X;
-			int yPos = (int)this.player.position.Y;
+			Player plr = this.player;
+			int xPos = (int)plr.position.X;
+			int yPos = (int)plr.position.Y;
 			
 			// Underworld
 			if( yPos > (WorldHelpers.UnderworldLayerTopTileY << 4) ) {
-				addNecrotis( NecrotisConfig.Instance.UnderworldAfflicationIncreasePerTick, "NecrotisCtx_Hell" );
+				addNecrotis( NecrotisConfig.Instance.HellAfflicationIncreasePerTick, "NecrotisCtx_Hell" );
 			}
 
 			// Rock layer
-			else if( yPos > (WorldHelpers.RockLayerTopTileY << 4) ) {
-				if( !this.player.ZoneDungeon ) {
-					// Corruption/crimson
-					if( this.player.ZoneCorrupt || this.player.ZoneCrimson ) {
-						addNecrotis( NecrotisConfig.Instance.CorruptionAfflicationIncreasePerTick, "NecrotisCtx_UndCorr" );
-					}
-					// Hallow
-					else if( this.player.ZoneHoly ) {
-						addNecrotis( NecrotisConfig.Instance.HallowAfflicationIncreasePerTick, "NecrotisCtx_UndHallow" );
-					}
-					// Desert
-					else if( this.player.ZoneDesert ) {
-						addNecrotis( NecrotisConfig.Instance.DesertAfflicationIncreasePerTick, "NecrotisCtx_UndDesert" );
-					}
-					// Ice
-					else if( this.player.ZoneSnow ) {
-						addNecrotis( NecrotisConfig.Instance.SnowAfflicationIncreasePerTick, "NecrotisCtx_UndIce" );
-					}
-					// Jungle
-					else if( this.player.ZoneJungle ) {
-						addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_UndJung" );
-					}
-				}
-			}
+			//else if( yPos > (WorldHelpers.RockLayerTopTileY << 4) ) {
 
 			// Dirt layer
-			if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
+			else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
 				// Dungeon
-				if( this.player.ZoneDungeon ) {
+				if( plr.ZoneDungeon ) {
 					addNecrotis( NecrotisConfig.Instance.DungeonAfflicationIncreasePerTick, "NecrotisCtx_Dungeon" );
+				}
+				// Corruption/crimson
+				if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
+					addNecrotis( NecrotisConfig.Instance.CorruptionAfflicationIncreasePerTick, "NecrotisCtx_UndCorr" );
+				}
+				// Hallow
+				if( plr.ZoneHoly ) {
+					addNecrotis( NecrotisConfig.Instance.HallowAfflicationIncreasePerTick, "NecrotisCtx_UndHallow" );
+				}
+				// Desert
+				if( plr.ZoneUndergroundDesert ) {	//plr.ZoneDesert ) {
+					addNecrotis( NecrotisConfig.Instance.DesertAfflicationIncreasePerTick, "NecrotisCtx_UndDesert" );
+				}
+				// Ice
+				if( plr.ZoneSnow ) {
+					addNecrotis( NecrotisConfig.Instance.SnowAfflicationIncreasePerTick, "NecrotisCtx_UndIce" );
+				}
+				// Jungle
+				if( plr.ZoneJungle ) {
+					addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_UndJung" );
+				}
+				// Empty
+				else {
+					addNecrotis( NecrotisConfig.Instance.UndergroundAfflicationIncreasePerTick, "NecrotisCtx_Und" );
 				}
 			}
 			//else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
@@ -70,23 +72,23 @@ namespace Necrotis {
 					addNecrotis( NecrotisConfig.Instance.BeachAfflicationIncreasePerTick, "NecrotisCtx_Beach" );
 				}
 				// Corruption/crimson
-				else if( this.player.ZoneCorrupt || this.player.ZoneCrimson ) {
+				else if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
 					addNecrotis( NecrotisConfig.Instance.CorruptionAfflicationIncreasePerTick, "NecrotisCtx_Corr" );
 				}
 				// Hallow
-				else if( this.player.ZoneHoly ) {
+				else if( plr.ZoneHoly ) {
 					addNecrotis( NecrotisConfig.Instance.HallowAfflicationIncreasePerTick, "NecrotisCtx_Hallow" );
 				}
 				// Desert
-				else if( this.player.ZoneDesert ) {
+				else if( plr.ZoneDesert ) {
 					addNecrotis( NecrotisConfig.Instance.DesertAfflicationIncreasePerTick, "NecrotisCtx_Desert" );
 				}
 				// Ice
-				else if( this.player.ZoneSnow ) {
+				else if( plr.ZoneSnow ) {
 					addNecrotis( NecrotisConfig.Instance.SnowAfflicationIncreasePerTick, "NecrotisCtx_Snow" );
 				}
 				// Jungle
-				else if( this.player.ZoneJungle ) {
+				else if( plr.ZoneJungle ) {
 					addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_Jungle" );
 				}
 			}

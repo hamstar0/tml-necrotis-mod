@@ -1,10 +1,18 @@
-v1
--	@MH: Remove spam tag mods
+v1.1
 -	Animated ankh
 	-	When low, make red pulses in a heartbeat pattern
 	-	When draining, make small particles drip off
--	Add rates for above ground corruption/crimson, generic underground
 
+v1
+-	@MH: Remove spam tag mods
+-	Modify debuff
+	-	No bleeding (nil-regen inlined)
+	-	Potion sickness debuff constant
+	-	Cannot pick up hearts
+	-	Increase movement speed slightly
+
+	-	Tint player
+-	Add rates for above ground corruption/crimson, generic underground
 -	Tweak rates
 -	Add a UI bar to show necrotis resistance and affliction status
 	-	Render stat to element
