@@ -19,57 +19,32 @@ namespace Necrotis {
 				return;
 			}
 
-			Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
-			Texture2D fgTex = this.GetTexture( "UI/AnkhFG" );
-			var pos = new Vector2(
-				NecrotisConfig.Instance.AnkhScreenPositionX,
-				NecrotisConfig.Instance.AnkhScreenPositionY
-			);
-			if( pos.X < 0 ) {
-				pos.X = Main.screenWidth + pos.X;
-			}
-			if( pos.Y < 0 ) {
-				pos.Y = Main.screenHeight + pos.Y;
-			}
-
-			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			int necScroll = (int)((float)myplayer.NecrotisResistPercent * (float)fgTex.Height);
-			var statSrcRect = new Rectangle(
-				x: 0,
-				y: fgTex.Height - necScroll,
-				width: fgTex.Width,
-				height: necScroll
-			);
-
 			GameInterfaceDrawMethod draw = () => {
-				Main.spriteBatch.Draw(
-					texture: bgTex,
-					position: pos,
-					sourceRectangle: null,
-					color: Color.White
+				Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
+				Texture2D fgTex = this.GetTexture( "UI/AnkhFG" );
+				var pos = new Vector2(
+					NecrotisConfig.Instance.AnkhScreenPositionX,
+					NecrotisConfig.Instance.AnkhScreenPositionY
 				);
-				if( statSrcRect.Height > 0 ) {
-					Main.spriteBatch.Draw(
-						texture: fgTex,
-						position: pos + new Vector2(0, fgTex.Height - necScroll),
-						sourceRectangle: statSrcRect,
-						color: Color.White
-					);
+				if( pos.X < 0 ) {
+					pos.X = Main.screenWidth + pos.X;
+				}
+				if( pos.Y < 0 ) {
+					pos.Y = Main.screenHeight + pos.Y;
 				}
 
-				var area = new Rectangle( (int)pos.X, (int)pos.Y, bgTex.Width, bgTex.Height );
-				if( area.Contains(Main.mouseX, Main.mouseY) ) {
-					float percent = myplayer.NecrotisResistPercent * 100f;
-					if( percent < 0f ) { percent = 0f; }
-						
-					Main.spriteBatch.DrawString(
-						spriteFont: Main.fontMouseText,
-						text: percent.ToString("N0")+"% Necrotis Resist",
-						position: Main.MouseScreen + new Vector2(0f, 24f),
-						color: myplayer.NecrotisResistPercent > 0f
-							? Color.White
-							: Color.Red
-					);
+				var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
+				int necScroll = (int)((float)myplayer.NecrotisResistPercent * (float)fgTex.Height);
+				var statSrcRect = new Rectangle(
+					x: 0,
+					y: fgTex.Height - necScroll,
+					width: fgTex.Width,
+					height: necScroll
+				);
+
+				this.DrawUIAnkh( bgTex, fgTex, pos, statSrcRect, myplayer.NecrotisResistPercent );
+				if( myplayer.CurrentNecrotisAfflictPercentRate != 0 ) {
+					this.DrawUIAnkhChangeFX( pos, bgTex.Bounds, statSrcRect );
 				}
 
 				return true;
@@ -78,6 +53,50 @@ namespace Necrotis {
 
 			//layers.RemoveAt( idx );
 			layers.Insert( idx, interfaceLayer );
+		}
+
+
+		////
+
+		private void DrawUIAnkh(
+					Texture2D bgTex,
+					Texture2D fgTex,
+					Vector2 pos,
+					Rectangle srcRect,
+					float necrotisResistPercent ) {
+			Main.spriteBatch.Draw(
+				texture: bgTex,
+				position: pos,
+				sourceRectangle: null,
+				color: Color.White
+			);
+
+			if( srcRect.Height > 0 ) {
+				Main.spriteBatch.Draw(
+					texture: fgTex,
+					position: pos + new Vector2( 0, srcRect.Y ),
+					sourceRectangle: srcRect,
+					color: Color.White
+				);
+			}
+
+			var area = new Rectangle( (int)pos.X, (int)pos.Y, bgTex.Width, bgTex.Height );
+			if( area.Contains( Main.mouseX, Main.mouseY ) ) {
+				float percent = necrotisResistPercent * 100f;
+				if( percent < 0f ) { percent = 0f; }
+
+				Main.spriteBatch.DrawString(
+					spriteFont: Main.fontMouseText,
+					text: percent.ToString( "N0" ) + "% Necrotis Resist",
+					position: Main.MouseScreen + new Vector2( 0f, 24f ),
+					color: necrotisResistPercent > 0f
+						? Color.White
+						: Color.Red
+				);
+			}
+		}
+
+		private void DrawUIAnkhChangeFX( Vector2 pos, Rectangle fullSrcRect, Rectangle innerSrcRect ) {
 		}
 	}
 }
