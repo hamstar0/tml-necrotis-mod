@@ -11,8 +11,8 @@ namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
 		private void UpdateNecrotisForCurrentContext() {
 			Player plr = this.player;
-			int xPos = (int)plr.position.X;
-			int yPos = (int)plr.position.Y;
+			int tileX = (int)plr.position.X / 16;
+			int tileY = (int)plr.position.Y / 16;
 			bool isTown = plr.townNPCs > 1f && !Main.bloodMoon && !Main.eclipse;
 
 			//
@@ -31,7 +31,7 @@ namespace Necrotis {
 			//
 
 			// Underworld
-			if( yPos > (WorldHelpers.UnderworldLayerTopTileY << 4) ) {
+			if( tileY > (WorldHelpers.UnderworldLayerTopTileY << 4) ) {
 				addNecrotis( NecrotisConfig.Instance.HellAfflicationIncreasePerTick, "NecrotisCtx_Hell" );
 			}
 
@@ -39,7 +39,7 @@ namespace Necrotis {
 			//else if( yPos > (WorldHelpers.RockLayerTopTileY << 4) ) {
 
 			// Dirt layer
-			else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
+			else if( tileY > (WorldHelpers.DirtLayerTopTileY << 4) ) {
 				bool isOther = false;
 				// Dungeon
 				if( plr.ZoneDungeon ) {
@@ -79,8 +79,8 @@ namespace Necrotis {
 			//else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
 
 			// Surface
-			else if( yPos > (WorldHelpers.SurfaceLayerTopTileY << 4) ) {
-				bool isBeach = xPos >= WorldHelpers.BeachEastTileX || xPos <= WorldHelpers.BeachEastTileX;
+			else if( tileY > (WorldHelpers.SurfaceLayerTopTileY << 4) ) {
+				bool isBeach = tileX <= WorldHelpers.BeachWestTileX || tileX >= WorldHelpers.BeachEastTileX;
 				// Beach
 				if( isBeach ) {
 					addNecrotis( NecrotisConfig.Instance.BeachAfflicationIncreasePerTick, "NecrotisCtx_Beach" );
@@ -113,7 +113,7 @@ namespace Necrotis {
 			}
 
 			// Sky
-			else if( yPos > (WorldHelpers.SkyLayerTopTileY << 4) ) {
+			else if( tileY > (WorldHelpers.SkyLayerTopTileY << 4) ) {
 				addNecrotis( NecrotisConfig.Instance.SkyAfflicationIncreasePerTick, "NecrotisCtx_Sky" );
 			}
 		}
@@ -121,19 +121,19 @@ namespace Necrotis {
 
 		////
 
-		public void AddNecrotis( float amt, bool quiet=false ) {
+		public void AddNecrotis( float percentAmt, bool quiet=false ) {
 			float old = this.NecrotisResistPercent;
 
 			if( this.NecrotisResistPercent < 0f ) {	// If afflicted
-				if( amt > 0f ) {
-					amt *= 0.25f;	// Slower decrease
+				if( percentAmt > 0f ) {
+					percentAmt *= 0.25f;	// Slower decrease
 				} else {
 					//amt *= 4f;  // Faster recovery
 					this.NecrotisResistPercent = 0;
 				}
 			}
 
-			this.NecrotisResistPercent -= amt;
+			this.NecrotisResistPercent -= percentAmt;
 
 			if( this.NecrotisResistPercent < -1f ) {
 				this.NecrotisResistPercent = -1;
@@ -143,7 +143,7 @@ namespace Necrotis {
 
 			float realAmt = this.NecrotisResistPercent - old;
 
-			if( !quiet && Math.Abs(amt) >= 0.1f ) {
+			if( !quiet && Math.Abs(percentAmt) >= 0.1f ) {
 				string fmtAmt = (realAmt * 100f).ToString("N0") + "%";
 				if( realAmt > 0f ) {
 					fmtAmt = "+" + fmtAmt;

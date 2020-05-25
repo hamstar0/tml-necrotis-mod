@@ -48,16 +48,6 @@ namespace Necrotis {
 
 		////
 
-		[Range(0f, 1f)]
-		[DefaultValue( 1f / 60f )]
-		public float ResistPercentDropPerTick { get; set; } = 1f / 60f;
-
-
-		[Range( 60, 60 * 60 * 60 )]
-		[DefaultValue( 60 * 60 * 2 )]
-		public int NecrotisMaxAfflictionTickDuration { get; set; } = 60 * 60 * 2;
-
-
 		[Range( 0f, 1f )]
 		[DefaultValue( 0.01f )]
 		public float DebuffPercentUntilLowestMovement { get; set; } = 0.01f;

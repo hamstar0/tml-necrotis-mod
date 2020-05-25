@@ -29,10 +29,12 @@ namespace Necrotis.Items {
 
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
+			// Recover necrotis back to 0%, if needed
 			if( myplayer.NecrotisResistPercent < 0f ) {
 				myplayer.AddNecrotis( -myplayer.NecrotisResistPercent, false );
 			}
-			myplayer.AddNecrotis( -NecrotisConfig.Instance.DillutedEctoplasmFortifyPercent );
+
+			myplayer.AddNecrotis( -NecrotisConfig.Instance.DillutedEctoplasmFortifyPercent, true );
 
 			return false;
 		}
