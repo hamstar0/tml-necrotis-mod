@@ -31,10 +31,10 @@ namespace Necrotis.Items {
 
 			// Recover necrotis back to 0%, if needed
 			if( myplayer.NecrotisResistPercent < 0f ) {
-				myplayer.AddNecrotis( -myplayer.NecrotisResistPercent, false );
+				myplayer.AfflictNecrotis( -myplayer.NecrotisResistPercent, false );
 			}
 
-			myplayer.AddNecrotis( -NecrotisConfig.Instance.DillutedEctoplasmFortifyPercent, true );
+			myplayer.AfflictNecrotis( -NecrotisConfig.Instance.DillutedEctoplasmFortifyPercent, true );
 
 			return false;
 		}

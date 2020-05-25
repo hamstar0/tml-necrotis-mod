@@ -21,12 +21,16 @@ namespace Necrotis {
 				if( amt > 0f && isTown ) {
 					return;
 				}
-				this.AddNecrotis( amt );
+				this.AfflictNecrotis( amt );
 
 				if( NecrotisConfig.Instance.DebugModeInfo ) {
 					DebugHelpers.Print( ctx, amt.ToString("F6") );
 				}
 			}
+
+			//
+
+			this.CurrentNecrotisAfflictPercentRate = 0f;
 
 			//
 
@@ -121,13 +125,17 @@ namespace Necrotis {
 
 		////
 
-		public void AddNecrotis( float percentAmt, bool quiet=false ) {
+		public void AfflictNecrotis( float percentAmt, bool quiet=false ) {
 			float old = this.NecrotisResistPercent;
 
-			if( this.NecrotisResistPercent < 0f ) {	// If afflicted
+			// If afflicted
+			if( this.NecrotisResistPercent < 0f ) {
+				// Reduce amount of added affliction
 				if( percentAmt > 0f ) {
-					percentAmt *= 0.25f;	// Slower decrease
-				} else {
+					percentAmt *= 0.25f;
+				}
+				// Otherwise increase amount of recovery
+				else {
 					//amt *= 4f;  // Faster recovery
 					this.NecrotisResistPercent = 0;
 				}
@@ -135,17 +143,22 @@ namespace Necrotis {
 
 			this.NecrotisResistPercent -= percentAmt;
 
+			// Clamp (-1 to 0 = affliction buffer)
 			if( this.NecrotisResistPercent < -1f ) {
 				this.NecrotisResistPercent = -1;
 			} else if( this.NecrotisResistPercent > 1f ) {
 				this.NecrotisResistPercent = 1f;
 			}
 
-			float realAmt = this.NecrotisResistPercent - old;
+			// Amount of change
+			float percChangeAmt = this.NecrotisResistPercent - old;
 
+			this.CurrentNecrotisAfflictPercentRate += percChangeAmt;
+
+			// Display afflict amount
 			if( !quiet && Math.Abs(percentAmt) >= 0.1f ) {
-				string fmtAmt = (realAmt * 100f).ToString("N0") + "%";
-				if( realAmt > 0f ) {
+				string fmtAmt = (percChangeAmt * 100f).ToString("N0") + "%";
+				if( percChangeAmt > 0f ) {
 					fmtAmt = "+" + fmtAmt;
 				}
 
