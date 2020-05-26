@@ -145,7 +145,7 @@ namespace Necrotis {
 						innerSrcRect.Y
 					);
 
-					CustomParticle.Create( false, newPos, duration, Color.Gold, 1f, 1f, true );
+					CustomParticle.Create( false, newPos, duration, Color.Gold, 2f, 1f, true );
 				}
 			} else if( necrotisResistPercentChangeRate > 0f ) {
 				Texture2D glowTex = this.AnkhGlowTex;
@@ -154,7 +154,7 @@ namespace Necrotis {
 				
 				Main.spriteBatch.Draw(
 					texture: glowTex,
-					position: pos + new Vector2(-8f, -8f),
+					position: pos + new Vector2(-5f, -5f),
 					sourceRectangle: null,
 					color: Color.White * brite
 				);

@@ -94,14 +94,14 @@ namespace Necrotis {
 		public float CorruptionAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 2f);  // 2m
 
 		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * 3f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HallowAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 3f);	// 3m
-
-		[Range( -1f, 1f )]
 		[DefaultValue( 1f / (60f * 60f * 4f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DesertAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 4f);	// 4m
+		public float HallowAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 4f);	// 4m
+
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 60f * 8f) )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float DesertAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 8f);	// 8m
 
 		[Range( -1f, 1f )]
 		[DefaultValue( 1f / (60f * 60f * 3f) )]
