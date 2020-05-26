@@ -53,19 +53,22 @@ namespace Necrotis.Libraries.Services.FX {
 		////////////////
 
 		public int TickDuration { get; }
-		private int TicksElapsed = 0;
+		protected int TicksElapsed = 0;
 
 		public bool IsInWorld { get; }
-		public Vector2 Position { get; private set; }
-		public Color Color { get; private set; }
+		public Vector2 Position { get; protected set; }
+		public Color Color { get; protected set; }
 		public float Scale { get; }
 		public float SprayAmt { get; }
 		public bool HasGravity { get; }
 
-		private Vector2 Velocity = Vector2.Zero;
+		protected Vector2 Velocity = Vector2.Zero;
 
-		private float CurrRot = 0f;
-		private float RotVelocity = 0f;
+
+		////////////////
+
+		protected float CurrRot = 0f;
+		protected float RotVelocity = 0f;
 
 
 
@@ -73,7 +76,7 @@ namespace Necrotis.Libraries.Services.FX {
 
 		private CustomParticle() { }
 
-		private CustomParticle(
+		protected CustomParticle(
 					bool isInWorld,
 					Vector2 pos,
 					int tickDuration,
