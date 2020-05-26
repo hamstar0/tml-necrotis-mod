@@ -1,6 +1,6 @@
 ﻿using System;
-using Terraria.ModLoader;
 using Terraria;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.World;
@@ -13,6 +13,10 @@ namespace Necrotis {
 			int tileX = (int)plr.position.X / 16;
 			int tileY = (int)plr.position.Y / 16;
 			bool isTown = plr.townNPCs > 1f && !Main.bloodMoon && !Main.eclipse;
+
+			//
+
+			this.CurrentNecrotisResistPercentChangeRate = 0f;
 
 			//
 
@@ -29,20 +33,13 @@ namespace Necrotis {
 
 			//
 
-			this.CurrentNecrotisAfflictPercentRate = 0f;
-
-			//
-
 			// Underworld
-			if( tileY > (WorldHelpers.UnderworldLayerTopTileY << 4) ) {
+			if( tileY > WorldHelpers.UnderworldLayerTopTileY ) {
 				addNecrotis( NecrotisConfig.Instance.HellAfflicationIncreasePerTick, "NecrotisCtx_Hell" );
 			}
 
-			// Rock layer
-			//else if( yPos > (WorldHelpers.RockLayerTopTileY << 4) ) {
-
 			// Dirt layer
-			else if( tileY > (WorldHelpers.DirtLayerTopTileY << 4) ) {
+			else if( tileY > WorldHelpers.DirtLayerTopTileY ) {
 				bool isOther = false;
 				// Dungeon
 				if( plr.ZoneDungeon ) {
@@ -82,8 +79,9 @@ namespace Necrotis {
 			//else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
 
 			// Surface
-			else if( tileY > (WorldHelpers.SurfaceLayerTopTileY << 4) ) {
+			else if( tileY > WorldHelpers.SurfaceLayerTopTileY ) {
 				bool isBeach = tileX <= WorldHelpers.BeachWestTileX || tileX >= WorldHelpers.BeachEastTileX;
+
 				// Beach
 				if( isBeach ) {
 					addNecrotis( NecrotisConfig.Instance.BeachAfflicationIncreasePerTick, "NecrotisCtx_Beach" );
@@ -116,7 +114,7 @@ namespace Necrotis {
 			}
 
 			// Sky
-			else if( tileY > (WorldHelpers.SkyLayerTopTileY << 4) ) {
+			else if( tileY > WorldHelpers.SkyLayerTopTileY ) {
 				addNecrotis( NecrotisConfig.Instance.SkyAfflicationIncreasePerTick, "NecrotisCtx_Sky" );
 			}
 		}

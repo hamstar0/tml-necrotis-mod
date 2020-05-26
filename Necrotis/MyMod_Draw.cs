@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -5,10 +6,42 @@ using ReLogic.Graphics;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
+using HamstarHelpers.Helpers.Debug;
+using Necrotis.Libraries.Services.FX;
 
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
+		// Credit: @Oli
+		public static void PremultiplyTexture( Texture2D texture ) {
+			Color[] buffer = new Color[texture.Width * texture.Height];
+			texture.GetData( buffer );
+
+			for( int i = 0; i < buffer.Length; i++ ) {
+				buffer[i] = Color.FromNonPremultiplied( buffer[i].R, buffer[i].G, buffer[i].B, buffer[i].A );
+			}
+
+			texture.SetData( buffer );
+		}
+
+
+
+		////////////////
+
+		private Texture2D AnkhGlowTex;
+
+
+
+		////////////////
+		
+		private void InitializeUI() {
+			this.AnkhGlowTex = this.GetTexture( "UI/AnkhGlow" );
+			NecrotisMod.PremultiplyTexture( this.AnkhGlowTex );
+		}
+
+
+		////////////////
+
 		public override void ModifyInterfaceLayers( List<GameInterfaceLayer> layers ) {
 			if( Main.playerInventory ) {
 				return;
@@ -19,7 +52,7 @@ namespace Necrotis {
 				return;
 			}
 
-			GameInterfaceDrawMethod draw = () => {
+			GameInterfaceDrawMethod drawAnkh = () => {
 				Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
 				Texture2D fgTex = this.GetTexture( "UI/AnkhFG" );
 				var pos = new Vector2(
@@ -42,17 +75,23 @@ namespace Necrotis {
 					height: necScroll
 				);
 
+				this.DrawUIAnkhChangeFX( pos, statSrcRect, myplayer.CurrentNecrotisResistPercentChangeRate );
 				this.DrawUIAnkh( bgTex, fgTex, pos, statSrcRect, myplayer.NecrotisResistPercent );
-				if( myplayer.CurrentNecrotisAfflictPercentRate != 0 ) {
-					this.DrawUIAnkhChangeFX( pos, bgTex.Bounds, statSrcRect );
-				}
 
 				return true;
 			};
-			var interfaceLayer = new LegacyGameInterfaceLayer( "Necrotis: Status Display", draw, InterfaceScaleType.UI );
+
+			GameInterfaceDrawMethod drawParticles = () => {
+				CustomParticle.DrawParticles( Main.spriteBatch, false );
+				return true;
+			};
+
+			var ankhLayer = new LegacyGameInterfaceLayer( "Necrotis: Status Display", drawAnkh, InterfaceScaleType.UI );
+			var particleLayer = new LegacyGameInterfaceLayer( "Necrotis: UI Particles", drawParticles, InterfaceScaleType.UI );
 
 			//layers.RemoveAt( idx );
-			layers.Insert( idx, interfaceLayer );
+			layers.Insert( idx + 1, particleLayer );
+			layers.Insert( idx + 1, ankhLayer );
 		}
 
 
@@ -96,7 +135,30 @@ namespace Necrotis {
 			}
 		}
 
-		private void DrawUIAnkhChangeFX( Vector2 pos, Rectangle fullSrcRect, Rectangle innerSrcRect ) {
+		private void DrawUIAnkhChangeFX( Vector2 pos, Rectangle innerSrcRect, float necrotisResistPercentChangeRate ) {
+			if( necrotisResistPercentChangeRate < 0f ) {
+//DebugHelpers.Print( "drain", "drain:" + (-necrotisResistPercentChangeRate * 1024f) );
+				if( Main.rand.NextFloat() < (-necrotisResistPercentChangeRate * 1024f) ) {
+					int duration = Main.rand.Next( 15, 60 );
+					var newPos = pos + new Vector2(
+						(float)innerSrcRect.Width * Main.rand.NextFloat(),
+						innerSrcRect.Y
+					);
+
+					CustomParticle.Create( false, newPos, duration, Color.Gold, 1f, 1f, true );
+				}
+			} else if( necrotisResistPercentChangeRate > 0f ) {
+				Texture2D glowTex = this.AnkhGlowTex;
+				float brite = Math.Min( (necrotisResistPercentChangeRate * 2048f), 1f );
+//DebugHelpers.Print( "brite", "brite:" + brite );
+				
+				Main.spriteBatch.Draw(
+					texture: glowTex,
+					position: pos + new Vector2(-8f, -8f),
+					sourceRectangle: null,
+					color: Color.White * brite
+				);
+			}
 		}
 	}
 }

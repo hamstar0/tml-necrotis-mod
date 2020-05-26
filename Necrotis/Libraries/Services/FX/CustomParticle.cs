@@ -40,9 +40,11 @@ namespace Necrotis.Libraries.Services.FX {
 			}
 		}
 
-		internal static void DrawParticles( SpriteBatch sb ) {
+		internal static void DrawParticles( SpriteBatch sb, bool world ) {
 			foreach( CustomParticle particle in CustomParticle.Particles ) {
-				particle.Draw( sb );
+				if( particle.IsInWorld == world ) {
+					particle.Draw( sb );
+				}
 			}
 		}
 
@@ -69,6 +71,8 @@ namespace Necrotis.Libraries.Services.FX {
 
 		////////////////
 
+		private CustomParticle() { }
+
 		private CustomParticle(
 					bool isInWorld,
 					Vector2 pos,
@@ -88,8 +92,8 @@ namespace Necrotis.Libraries.Services.FX {
 			UnifiedRandom rand = TmlHelpers.SafelyGetRand();
 
 			this.Velocity = new Vector2(
-				rand.NextFloat() * this.SprayAmt,
-				rand.NextFloat() * this.SprayAmt
+				(rand.NextFloat() - 0.5f) * this.SprayAmt,
+				(rand.NextFloat() - 0.5f) * this.SprayAmt
 			);
 			this.RotVelocity = rand.NextFloat() - 0.5f;
 		}
@@ -123,8 +127,6 @@ namespace Necrotis.Libraries.Services.FX {
 				this.Velocity.Y += 0.01f;
 			}
 
-			UnifiedRandom rand = TmlHelpers.SafelyGetRand();
-
 			this.CurrRot = (this.CurrRot + this.RotVelocity) % (MathHelper.Pi * 2f);
 
 			float percentDone = (float)this.TicksElapsed / (float)this.TickDuration;
@@ -142,10 +144,10 @@ namespace Necrotis.Libraries.Services.FX {
 			sb.Draw(
 				texture: Main.magicPixel,
 				position: this.Position,
-				sourceRectangle: null,
+				sourceRectangle: new Rectangle( 0, 0, 1, 1 ),
 				color: this.Color,
 				rotation: this.CurrRot,
-				origin: new Vector2( Main.magicPixel.Width/2, Main.magicPixel.Height/2 ),
+				origin: new Vector2( 0.5f, 0.5f ),
 				scale: this.Scale,
 				effects: SpriteEffects.None,
 				layerDepth: 1f

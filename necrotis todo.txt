@@ -1,9 +1,9 @@
 v1.1
 -	Tweak rates
+
 -	Animated ankh
 	-	When healing, add gold glow behind
 	-	When draining, make small particles drip off
-
 -	Implement consumable (hard mode dungeon) Ectoplasm
 v1
 -	Release!

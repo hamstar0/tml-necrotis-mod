@@ -36,7 +36,7 @@ namespace Necrotis {
 			// Amount of change
 			float percChangeAmt = this.NecrotisResistPercent - old;
 
-			this.CurrentNecrotisAfflictPercentRate += percChangeAmt;
+			this.CurrentNecrotisResistPercentChangeRate += percChangeAmt;
 
 			// Display afflict amount
 			if( !quiet && Math.Abs(percentAmt) >= 0.1f ) {

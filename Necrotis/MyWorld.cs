@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using Necrotis.Items;
+using Necrotis.Libraries.Services.FX;
 
 
 namespace Necrotis {
@@ -46,6 +47,13 @@ namespace Necrotis {
 			tag[ "dilluted_ecto_count" ] = (int)j;
 
 			return tag;
+		}
+
+
+		////////////////
+
+		public override void PostDrawTiles() {
+			CustomParticle.DrawParticles( Main.spriteBatch, true );
 		}
 	}
 }

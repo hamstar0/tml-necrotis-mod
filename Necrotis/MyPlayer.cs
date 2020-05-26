@@ -4,12 +4,13 @@ using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using HamstarHelpers.Helpers.Debug;
 using Necrotis.Buffs;
+using Necrotis.Libraries.Services.FX;
 
 
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
 		public float NecrotisResistPercent { get; private set; } = 0.01f;
-		public float CurrentNecrotisAfflictPercentRate { get; private set; } = 0f;
+		public float CurrentNecrotisResistPercentChangeRate { get; private set; } = 0f;
 
 
 		////
@@ -38,6 +39,8 @@ namespace Necrotis {
 		////////////////
 
 		public override void PreUpdate() {
+			CustomParticle.UpdateParticles();
+
 			this.UpdateNecrotisForCurrentContext();
 
 			if( this.NecrotisResistPercent < 0f ) {
