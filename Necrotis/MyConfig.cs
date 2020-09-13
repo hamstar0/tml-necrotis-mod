@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
-using static Terraria.ModLoader.ModContent;
 using HamstarHelpers.Classes.UI.ModConfig;
-using HamstarHelpers.Services.Configs;
 
 
 namespace Necrotis {
@@ -20,8 +19,8 @@ namespace Necrotis {
 
 
 
-	public partial class NecrotisConfig : StackableModConfig {
-		public static NecrotisConfig Instance => ModConfigStack.GetMergedConfigs<NecrotisConfig>();
+	public partial class NecrotisConfig : ModConfig {
+		public static NecrotisConfig Instance => ModContent.GetInstance<NecrotisConfig>();
 
 
 

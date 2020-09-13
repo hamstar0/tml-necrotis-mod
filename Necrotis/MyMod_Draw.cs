@@ -92,11 +92,13 @@ namespace Necrotis {
 		////
 
 		private void DrawAnkhLayer() {
+			var config = NecrotisConfig.Instance;
 			Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
 			Texture2D fgTex = this.GetTexture( "UI/AnkhFG" );
+
 			var pos = new Vector2(
-				NecrotisConfig.Instance.AnkhScreenPositionX,
-				NecrotisConfig.Instance.AnkhScreenPositionY
+				config.Get<int>( nameof(NecrotisConfig.AnkhScreenPositionX) ),
+				config.Get<int>( nameof(NecrotisConfig.AnkhScreenPositionY) )
 			);
 			if( pos.X < 0 ) {
 				pos.X = Main.screenWidth + pos.X;
@@ -119,10 +121,12 @@ namespace Necrotis {
 		}
 
 		private void DrawAnkhHoverTooltipLayer() {
+			var config = NecrotisConfig.Instance;
 			Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
+
 			var pos = new Vector2(
-				NecrotisConfig.Instance.AnkhScreenPositionX,
-				NecrotisConfig.Instance.AnkhScreenPositionY
+				config.Get<int>( nameof(NecrotisConfig.AnkhScreenPositionX) ),
+				config.Get<int>( nameof(NecrotisConfig.AnkhScreenPositionY) )
 			);
 
 			var area = new Rectangle( (int)pos.X, (int)pos.Y, bgTex.Width, bgTex.Height );

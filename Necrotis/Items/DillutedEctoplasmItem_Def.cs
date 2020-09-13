@@ -25,7 +25,7 @@ namespace Necrotis.Items {
 		////////////////
 
 		public override void AddRecipes() {
-			if( !NecrotisConfig.Instance.DillutedEctoplasmRecipeEnabled ) {
+			if( !NecrotisConfig.Instance.Get<bool>( nameof(NecrotisConfig.DillutedEctoplasmRecipeEnabled) ) ) {
 				return;
 			}
 

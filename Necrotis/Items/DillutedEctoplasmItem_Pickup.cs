@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 
 namespace Necrotis.Items {
@@ -34,7 +33,10 @@ namespace Necrotis.Items {
 				myplayer.AfflictNecrotis( -myplayer.NecrotisResistPercent, false );
 			}
 
-			myplayer.AfflictNecrotis( -NecrotisConfig.Instance.DillutedEctoplasmFortifyPercent, true );
+			float ectoFortPerc = NecrotisConfig.Instance.Get<float>(
+				nameof(NecrotisConfig.DillutedEctoplasmFortifyPercent)
+			);
+			myplayer.AfflictNecrotis( -ectoFortPerc, true );
 
 			return false;
 		}

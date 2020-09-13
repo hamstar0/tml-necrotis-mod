@@ -4,7 +4,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
-using HamstarHelpers.Services.Configs;
 using Necrotis.Items;
 using PotLuck;
 
@@ -41,30 +40,32 @@ namespace Necrotis {
 
 
 		public override void PostSetupContent() {
-			var potluckConfig = ModConfigStack.GetConfigAt<PotLuckConfig>( 100 );
-			if( potluckConfig == null ) {
-				potluckConfig = new PotLuckConfig();
-			}
+			var potluckConfig = ModContent.GetInstance<PotLuckConfig>();
+			if( potluckConfig != null ) {
+				float ectoDropPerc = NecrotisConfig.Instance.Get<float>(
+					nameof(NecrotisConfig.DillutedEctoplasmPotDropChance)
+				);
 
-			potluckConfig.PotEntries.Clear();
-			potluckConfig.PotEntries.Add(
-				new PotEntry {
-					PercentChance = NecrotisConfig.Instance.DillutedEctoplasmPotDropChance,
-					HardModeOnly = false,
-					IsSurface = true,
-					IsCaves = true,
-					IsUnderworld = true,
-					ItemDefs = new List<PotItemEntry> {
-						new PotItemEntry {
-							MinStack = 1,
-							MaxStack = 1,
-							ItemDef = new ItemDefinition( ModContent.ItemType<DillutedEctoplasmItem>() )
+				potluckConfig.SetOverride(
+					nameof(PotLuckConfig.PotEntries),
+					new List<PotEntry> {
+						new PotEntry {
+							PercentChance = ectoDropPerc,
+							HardModeOnly = false,
+							IsSurface = true,
+							IsCaves = true,
+							IsUnderworld = true,
+							ItemDefs = new List<PotItemEntry> {
+								new PotItemEntry {
+									MinStack = 1,
+									MaxStack = 1,
+									ItemDef = new ItemDefinition( ModContent.ItemType<DillutedEctoplasmItem>() )
+								}
+							}
 						}
 					}
-				}
-			);
-
-			PotLuckConfig.Instance.OverlayChanges( potluckConfig );
+				);
+			}
 		}
 
 

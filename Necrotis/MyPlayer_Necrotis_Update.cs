@@ -1,7 +1,6 @@
 ﻿using System;
 using Terraria;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.World;
 
@@ -9,6 +8,7 @@ using HamstarHelpers.Helpers.World;
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
 		private void UpdateNecrotisForCurrentContext() {
+			var config = NecrotisConfig.Instance;
 			Player plr = this.player;
 			int tileX = (int)plr.position.X / 16;
 			int tileY = (int)plr.position.Y / 16;
@@ -26,7 +26,7 @@ namespace Necrotis {
 				}
 				this.AfflictNecrotis( amt );
 
-				if( NecrotisConfig.Instance.DebugModeInfo ) {
+				if( config.DebugModeInfo ) {
 					DebugHelpers.Print( ctx, amt.ToString("F6") );
 				}
 			}
@@ -35,7 +35,8 @@ namespace Necrotis {
 
 			// Underworld
 			if( tileY > WorldHelpers.UnderworldLayerTopTileY ) {
-				addNecrotis( NecrotisConfig.Instance.HellAfflicationIncreasePerTick, "NecrotisCtx_Hell" );
+				float hellAfflict = config.Get<float>( nameof(NecrotisConfig.HellAfflicationIncreasePerTick) );
+				addNecrotis( hellAfflict, "NecrotisCtx_Hell" );
 			}
 
 			// Dirt layer
@@ -43,37 +44,44 @@ namespace Necrotis {
 				bool isOther = false;
 				// Dungeon
 				if( plr.ZoneDungeon ) {
-					addNecrotis( NecrotisConfig.Instance.DungeonAfflicationIncreasePerTick, "NecrotisCtx_Dungeon" );
+					float dungAfflict = config.Get<float>( nameof(NecrotisConfig.DungeonAfflicationIncreasePerTick) );
+					addNecrotis( dungAfflict, "NecrotisCtx_Dungeon" );
 					isOther = true;
 				}
 				// Corruption/crimson
 				if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
-					addNecrotis( NecrotisConfig.Instance.CorruptionAfflicationIncreasePerTick, "NecrotisCtx_UndCorr" );
+					float corrAfflict = config.Get<float>( nameof(NecrotisConfig.CorruptionAfflicationIncreasePerTick) );
+					addNecrotis( corrAfflict, "NecrotisCtx_UndCorr" );
 					isOther = true;
 				}
 				// Hallow
 				if( plr.ZoneHoly ) {
-					addNecrotis( NecrotisConfig.Instance.HallowAfflicationIncreasePerTick, "NecrotisCtx_UndHallow" );
+					float holyAfflict = config.Get<float>( nameof(NecrotisConfig.HallowAfflicationIncreasePerTick) );
+					addNecrotis( holyAfflict, "NecrotisCtx_UndHallow" );
 					isOther = true;
 				}
 				// Desert
 				if( plr.ZoneUndergroundDesert ) {	//plr.ZoneDesert ) {
-					addNecrotis( NecrotisConfig.Instance.DesertAfflicationIncreasePerTick, "NecrotisCtx_UndDesert" );
+					float desAfflict = config.Get<float>( nameof(NecrotisConfig.DesertAfflicationIncreasePerTick) );
+					addNecrotis( desAfflict, "NecrotisCtx_UndDesert" );
 					isOther = true;
 				}
 				// Ice
 				if( plr.ZoneSnow ) {
-					addNecrotis( NecrotisConfig.Instance.SnowAfflicationIncreasePerTick, "NecrotisCtx_UndIce" );
+					float snowAfflict = config.Get<float>( nameof(NecrotisConfig.SnowAfflicationIncreasePerTick) );
+					addNecrotis( snowAfflict, "NecrotisCtx_UndIce" );
 					isOther = true;
 				}
 				// Jungle
 				if( plr.ZoneJungle ) {
-					addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_UndJung" );
+					float jungAfflict = config.Get<float>( nameof(NecrotisConfig.JungleAfflicationIncreasePerTick) );
+					addNecrotis( jungAfflict, "NecrotisCtx_UndJung" );
 					isOther = true;
 				}
 				// Empty
 				if( !isOther ) {
-					addNecrotis( NecrotisConfig.Instance.UndergroundAfflicationIncreasePerTick, "NecrotisCtx_Und" );
+					float undAfflict = config.Get<float>( nameof(NecrotisConfig.UndergroundAfflicationIncreasePerTick) );
+					addNecrotis( undAfflict, "NecrotisCtx_Und" );
 				}
 			}
 			//else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
@@ -84,38 +92,46 @@ namespace Necrotis {
 
 				// Beach
 				if( isBeach ) {
-					addNecrotis( NecrotisConfig.Instance.BeachAfflicationIncreasePerTick, "NecrotisCtx_Beach" );
+					float beaAfflict = config.Get<float>( nameof(NecrotisConfig.BeachAfflicationIncreasePerTick) );
+					addNecrotis( beaAfflict, "NecrotisCtx_Beach" );
 				}
 				// Corruption/crimson
 				if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
-					addNecrotis( NecrotisConfig.Instance.CorruptionAfflicationIncreasePerTick, "NecrotisCtx_Corr" );
+					float corrAfflict = config.Get<float>( nameof(NecrotisConfig.CorruptionAfflicationIncreasePerTick) );
+					addNecrotis( corrAfflict, "NecrotisCtx_Corr" );
 				}
 				// Hallow
 				if( plr.ZoneHoly ) {
-					addNecrotis( NecrotisConfig.Instance.HallowAfflicationIncreasePerTick, "NecrotisCtx_Hallow" );
+					float hallAfflict = config.Get<float>( nameof(NecrotisConfig.HallowAfflicationIncreasePerTick) );
+					addNecrotis( hallAfflict, "NecrotisCtx_Hallow" );
 				}
 				// Desert
 				if( !isBeach && plr.ZoneDesert ) {
-					addNecrotis( NecrotisConfig.Instance.DesertAfflicationIncreasePerTick, "NecrotisCtx_Desert" );
+					float desAfflict = config.Get<float>( nameof(NecrotisConfig.DesertAfflicationIncreasePerTick) );
+					addNecrotis( desAfflict, "NecrotisCtx_Desert" );
 				}
 				// Ice
 				if( plr.ZoneSnow ) {
-					addNecrotis( NecrotisConfig.Instance.SnowAfflicationIncreasePerTick, "NecrotisCtx_Snow" );
+					float snowAfflict = config.Get<float>( nameof(NecrotisConfig.SnowAfflicationIncreasePerTick) );
+					addNecrotis( snowAfflict, "NecrotisCtx_Snow" );
 				}
 				// Jungle
 				if( plr.ZoneJungle ) {
-					addNecrotis( NecrotisConfig.Instance.JungleAfflicationIncreasePerTick, "NecrotisCtx_Jungle" );
+					float jungAfflict = config.Get<float>( nameof(NecrotisConfig.JungleAfflicationIncreasePerTick) );
+					addNecrotis( jungAfflict, "NecrotisCtx_Jungle" );
 				}
 
 				// Night or Eclipse
 				if( !isTown && (!Main.dayTime || Main.eclipse) ) {
-					addNecrotis( NecrotisConfig.Instance.NightOrEclipseAfflicationIncreasePerTick, "NecrotisCtx_Night" );
+					float nightAfflict = config.Get<float>( nameof(NecrotisConfig.NightOrEclipseAfflicationIncreasePerTick) );
+					addNecrotis( nightAfflict, "NecrotisCtx_Night" );
 				}
 			}
 
 			// Sky
 			else if( tileY > WorldHelpers.SkyLayerTopTileY ) {
-				addNecrotis( NecrotisConfig.Instance.SkyAfflicationIncreasePerTick, "NecrotisCtx_Sky" );
+				float skyAfflict = config.Get<float>( nameof(NecrotisConfig.SkyAfflicationIncreasePerTick) );
+				addNecrotis( skyAfflict, "NecrotisCtx_Sky" );
 			}
 		}
 	}

@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 
 namespace Necrotis.Buffs {
@@ -18,24 +17,23 @@ namespace Necrotis.Buffs {
 
 		private static void ApplyMovementEffects( Player player, float afflictPerc ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
-
 			float effectPerc = 1f - afflictPerc;
 
 			// Percent of affliction until max effect
-			float afflictPercUntilMaxMoveEffect = config.DebuffPercentUntilLowestMovement;
-			float moveEffectPercRange = (effectPerc * (1f - afflictPercUntilMaxMoveEffect)) + afflictPercUntilMaxMoveEffect;
+			float afflictPercUntilLowMove = config.Get<float>( nameof(NecrotisConfig.DebuffPercentUntilLowestMovement) );
+			float moveEffectPercRange = (effectPerc * (1f - afflictPercUntilLowMove)) + afflictPercUntilLowMove;
 
 			// Max effect amount
-			float lowestMoveEffectPercent = config.LowestPercentOfMovementProducedByDebuff;
+			float lowestMoveEffectPercent = config.Get<float>( nameof(NecrotisConfig.LowestPercentOfMovementProducedByDebuff) );
 			float moveEffectPercent = ((1f - lowestMoveEffectPercent) * moveEffectPercRange) + lowestMoveEffectPercent;
 
-			if( config.DebuffReducesRunWalkSpeed ) {
+			if( config.Get<bool>( nameof(NecrotisConfig.DebuffReducesRunWalkSpeed) ) ) {
 				player.maxRunSpeed *= moveEffectPercent;
 				player.accRunSpeed = player.maxRunSpeed;
 				player.moveSpeed *= moveEffectPercent;
 			}
 
-			if( config.DebuffReducesJumpHeight ) {
+			if( config.Get<bool>( nameof(NecrotisConfig.DebuffReducesJumpHeight) ) ) {
 				int maxJump = (int)( (float)Player.jumpHeight * moveEffectPercent );
 				if( player.jump > maxJump ) {
 					player.jump = maxJump;
@@ -63,14 +61,17 @@ namespace Necrotis.Buffs {
 
 		private static void ApplyDebuffEffects( Player player, float afflictPerc ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
+			var percBleed = config.Get<NullablePercent>( nameof(NecrotisConfig.DebuffPercentBeforeBleeding) );
+			var percPoison = config.Get<NullablePercent>( nameof(NecrotisConfig.DebuffPercentBeforePoisoned) );
+			var percCurInf = config.Get<NullablePercent>( nameof(NecrotisConfig.DebuffPercentBeforeCursedInferno) );
 
-			if( afflictPerc >= (config.DebuffPercentBeforeBleeding?.Percent ?? 1.0001f) ) {
+			if( afflictPerc >= (percBleed?.Percent ?? 1.0001f) ) {
 				player.AddBuff( BuffID.Bleeding, 3 );
 			}
-			if( afflictPerc >= (config.DebuffPercentBeforePoisoned?.Percent ?? 1.0001f) ) {
+			if( afflictPerc >= (percPoison?.Percent ?? 1.0001f) ) {
 				player.AddBuff( BuffID.Poisoned, 3 );
 			}
-			if( afflictPerc >= (config.DebuffPercentBeforeCursedInferno?.Percent ?? 1.0001f) ) {
+			if( afflictPerc >= (percCurInf?.Percent ?? 1.0001f) ) {
 				player.AddBuff( BuffID.CursedInferno, 3 );
 			}
 		}
