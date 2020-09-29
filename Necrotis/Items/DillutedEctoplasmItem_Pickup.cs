@@ -1,5 +1,7 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using HamstarHelpers.Services.Timers;
 
 
 namespace Necrotis.Items {
@@ -17,7 +19,19 @@ namespace Necrotis.Items {
 		public override bool CanPickup( Player player ) {
 			//return !player.HasBuff( BuffID.PotionSickness );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			return myplayer.NecrotisResistPercent < 0.95f;
+			//bool hasRoom = myplayer.NecrotisResistPercent < 0.95f;
+			bool isEmptyHanded = player.HeldItem?.active != true;
+
+			if( /*!hasRoom ||*/ !isEmptyHanded ) {
+				if( Timers.GetTimerTickDuration("NecrotisPickupAlert") <= 0 ) {
+					Main.NewText( "Only bare hands can interact with this.", Color.Yellow );
+				}
+				Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => {
+					return false;
+				} );
+			}
+
+			return /*hasRoom &&*/ isEmptyHanded;
 		}
 
 		public override bool OnPickup( Player player ) {

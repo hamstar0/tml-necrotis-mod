@@ -18,7 +18,7 @@ namespace Necrotis.Items {
 			this.item.width = 16;
 			this.item.height = 16;
 			this.item.value = 0;
-			this.item.rare = 2;
+			this.item.rare = ItemRarityID.Green;
 		}
 
 
