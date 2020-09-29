@@ -37,13 +37,17 @@ namespace Necrotis {
 				float percent = necrotisResistPercent * 100f;
 				if( percent < 0f ) { percent = 0f; }
 
-				Main.spriteBatch.DrawString(
-					spriteFont: Main.fontMouseText,
+				Utils.DrawBorderStringFourWay(
+					sb: Main.spriteBatch,
+					font: Main.fontMouseText,
 					text: percent.ToString( "N0" ) + "% Necrotis Resist",
-					position: Main.MouseScreen + new Vector2( 0f, 24f ),
-					color: necrotisResistPercent > 0f
+					x: Main.MouseScreen.X,
+					y: Main.MouseScreen.Y + 24f,
+					textColor: necrotisResistPercent > 0f
 						? Color.White
-						: Color.Red
+						: Color.Red,
+					borderColor: Color.Black,
+					origin: default(Vector2)
 				);
 			}
 		}

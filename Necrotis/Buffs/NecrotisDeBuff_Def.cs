@@ -9,7 +9,7 @@ namespace Necrotis.Buffs {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis" );
 			this.Description.SetDefault(
-				"You feel your life energy diminished"
+				"You feel horriby drained"
 				+ "\n" + "Reduces max life, speed, life regen"
 			);
 

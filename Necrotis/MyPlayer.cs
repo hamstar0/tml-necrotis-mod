@@ -45,6 +45,8 @@ namespace Necrotis {
 
 			if( this.NecrotisResistPercent < 0f ) {
 				this.player.AddBuff( BuffType<NecrotisDeBuff>(), 2 );
+			} else if( EnlivenedBuff.CanBuff(player, this.NecrotisResistPercent) ) {
+				this.player.AddBuff( BuffType<EnlivenedBuff>(), 2 );
 			}
 //DebugHelpers.Print( "necrotis", "necrotis%: "+this.NecrotisResistPercent.ToString("N2") );
 		}

@@ -55,6 +55,14 @@ namespace Necrotis {
 		[DefaultValue( 0.75f )]
 		public float LowestPercentOfMovementProducedByDebuff { get; set; } = 0.75f;
 
+		[Range( 0f, 1f )]
+		[DefaultValue( 0.01f )]
+		public float DebuffPercentUntilLowestJumping { get; set; } = 0.01f;
+
+		[Range( 0f, 1f )]
+		[DefaultValue( 0.75f )]
+		public float LowestPercentOfJumpingProducedByDebuff { get; set; } = 0.75f;
+
 
 		[DefaultValue( true )]
 		public bool DebuffReducesRunWalkSpeed { get; set; } = true;
@@ -140,5 +148,18 @@ namespace Necrotis {
 		[Range( 0f, 1f )]
 		[DefaultValue( 1f / 3f )]
 		public float DillutedEctoplasmFortifyPercent { get; set; } = 1f / 3f;
+
+
+		////
+
+		[Range( -1f, 1f )]
+		[DefaultValue( 0.8f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float EnlivenedNecrotisResistPercentMinimum { get; set; } = 0.8f;
+
+		[Range( 0f, 10f )]
+		[DefaultValue( 1.2f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float EnlivenedMovementPercent { get; set; } = 1.2f;
 	}
 }

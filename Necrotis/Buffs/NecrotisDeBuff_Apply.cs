@@ -8,6 +8,7 @@ namespace Necrotis.Buffs {
 	partial class NecrotisDeBuff : ModBuff {
 		public static void ApplyEffect( Player player, float percent ) {
 			NecrotisDeBuff.ApplyMovementEffects( player, percent );
+			NecrotisDeBuff.ApplyJumpingEffects( player, percent );
 			NecrotisDeBuff.ApplyHealthEffects( player, percent );
 			NecrotisDeBuff.ApplyDebuffEffects( player, percent );
 		}
@@ -20,20 +21,33 @@ namespace Necrotis.Buffs {
 			float effectPerc = 1f - afflictPerc;
 
 			// Percent of affliction until max effect
-			float afflictPercUntilLowMove = config.Get<float>( nameof(NecrotisConfig.DebuffPercentUntilLowestMovement) );
+			float afflictPercUntilLowMove = config.Get<float>( nameof(config.DebuffPercentUntilLowestMovement) );
 			float moveEffectPercRange = (effectPerc * (1f - afflictPercUntilLowMove)) + afflictPercUntilLowMove;
 
 			// Max effect amount
-			float lowestMoveEffectPercent = config.Get<float>( nameof(NecrotisConfig.LowestPercentOfMovementProducedByDebuff) );
+			float lowestMoveEffectPercent = config.Get<float>( nameof(config.LowestPercentOfMovementProducedByDebuff) );
 			float moveEffectPercent = ((1f - lowestMoveEffectPercent) * moveEffectPercRange) + lowestMoveEffectPercent;
 
-			if( config.Get<bool>( nameof(NecrotisConfig.DebuffReducesRunWalkSpeed) ) ) {
+			if( config.Get<bool>( nameof(config.DebuffReducesRunWalkSpeed) ) ) {
 				player.maxRunSpeed *= moveEffectPercent;
 				player.accRunSpeed = player.maxRunSpeed;
 				player.moveSpeed *= moveEffectPercent;
 			}
+		}
 
-			if( config.Get<bool>( nameof(NecrotisConfig.DebuffReducesJumpHeight) ) ) {
+		private static void ApplyJumpingEffects( Player player, float afflictPerc ) {
+			NecrotisConfig config = NecrotisConfig.Instance;
+			float effectPerc = 1f - afflictPerc;
+
+			// Percent of affliction until max effect
+			float afflictPercUntilLowJump = config.Get<float>( nameof(config.DebuffPercentUntilLowestJumping) );
+			float moveEffectPercRange = (effectPerc * (1f - afflictPercUntilLowJump)) + afflictPercUntilLowJump;
+
+			// Max effect amount
+			float lowestMoveEffectPercent = config.Get<float>( nameof(config.LowestPercentOfJumpingProducedByDebuff ) );
+			float moveEffectPercent = ((1f - lowestMoveEffectPercent) * moveEffectPercRange) + lowestMoveEffectPercent;
+
+			if( config.Get<bool>( nameof(config.DebuffReducesJumpHeight) ) ) {
 				int maxJump = (int)( (float)Player.jumpHeight * moveEffectPercent );
 				if( player.jump > maxJump ) {
 					player.jump = maxJump;
