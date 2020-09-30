@@ -44,8 +44,8 @@ namespace Necrotis {
 					x: Main.MouseScreen.X,
 					y: Main.MouseScreen.Y + 24f,
 					textColor: necrotisResistPercent > 0f
-						? Color.White
-						: Color.Red,
+						? new Color( Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor )
+						: new Color( Main.mouseTextColor, 0, 0 ),
 					borderColor: Color.Black,
 					origin: default(Vector2)
 				);

@@ -29,7 +29,7 @@ namespace Necrotis {
 		////////////////
 
 		public override void Load() {
-			if( !Main.dedServ && Main.netMode != 2 ) {
+			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
 				this.InitializeUI();
 			}
 		}

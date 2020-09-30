@@ -22,13 +22,13 @@ namespace Necrotis.Items {
 			//bool hasRoom = myplayer.NecrotisResistPercent < 0.95f;
 			bool isEmptyHanded = player.HeldItem?.active != true;
 
-			if( /*!hasRoom ||*/ !isEmptyHanded ) {
-				if( Timers.GetTimerTickDuration("NecrotisPickupAlert") <= 0 ) {
-					Main.NewText( "Only bare hands can interact with this.", Color.Yellow );
+			if( this.item.active && (this.item.Center - player.Center).LengthSquared() < 256f ) {
+				if( /*!hasRoom ||*/ !isEmptyHanded ) {
+					if( Timers.GetTimerTickDuration( "NecrotisPickupAlert" ) <= 0 ) {
+						Main.NewText( "Only bare hands can interact with this.", Color.Yellow );
+					}
+					Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 				}
-				Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => {
-					return false;
-				} );
 			}
 
 			return /*hasRoom &&*/ isEmptyHanded;
