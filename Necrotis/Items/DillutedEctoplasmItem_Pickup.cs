@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Services.Timers;
 
@@ -51,6 +52,8 @@ namespace Necrotis.Items {
 				nameof(NecrotisConfig.DillutedEctoplasmFortifyPercent)
 			);
 			myplayer.AfflictNecrotis( -ectoFortPerc, true );
+
+			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 
 			return false;
 		}
