@@ -1,13 +1,59 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 using Terraria;
-using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Helpers.Dusts;
 
 
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
+		public static float CalculateHealAmountFromWitchDoctor( Player player ) {
+			var config = NecrotisConfig.Instance;
+			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+
+			float healPercMax = config.Get<float>( nameof(config.WitchDoctorHealPercentMax) );
+
+			if( myplayer.NecrotisResistPercent >= healPercMax ) {
+				return 0f;
+			}
+
+			return healPercMax - myplayer.NecrotisResistPercent;
+		}
+		
+		public static int CalculateHealCostFromWitchDoctor( Player player, float healAmount ) {
+			var config = NecrotisConfig.Instance;
+			float costPerPercent = config.Get<float>( nameof(config.WitchDoctorHealCostPerPercent) );
+
+			return (int)(healAmount * costPerPercent);
+		}
+
+		////
+
+		public static bool HealAtCost( Player player, float healAmount ) {
+			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+			int cost = NecrotisPlayer.CalculateHealCostFromWitchDoctor( player, healAmount );
+			if( cost == 0 ) {
+				return false;
+			}
+
+			if( !player.BuyItem(cost) ) {
+				return false;
+			}
+			
+			myplayer.NecrotisResistPercent += healAmount;
+
+			DustHelpers.CreateMany( dustType: DustHelpers.GoldGlitterTypeID, position: player.Center, quantity: 8 );
+			Main.PlaySound( SoundID.Item4 );
+
+			return true;
+		}
+
+
+
+		////////////////
+
 		public void AfflictNecrotis( float percentAmt, bool quiet=false ) {
 			float old = this.NecrotisResistPercent;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using Terraria;
-using static Terraria.ModLoader.ModContent;
 
 
 namespace Necrotis {

@@ -161,5 +161,16 @@ namespace Necrotis {
 		[DefaultValue( 1.2f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float EnlivenedMovementPercent { get; set; } = 1.2f;
+
+
+		[Range( 0f, 1f )]
+		[DefaultValue( 0.25f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float WitchDoctorHealPercentMax { get; set; } = 0.25f;
+
+		[Range( 0f, 1000000f )]
+		[DefaultValue( 100f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float WitchDoctorHealCostPerPercent { get; set; } = 100f;
 	}
 }
