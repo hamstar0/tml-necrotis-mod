@@ -9,8 +9,8 @@ using Necrotis.Libraries.Services.FX;
 
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
-		public float NecrotisResistPercent { get; private set; } = 0.01f;
-		public float CurrentNecrotisResistPercentChangeRate { get; private set; } = 0f;
+		public float AnimaPercent { get; private set; } = 0.01f;
+		public float CurrentAnimaPercentChangeRate { get; private set; } = 0f;
 
 
 		////
@@ -22,16 +22,16 @@ namespace Necrotis {
 		////////////////
 
 		public override void Load( TagCompound tag ) {
-			if( !tag.ContainsKey( "necrotis_resist_percent" ) ) {
+			if( !tag.ContainsKey( "anima_percent" ) ) {
 				return;
 			}
 
-			this.NecrotisResistPercent = tag.GetFloat( "necrotis_resist_percent" );
+			this.AnimaPercent = tag.GetFloat( "anima_percent" );
 		}
 
 		public override TagCompound Save() {
 			return new TagCompound {
-				{ "necrotis_resist_percent", this.NecrotisResistPercent },
+				{ "anima_percent", this.AnimaPercent },
 			};
 		}
 
@@ -43,20 +43,20 @@ namespace Necrotis {
 
 			this.UpdateNecrotisForCurrentContext();
 
-			if( this.NecrotisResistPercent < 0f ) {
+			if( this.AnimaPercent < 0f ) {
 				this.player.AddBuff( BuffType<NecrotisDeBuff>(), 2 );
-			} else if( EnlivenedBuff.CanBuff(player, this.NecrotisResistPercent) ) {
+			} else if( EnlivenedBuff.CanBuff(player, this.AnimaPercent) ) {
 				this.player.AddBuff( BuffType<EnlivenedBuff>(), 2 );
 			}
-//DebugHelpers.Print( "necrotis", "necrotis%: "+this.NecrotisResistPercent.ToString("N2") );
+//DebugHelpers.Print( "necrotis", "necrotis%: "+this.AnimaPercent.ToString("N2") );
 		}
 
 
 		////////////////
 
 		public override void UpdateLifeRegen() {
-			if( this.NecrotisResistPercent < 0f ) {
-				NecrotisDeBuff.ApplyLifeRegenEffect( this.player, -this.NecrotisResistPercent );
+			if( this.AnimaPercent < 0f ) {
+				NecrotisDeBuff.ApplyLifeRegenEffect( this.player, -this.AnimaPercent );
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace Necrotis {
 		////////////////
 
 		public override void DrawEffects( PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright ) {
-			if( this.NecrotisResistPercent < 0f ) {
+			if( this.AnimaPercent < 0f ) {
 				NecrotisDeBuff.ApplyVisualFX( this.player, ref r, ref g, ref b );
 			}
 		}

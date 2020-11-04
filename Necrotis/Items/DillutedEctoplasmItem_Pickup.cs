@@ -20,7 +20,7 @@ namespace Necrotis.Items {
 		public override bool CanPickup( Player player ) {
 			//return !player.HasBuff( BuffID.PotionSickness );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			//bool hasRoom = myplayer.NecrotisResistPercent < 0.95f;
+			//bool hasRoom = myplayer.AnimaPercent < 0.95f;
 			bool isEmptyHanded = player.HeldItem?.active != true;
 
 			if( this.item.active && (this.item.Center - player.Center).LengthSquared() < 256f ) {
@@ -44,8 +44,8 @@ namespace Necrotis.Items {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
 			// Recover necrotis back to 0%, if needed
-			if( myplayer.NecrotisResistPercent < 0f ) {
-				myplayer.AfflictNecrotis( -myplayer.NecrotisResistPercent, false );
+			if( myplayer.AnimaPercent < 0f ) {
+				myplayer.AfflictNecrotis( -myplayer.AnimaPercent, false );
 			}
 
 			float ectoFortPerc = NecrotisConfig.Instance.Get<float>(

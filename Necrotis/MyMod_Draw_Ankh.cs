@@ -15,7 +15,7 @@ namespace Necrotis {
 					Texture2D fgTex,
 					Vector2 pos,
 					Rectangle srcRect,
-					float necrotisResistPercent ) {
+					float animaPercent ) {
 			Main.spriteBatch.Draw(
 				texture: bgTex,
 				position: pos,
@@ -34,16 +34,16 @@ namespace Necrotis {
 
 			var area = new Rectangle( (int)pos.X, (int)pos.Y, bgTex.Width, bgTex.Height );
 			if( area.Contains( Main.mouseX, Main.mouseY ) ) {
-				float percent = necrotisResistPercent * 100f;
+				float percent = animaPercent * 100f;
 				if( percent < 0f ) { percent = 0f; }
 
 				Utils.DrawBorderStringFourWay(
 					sb: Main.spriteBatch,
 					font: Main.fontMouseText,
-					text: percent.ToString( "N0" ) + "% Necrotis Resist",
+					text: percent.ToString( "N0" ) + "Anima (Necrotis Resist %)",
 					x: Main.MouseScreen.X,
 					y: Main.MouseScreen.Y + 24f,
-					textColor: necrotisResistPercent > 0f
+					textColor: animaPercent > 0f
 						? new Color( Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor )
 						: new Color( Main.mouseTextColor, 0, 0 ),
 					borderColor: Color.Black,
@@ -53,21 +53,23 @@ namespace Necrotis {
 		}
 
 
-		private void DrawUIAnkhChangeFX( Vector2 pos, Rectangle innerSrcRect, float necrotisResistPercentChangeRate ) {
-			if( necrotisResistPercentChangeRate < 0f ) {
-//DebugHelpers.Print( "drain", "drain:" + (-necrotisResistPercentChangeRate * 1024f) );
-				if( Main.rand.NextFloat() < (-necrotisResistPercentChangeRate * 1024f) ) {
+		private void DrawUIAnkhChangeFX( Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+			if( animaPercentChangeRate < 0f ) {
+//DebugHelpers.Print( "drain", "drain:" + (-animaPercentChangeRate * 1024f) );
+				if( Main.rand.NextFloat() < (-animaPercentChangeRate * 1024f) ) {
 					int duration = Main.rand.Next( 15, 60 );
 					var newPos = pos + new Vector2(
 						(float)innerSrcRect.Width * Main.rand.NextFloat(),
 						innerSrcRect.Y
 					);
 
-					CustomParticle.Create( false, newPos, duration, Color.Gold, 2f, 1f, true );
+					if( !Main.gamePaused ) {
+						CustomParticle.Create( false, newPos, duration, Color.Gold, 2f, 1f, true );
+					}
 				}
-			} else if( necrotisResistPercentChangeRate > 0f ) {
+			} else if( animaPercentChangeRate > 0f ) {
 				Texture2D glowTex = this.AnkhGlowTex;
-				float brite = Math.Min( (necrotisResistPercentChangeRate * 2048f), 1f );
+				float brite = Math.Min( (animaPercentChangeRate * 2048f), 1f );
 //DebugHelpers.Print( "brite", "brite:" + brite );
 				
 				Main.spriteBatch.Draw(
@@ -80,18 +82,18 @@ namespace Necrotis {
 		}
 
 
-		private void DrawAnkhHoverTooltip( float necrotisResistPercent ) {
-			float percent = necrotisResistPercent * 100f;
+		/*private void DrawAnkhHoverTooltip( float animaPercent ) {
+			float percent = animaPercent * 100f;
 			if( percent < 0f ) { percent = 0f; }
 
 			Main.spriteBatch.DrawString(
 				spriteFont: Main.fontMouseText,
-				text: percent.ToString( "N0" ) + "% Necrotis Resist",
+				text: percent.ToString( "N0" ) + "Anima (Necrotis Resist %)",
 				position: Main.MouseScreen + new Vector2( 0f, 24f ),
-				color: necrotisResistPercent > 0f
+				color: animaPercent > 0f
 					? Color.White
 					: Color.Red
 			);
-		}
+		}*/
 	}
 }

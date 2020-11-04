@@ -24,7 +24,7 @@ namespace Necrotis.Buffs {
 		public override void Update( Player player, ref int buffIndex ) {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
-			float percent = -myplayer.NecrotisResistPercent;
+			float percent = -myplayer.AnimaPercent;
 			if( percent <= 0f ) {
 				return;
 			}

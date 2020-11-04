@@ -16,7 +16,7 @@ namespace Necrotis {
 
 			//
 
-			this.CurrentNecrotisResistPercentChangeRate = 0f;
+			this.CurrentAnimaPercentChangeRate = 0f;
 
 			//
 

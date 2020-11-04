@@ -155,7 +155,7 @@ namespace Necrotis {
 		[Range( -1f, 1f )]
 		[DefaultValue( 0.8f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float EnlivenedNecrotisResistPercentMinimum { get; set; } = 0.8f;
+		public float EnlivenedAnimaPercentMinimum { get; set; } = 0.8f;
 
 		[Range( 0f, 10f )]
 		[DefaultValue( 1.2f )]

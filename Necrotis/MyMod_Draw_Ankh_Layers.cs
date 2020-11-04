@@ -25,7 +25,7 @@ namespace Necrotis {
 			}
 
 			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			int necScroll = (int)( (float)myplayer.NecrotisResistPercent * (float)fgTex.Height );
+			int necScroll = (int)( (float)myplayer.AnimaPercent * (float)fgTex.Height );
 			var statSrcRect = new Rectangle(
 				x: 0,
 				y: fgTex.Height - necScroll,
@@ -33,8 +33,8 @@ namespace Necrotis {
 				height: necScroll
 			);
 
-			this.DrawUIAnkhChangeFX( pos, statSrcRect, myplayer.CurrentNecrotisResistPercentChangeRate );
-			this.DrawUIAnkh( bgTex, fgTex, pos, statSrcRect, myplayer.NecrotisResistPercent );
+			this.DrawUIAnkhChangeFX( pos, statSrcRect, myplayer.CurrentAnimaPercentChangeRate );
+			this.DrawUIAnkh( bgTex, fgTex, pos, statSrcRect, myplayer.AnimaPercent );
 		}
 
 		/*private void DrawAnkhHoverTooltipLayer() {
@@ -52,9 +52,9 @@ namespace Necrotis {
 			}
 
 			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			float necrotisResistPercent = myplayer.CurrentNecrotisResistPercentChangeRate;
+			float animaPercent = myplayer.CurrentAnimaPercentChangeRate;
 
-			this.DrawAnkhHoverTooltip( necrotisResistPercent );
+			this.DrawAnkhHoverTooltip( animaPercent );
 		}*/
 	}
 }

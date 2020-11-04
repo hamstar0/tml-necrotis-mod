@@ -15,11 +15,11 @@ namespace Necrotis {
 
 			float healPercMax = config.Get<float>( nameof(config.WitchDoctorHealPercentMax) );
 
-			if( myplayer.NecrotisResistPercent >= healPercMax ) {
+			if( myplayer.AnimaPercent >= healPercMax ) {
 				return 0f;
 			}
 
-			return healPercMax - myplayer.NecrotisResistPercent;
+			return healPercMax - myplayer.AnimaPercent;
 		}
 		
 		public static int CalculateHealCostFromWitchDoctor( Player player, float healAmount ) {
@@ -42,7 +42,7 @@ namespace Necrotis {
 				return false;
 			}
 			
-			myplayer.NecrotisResistPercent += healAmount;
+			myplayer.AnimaPercent += healAmount;
 
 			DustHelpers.CreateMany( dustType: DustHelpers.GoldGlitterTypeID, position: player.Center, quantity: 8 );
 			Main.PlaySound( SoundID.Item4 );
@@ -55,10 +55,10 @@ namespace Necrotis {
 		////////////////
 
 		public void AfflictNecrotis( float percentAmt, bool quiet=false ) {
-			float old = this.NecrotisResistPercent;
+			float old = this.AnimaPercent;
 
 			// If afflicted
-			if( this.NecrotisResistPercent < 0f ) {
+			if( this.AnimaPercent < 0f ) {
 				// Reduce amount of added affliction
 				if( percentAmt > 0f ) {
 					percentAmt *= 0.25f;
@@ -66,23 +66,23 @@ namespace Necrotis {
 				// Otherwise increase amount of recovery
 				else {
 					//amt *= 4f;  // Faster recovery
-					this.NecrotisResistPercent = 0;
+					this.AnimaPercent = 0;
 				}
 			}
 
-			this.NecrotisResistPercent -= percentAmt;
+			this.AnimaPercent -= percentAmt;
 
 			// Clamp (-1 to 0 = affliction buffer)
-			if( this.NecrotisResistPercent < -1f ) {
-				this.NecrotisResistPercent = -1;
-			} else if( this.NecrotisResistPercent > 1f ) {
-				this.NecrotisResistPercent = 1f;
+			if( this.AnimaPercent < -1f ) {
+				this.AnimaPercent = -1;
+			} else if( this.AnimaPercent > 1f ) {
+				this.AnimaPercent = 1f;
 			}
 
 			// Amount of change
-			float percChangeAmt = this.NecrotisResistPercent - old;
+			float percChangeAmt = this.AnimaPercent - old;
 
-			this.CurrentNecrotisResistPercentChangeRate += percChangeAmt;
+			this.CurrentAnimaPercentChangeRate += percChangeAmt;
 
 			// Display afflict amount
 			if( !quiet && Math.Abs(percentAmt) >= 0.1f ) {

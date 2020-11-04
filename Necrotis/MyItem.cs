@@ -19,7 +19,7 @@ namespace Necrotis {
 				return;
 			}
 
-			var tip = new TooltipLine( this.mod, "NecrotisEctoplasmTip", "Consume to restore full necrotis resist %" );
+			var tip = new TooltipLine( this.mod, "NecrotisEctoplasmTip", "Consume to restore full anima (necrotis resist %)" );
 			tooltips.Add( tip );
 		}
 
