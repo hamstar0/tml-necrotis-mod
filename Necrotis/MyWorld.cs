@@ -24,7 +24,8 @@ namespace Necrotis {
 					tag.GetFloat( "dilluted_ecto_y_" + i )
 				);
 
-				Item.NewItem( pos, ectoType );
+				int itemWho = Item.NewItem( pos, ectoType );
+				Main.item[itemWho].velocity = default( Vector2 );
 			}
 		}
 
