@@ -40,7 +40,7 @@ namespace Necrotis {
 				Utils.DrawBorderStringFourWay(
 					sb: Main.spriteBatch,
 					font: Main.fontMouseText,
-					text: percent.ToString( "N0" ) + "Anima (Necrotis Resist %)",
+					text: percent.ToString( "N0" ) + "% Anima (Necrotis Resist %)",
 					x: Main.MouseScreen.X,
 					y: Main.MouseScreen.Y + 24f,
 					textColor: animaPercent > 0f
@@ -88,7 +88,7 @@ namespace Necrotis {
 
 			Main.spriteBatch.DrawString(
 				spriteFont: Main.fontMouseText,
-				text: percent.ToString( "N0" ) + "Anima (Necrotis Resist %)",
+				text: percent.ToString( "N0" ) + "% Anima (Necrotis Resist %)",
 				position: Main.MouseScreen + new Vector2( 0f, 24f ),
 				color: animaPercent > 0f
 					? Color.White
