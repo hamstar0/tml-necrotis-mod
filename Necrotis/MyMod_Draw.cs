@@ -69,7 +69,7 @@ namespace Necrotis {
 			bool DrawAnkh() {
 				var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
 
-				this.DrawAnkhLayer( myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
+				this.DrawHUDAnkh( myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
 				return true;
 			};
 
