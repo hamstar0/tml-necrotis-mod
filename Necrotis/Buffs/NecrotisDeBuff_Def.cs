@@ -6,6 +6,14 @@ using static Terraria.ModLoader.ModContent;
 
 namespace Necrotis.Buffs {
 	partial class NecrotisDeBuff : ModBuff {
+		public static bool CanDeBuff( Player player, float animaPercent ) {
+			return animaPercent < 0.5f;
+		}
+
+
+
+		////////////////
+
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis" );
 			this.Description.SetDefault(

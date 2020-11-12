@@ -9,7 +9,7 @@ using Necrotis.Libraries.Services.FX;
 
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
-		public float AnimaPercent { get; private set; } = 0.01f;
+		public float AnimaPercent { get; private set; } = 0.51f;
 		public float CurrentAnimaPercentChangeRate { get; private set; } = 0f;
 
 
@@ -43,7 +43,7 @@ namespace Necrotis {
 
 			this.UpdateNecrotisForCurrentContext();
 
-			if( this.AnimaPercent < 0f ) {
+			if( NecrotisDeBuff.CanDeBuff(player, this.AnimaPercent) ) {
 				this.player.AddBuff( BuffType<NecrotisDeBuff>(), 2 );
 			} else if( EnlivenedBuff.CanBuff(player, this.AnimaPercent) ) {
 				this.player.AddBuff( BuffType<EnlivenedBuff>(), 2 );

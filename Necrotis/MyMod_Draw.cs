@@ -28,6 +28,7 @@ namespace Necrotis {
 		////////////////
 
 		private Texture2D AnkhGlowTex;
+		private Texture2D AnkhUnglowTex;
 
 
 
@@ -35,7 +36,9 @@ namespace Necrotis {
 
 		private void InitializeUI() {
 			this.AnkhGlowTex = this.GetTexture( "UI/AnkhGlow" );
+			this.AnkhUnglowTex = this.GetTexture( "UI/AnkhUnglow" );
 			NecrotisMod.PremultiplyTexture( this.AnkhGlowTex );
+			NecrotisMod.PremultiplyTexture( this.AnkhUnglowTex );
 		}
 
 
@@ -63,8 +66,10 @@ namespace Necrotis {
 
 			//
 
-			bool drawAnkh() {
-				this.DrawAnkhLayer();
+			bool DrawAnkh() {
+				var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
+
+				this.DrawAnkhLayer( myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
 				return true;
 			};
 
@@ -82,7 +87,7 @@ namespace Necrotis {
 
 			var ankhLayer = new LegacyGameInterfaceLayer(
 				"Necrotis: Ankh Status Display",
-				drawAnkh,
+				DrawAnkh,
 				InterfaceScaleType.UI
 			);
 			var particleLayer = new LegacyGameInterfaceLayer(

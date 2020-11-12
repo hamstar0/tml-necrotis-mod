@@ -81,59 +81,59 @@ namespace Necrotis {
 		////
 
 		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * 12f) )]
+		[DefaultValue( 1f / (60f * 60f * 6f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float UndergroundAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 12f);	// 12m
+		public float UndergroundAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 6f);	// 6/m
 
 		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * -8f) )]
+		[DefaultValue( 1f / (60f * 60f * -4f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HellAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * -8f);	// -8m
+		public float HellAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * -4f);	// -4/m
+
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 60f * 2f) )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float DungeonAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 2f); // 2/m
 
 		[Range( -1f, 1f )]
 		[DefaultValue( 1f / (60f * 60f * 4f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DungeonAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 4f); // 4m
+		public float CorruptionAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 4f);  // 4/m
+
+		[Range( -1f, 1f )]
+		[DefaultValue( 1f / (60f * 60f * 6f) )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float HallowAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 6f);	// 6/m
+
+		[Range( -1f, 1f )]
+		[DefaultValue( 0f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float DesertAnimaPercentLossPerTick { get; set; } = 0f;	// 0/m
+
+		[Range( -1f, 1f )]
+		[DefaultValue( 0f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float SnowAnimaPercentLossPerTick { get; set; } = 0f;	// 0/m
 
 		[Range( -1f, 1f )]
 		[DefaultValue( 1f / (60f * 60f * 8f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float CorruptionAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 8f);  // 8m
+		public float JungleAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 8f);	// 8/m
 
 		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * 12f) )]
+		[DefaultValue( 1f / (60f * 60f * -10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HallowAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 12f);	// 12m
+		public float BeachAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * -10f);	// -10/m
 
 		[Range( -1f, 1f )]
-		[DefaultValue( 0f )]
+		[DefaultValue( 1f / (60f * 60f * -4f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DesertAfflicationIncreasePerTick { get; set; } = 0f;	// 0m
+		public float SkyAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * -4f);	// -4/m
 
 		[Range( -1f, 1f )]
-		[DefaultValue( 0f )]
+		[DefaultValue( 1f / (60f * 60f * 8f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SnowAfflicationIncreasePerTick { get; set; } = 0f;	// 0m
-
-		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * 16f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float JungleAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 16f);	// 16m
-
-		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * -20f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float BeachAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * -5f);	// -20m
-
-		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * -8f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SkyAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * -8f);	// -8m
-
-		[Range( -1f, 1f )]
-		[DefaultValue( 1f / (60f * 60f * 16f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float NightOrEclipseAfflicationIncreasePerTick { get; set; } = 1f / (60f * 60f * 16f);	// 16m
+		public float NightOrEclipseAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 8f);	// 8/m
 
 
 		////
@@ -155,7 +155,7 @@ namespace Necrotis {
 		[Range( -1f, 1f )]
 		[DefaultValue( 0.8f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float EnlivenedAnimaPercentMinimum { get; set; } = 0.8f;
+		public float EnlivenedAnimaPercentMinimum { get; set; } = 0.9f;
 
 		[Range( 0f, 10f )]
 		[DefaultValue( 1.2f )]
@@ -164,9 +164,9 @@ namespace Necrotis {
 
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 0.25f )]
+		[DefaultValue( 0.75f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float WitchDoctorHealPercentMax { get; set; } = 0.25f;
+		public float WitchDoctorHealPercentMax { get; set; } = 0.75f;
 
 		[Range( 0f, 1000000f )]
 		[DefaultValue( 100f )]

@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
@@ -15,8 +14,32 @@ namespace Necrotis {
 					Texture2D fgTex,
 					Vector2 pos,
 					Rectangle srcRect,
-					float animaPercent ) {
-			Main.spriteBatch.Draw(
+					float animaPercent,
+					float animaPercentChangeRate ) {
+			SpriteBatch sb = Main.spriteBatch;
+
+			if( animaPercent < 0.5f ) {
+				sb.Draw(
+					texture: this.AnkhUnglowTex,
+					position: pos + new Vector2( -5f, -5f ),
+					sourceRectangle: null,
+					color: Color.White
+				);
+			} else {
+				var config = NecrotisConfig.Instance;
+				float minBuffPerc = config.Get<float>( nameof(config.EnlivenedAnimaPercentMinimum) );
+
+				if( animaPercent >= minBuffPerc ) {
+					sb.Draw(
+						texture: this.AnkhGlowTex,
+						position: pos + new Vector2( -5f, -5f ),
+						sourceRectangle: null,
+						color: Color.White
+					);
+				}
+			}
+
+			sb.Draw(
 				texture: bgTex,
 				position: pos,
 				sourceRectangle: null,
@@ -24,7 +47,7 @@ namespace Necrotis {
 			);
 
 			if( srcRect.Height > 0 ) {
-				Main.spriteBatch.Draw(
+				sb.Draw(
 					texture: fgTex,
 					position: pos + new Vector2( 0, srcRect.Y ),
 					sourceRectangle: srcRect,
@@ -38,12 +61,12 @@ namespace Necrotis {
 				if( percent < 0f ) { percent = 0f; }
 
 				Utils.DrawBorderStringFourWay(
-					sb: Main.spriteBatch,
+					sb: sb,
 					font: Main.fontMouseText,
-					text: percent.ToString( "N0" ) + "% Anima (Necrotis Resist %)",
+					text: percent.ToString("N0") + "% Anima (Necrotis Resist %)",
 					x: Main.MouseScreen.X,
 					y: Main.MouseScreen.Y + 24f,
-					textColor: animaPercent > 0f
+					textColor: animaPercent > 0.5f
 						? new Color( Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor )
 						: new Color( Main.mouseTextColor, 0, 0 ),
 					borderColor: Color.Black,
@@ -64,20 +87,36 @@ namespace Necrotis {
 					);
 
 					if( !Main.gamePaused ) {
-						CustomParticle.Create( false, newPos, duration, Color.Gold, 2f, 1f, true );
+						CustomParticle.Create(
+							isInWorld: false,
+							pos: newPos,
+							tickDuration: duration,
+							color: Color.Gold,
+							scale: 2f,
+							sprayAmt: 1f,
+							hasGravity: true
+						);
 					}
 				}
 			} else if( animaPercentChangeRate > 0f ) {
-				Texture2D glowTex = this.AnkhGlowTex;
-				float brite = Math.Min( (animaPercentChangeRate * 2048f), 1f );
-//DebugHelpers.Print( "brite", "brite:" + brite );
-				
-				Main.spriteBatch.Draw(
-					texture: glowTex,
-					position: pos + new Vector2(-5f, -5f),
-					sourceRectangle: null,
-					color: Color.White * brite
-				);
+//DebugHelpers.Print( "gain", "gain:" + (-animaPercentChangeRate * 1024f) );
+				if( Main.rand.NextFloat() < (animaPercentChangeRate * 1024f) ) {
+					var newPos = pos;
+					newPos.X += (innerSrcRect.Width / 2) - 4;
+					newPos.X += Main.rand.Next( 8 );
+
+					if( !Main.gamePaused ) {
+						CustomParticle.Create(
+							isInWorld: false,
+							pos: newPos,
+							tickDuration: 30,
+							color: Color.Gold,
+							scale: 2f,
+							sprayAmt: 0f,
+							hasGravity: true
+						);
+					}
+				}
 			}
 		}
 

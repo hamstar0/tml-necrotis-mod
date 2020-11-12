@@ -37,7 +37,7 @@ namespace Necrotis {
 			}
 
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			myplayer.AfflictNecrotis( -1f );
+			myplayer.AfflictAnimaPercentLoss( -1f );
 		}
 	}
 }

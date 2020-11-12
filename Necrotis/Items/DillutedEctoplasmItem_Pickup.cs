@@ -45,13 +45,13 @@ namespace Necrotis.Items {
 
 			// Recover necrotis back to 0%, if needed
 			if( myplayer.AnimaPercent < 0f ) {
-				myplayer.AfflictNecrotis( -myplayer.AnimaPercent, false );
+				myplayer.AfflictAnimaPercentLoss( -myplayer.AnimaPercent, false );
 			}
 
 			float ectoFortPerc = NecrotisConfig.Instance.Get<float>(
 				nameof(NecrotisConfig.DillutedEctoplasmFortifyPercent)
 			);
-			myplayer.AfflictNecrotis( -ectoFortPerc, true );
+			myplayer.AfflictAnimaPercentLoss( -ectoFortPerc, true );
 
 			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 

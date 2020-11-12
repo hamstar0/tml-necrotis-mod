@@ -8,7 +8,7 @@ using HamstarHelpers.Helpers.Debug;
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
-		private void DrawAnkhLayer() {
+		private void DrawAnkhLayer( float animaPercent, float animaChangeRate ) {
 			var config = NecrotisConfig.Instance;
 			Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
 			Texture2D fgTex = this.GetTexture( "UI/AnkhFG" );
@@ -24,8 +24,7 @@ namespace Necrotis {
 				pos.Y = Main.screenHeight + pos.Y;
 			}
 
-			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			int necScroll = (int)( (float)myplayer.AnimaPercent * (float)fgTex.Height );
+			int necScroll = (int)( animaPercent * (float)fgTex.Height );
 			var statSrcRect = new Rectangle(
 				x: 0,
 				y: fgTex.Height - necScroll,
@@ -33,8 +32,8 @@ namespace Necrotis {
 				height: necScroll
 			);
 
-			this.DrawUIAnkhChangeFX( pos, statSrcRect, myplayer.CurrentAnimaPercentChangeRate );
-			this.DrawUIAnkh( bgTex, fgTex, pos, statSrcRect, myplayer.AnimaPercent );
+			this.DrawUIAnkhChangeFX( pos, statSrcRect, animaChangeRate );
+			this.DrawUIAnkh( bgTex, fgTex, pos, statSrcRect, animaPercent, animaChangeRate );
 		}
 
 		/*private void DrawAnkhHoverTooltipLayer() {

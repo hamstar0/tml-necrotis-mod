@@ -54,27 +54,21 @@ namespace Necrotis {
 
 		////////////////
 
-		public void AfflictNecrotis( float percentAmt, bool quiet=false ) {
+		public void AfflictAnimaPercentLoss( float percentAmt, bool quiet=false ) {
 			float old = this.AnimaPercent;
 
-			// If afflicted
-			if( this.AnimaPercent < 0f ) {
+			/*// If afflicted
+			if( this.AnimaPercent < 0.5f ) {
 				// Reduce amount of added affliction
 				if( percentAmt > 0f ) {
 					percentAmt *= 0.25f;
 				}
-				// Otherwise increase amount of recovery
-				else {
-					//amt *= 4f;  // Faster recovery
-					this.AnimaPercent = 0;
-				}
-			}
+			}*/
 
 			this.AnimaPercent -= percentAmt;
 
-			// Clamp (-1 to 0 = affliction buffer)
-			if( this.AnimaPercent < -1f ) {
-				this.AnimaPercent = -1;
+			if( this.AnimaPercent < 0f ) {
+				this.AnimaPercent = 0f;
 			} else if( this.AnimaPercent > 1f ) {
 				this.AnimaPercent = 1f;
 			}
