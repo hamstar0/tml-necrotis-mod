@@ -27,16 +27,23 @@ namespace Necrotis {
 
 		////////////////
 
+		private Texture2D AnkhBgTex;
+		private Texture2D AnkhFgTex;
 		private Texture2D AnkhGlowTex;
 		private Texture2D AnkhUnglowTex;
+		private Texture2D AnkhOhmTex;
 
 
 
 		////////////////
 
 		private void InitializeUI() {
+			this.AnkhBgTex = this.GetTexture( "UI/AnkhBG" );
+			this.AnkhFgTex = this.GetTexture( "UI/AnkhFG" );
 			this.AnkhGlowTex = this.GetTexture( "UI/AnkhGlow" );
 			this.AnkhUnglowTex = this.GetTexture( "UI/AnkhUnglow" );
+			this.AnkhOhmTex = this.GetTexture( "UI/AnkhOhm" );
+
 			NecrotisMod.PremultiplyTexture( this.AnkhGlowTex );
 			NecrotisMod.PremultiplyTexture( this.AnkhUnglowTex );
 		}

@@ -4,28 +4,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Services.AnimatedColor;
 using Necrotis.Libraries.Services.FX;
 
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
-		private void DrawHUDAnkhMain(
-					Texture2D bgTex,
-					Texture2D fgTex,
-					Vector2 pos,
-					Rectangle srcRect,
-					float animaPercent,
-					float animaPercentChangeRate ) {
+		private void DrawHUDAnkhMain( Vector2 pos, Rectangle srcRect, float animaPercent, float animaPercentChangeRate ) {
 			SpriteBatch sb = Main.spriteBatch;
 
-			if( animaPercent < 0.5f ) {
-				sb.Draw(
-					texture: this.AnkhUnglowTex,
-					position: pos + new Vector2( -5f, -5f ),
-					sourceRectangle: null,
-					color: Color.White
-				);
-			} else {
+			if( animaPercent >= 0.5f ) {
 				var config = NecrotisConfig.Instance;
 				float minBuffPerc = config.Get<float>( nameof(config.EnlivenedAnimaPercentMinimum) );
 
@@ -37,10 +25,17 @@ namespace Necrotis {
 						color: Color.White
 					);
 				}
+			} else {
+				sb.Draw(
+					texture: this.AnkhUnglowTex,
+					position: pos + new Vector2( -5f, -5f ),
+					sourceRectangle: null,
+					color: Color.White
+				);
 			}
 
 			sb.Draw(
-				texture: bgTex,
+				texture: this.AnkhBgTex,
 				position: pos,
 				sourceRectangle: null,
 				color: Color.White
@@ -48,14 +43,25 @@ namespace Necrotis {
 
 			if( srcRect.Height > 0 ) {
 				sb.Draw(
-					texture: fgTex,
+					texture: this.AnkhFgTex,
 					position: pos + new Vector2( 0, srcRect.Y ),
 					sourceRectangle: srcRect,
 					color: Color.White
 				);
 			}
 
-			var area = new Rectangle( (int)pos.X, (int)pos.Y, bgTex.Width, bgTex.Height );
+			if( animaPercent == 0f ) {
+				float glow = (float)AnimatedColors.Strobe.CurrentColor.R / 255f;
+
+				sb.Draw(
+					texture: this.AnkhOhmTex,
+					position: pos,
+					sourceRectangle: null,
+					color: Color.White * glow
+				);
+			}
+
+			var area = new Rectangle( (int)pos.X, (int)pos.Y, this.AnkhBgTex.Width, this.AnkhBgTex.Height );
 			if( area.Contains( Main.mouseX, Main.mouseY ) ) {
 				float percent = animaPercent * 100f;
 				if( percent < 0f ) { percent = 0f; }
