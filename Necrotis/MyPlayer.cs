@@ -1,7 +1,6 @@
 ﻿using System;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
 using HamstarHelpers.Helpers.Debug;
 using Necrotis.Buffs;
 using Necrotis.Libraries.Services.FX;
@@ -41,13 +40,8 @@ namespace Necrotis {
 		public override void PreUpdate() {
 			CustomParticle.UpdateParticles();
 
-			this.UpdateNecrotisForCurrentContext();
-
-			if( NecrotisDeBuff.CanDeBuff(player, this.AnimaPercent) ) {
-				this.player.AddBuff( BuffType<NecrotisDeBuff>(), 2 );
-			} else if( EnlivenedBuff.CanBuff(player, this.AnimaPercent) ) {
-				this.player.AddBuff( BuffType<EnlivenedBuff>(), 2 );
-			}
+			this.UpdateAnimaStateForCurrentContext();
+			this.UpdateAnimaBehaviors();
 //DebugHelpers.Print( "necrotis", "necrotis%: "+this.AnimaPercent.ToString("N2") );
 		}
 

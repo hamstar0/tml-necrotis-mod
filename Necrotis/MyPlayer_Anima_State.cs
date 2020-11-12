@@ -7,7 +7,7 @@ using HamstarHelpers.Helpers.World;
 
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
-		private void UpdateNecrotisForCurrentContext() {
+		private void UpdateAnimaStateForCurrentContext() {
 			var config = NecrotisConfig.Instance;
 			Player plr = this.player;
 			int tileX = (int)plr.position.X / 16;

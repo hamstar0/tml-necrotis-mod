@@ -13,7 +13,7 @@ namespace Necrotis {
 		private void DrawHUDAnkhMain( Vector2 pos, Rectangle srcRect, float animaPercent, float animaPercentChangeRate ) {
 			SpriteBatch sb = Main.spriteBatch;
 
-			if( animaPercent >= 0.5f ) {
+			if( animaPercent >= 0.9f ) {
 				var config = NecrotisConfig.Instance;
 				float minBuffPerc = config.Get<float>( nameof(config.EnlivenedAnimaPercentMinimum) );
 
@@ -25,7 +25,7 @@ namespace Necrotis {
 						color: Color.White
 					);
 				}
-			} else {
+			} else if( animaPercent < 0.5f ) {
 				sb.Draw(
 					texture: this.AnkhUnglowTex,
 					position: pos + new Vector2( -5f, -5f ),
