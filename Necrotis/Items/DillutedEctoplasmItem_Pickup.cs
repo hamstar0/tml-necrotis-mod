@@ -41,17 +41,11 @@ namespace Necrotis.Items {
 			}
 			player.AddBuff( BuffID.PotionSickness, 60 * 60 );*/
 
+			var config = NecrotisConfig.Instance;
+			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
-			// Recover necrotis back to 0%, if needed
-			if( myplayer.AnimaPercent < 0f ) {
-				myplayer.AfflictAnimaPercentLoss( -myplayer.AnimaPercent, false );
-			}
-
-			float ectoFortPerc = NecrotisConfig.Instance.Get<float>(
-				nameof(NecrotisConfig.DillutedEctoplasmFortifyPercent)
-			);
-			myplayer.AfflictAnimaPercentLoss( -ectoFortPerc, true );
+			myplayer.SubtractAnimaPercent( -percHeal, false );
 
 			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 

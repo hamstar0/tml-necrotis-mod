@@ -6,19 +6,19 @@ using Terraria.ModLoader;
 
 namespace Necrotis.Buffs {
 	partial class NecrotisDeBuff : ModBuff {
-		public static void ApplyEffect( Player player, float percent ) {
-			NecrotisDeBuff.ApplyMovementEffects( player, percent );
-			NecrotisDeBuff.ApplyJumpingEffects( player, percent );
-			NecrotisDeBuff.ApplyHealthEffects( player, percent );
-			NecrotisDeBuff.ApplyDebuffEffects( player, percent );
+		public static void ApplyBehaviors( Player player, float necrotisPercent ) {
+			NecrotisDeBuff.ApplyPlayerMovementBehaviors( player, necrotisPercent );
+			NecrotisDeBuff.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
+			NecrotisDeBuff.ApplyPlayerHealthBehaviors( player, necrotisPercent );
+			NecrotisDeBuff.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
 		}
 
 
 		////
 
-		private static void ApplyMovementEffects( Player player, float afflictPerc ) {
+		private static void ApplyPlayerMovementBehaviors( Player player, float necrotisPercent ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
-			float effectPerc = 1f - afflictPerc;
+			float effectPerc = 1f - necrotisPercent;
 
 			// Percent of affliction until max effect
 			float afflictPercUntilLowMove = config.Get<float>( nameof(config.DebuffPercentUntilLowestMovement) );
@@ -35,9 +35,9 @@ namespace Necrotis.Buffs {
 			}
 		}
 
-		private static void ApplyJumpingEffects( Player player, float afflictPerc ) {
+		private static void ApplyPlayerJumpingBehaviors( Player player, float necrotisPercent ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
-			float effectPerc = 1f - afflictPerc;
+			float effectPerc = 1f - necrotisPercent;
 
 			// Percent of affliction until max effect
 			float afflictPercUntilLowJump = config.Get<float>( nameof(config.DebuffPercentUntilLowestJumping) );
@@ -56,12 +56,12 @@ namespace Necrotis.Buffs {
 		}
 
 
-		public static void ApplyLifeRegenEffect( Player player, float afflictPerc ) {
-			player.lifeRegen = (int)((float)player.lifeRegen * (1f - afflictPerc));
+		public static void ApplyPlayerLifeRegenBehaviors( Player player, float necrotisPercent ) {
+			player.lifeRegen = (int)((float)player.lifeRegen * (1f - necrotisPercent));
 		}
 
 
-		private static void ApplyHealthEffects( Player player, float afflictPerc ) {
+		private static void ApplyPlayerHealthBehaviors( Player player, float afflictPerc ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
 
 			float effectPerc = 1f - afflictPerc;
@@ -73,30 +73,23 @@ namespace Necrotis.Buffs {
 		}
 
 
-		private static void ApplyDebuffEffects( Player player, float afflictPerc ) {
+		////
+
+		private static void ApplyPlayerDebuffBehaviors( Player player, float necrotisPercent ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
 			var percBleed = config.Get<NullablePercent>( nameof(NecrotisConfig.DebuffPercentBeforeBleeding) );
 			var percPoison = config.Get<NullablePercent>( nameof(NecrotisConfig.DebuffPercentBeforePoisoned) );
 			var percCurInf = config.Get<NullablePercent>( nameof(NecrotisConfig.DebuffPercentBeforeCursedInferno) );
 
-			if( afflictPerc >= (percBleed?.Percent ?? 1.0001f) ) {
+			if( necrotisPercent >= (percBleed?.Percent ?? 1.0001f) ) {
 				player.AddBuff( BuffID.Bleeding, 3 );
 			}
-			if( afflictPerc >= (percPoison?.Percent ?? 1.0001f) ) {
+			if( necrotisPercent >= (percPoison?.Percent ?? 1.0001f) ) {
 				player.AddBuff( BuffID.Poisoned, 3 );
 			}
-			if( afflictPerc >= (percCurInf?.Percent ?? 1.0001f) ) {
+			if( necrotisPercent >= (percCurInf?.Percent ?? 1.0001f) ) {
 				player.AddBuff( BuffID.CursedInferno, 3 );
 			}
-		}
-
-
-		////////////////
-
-		public static void ApplyVisualFX( Player player, ref float r, ref float g, ref float b ) {
-			r *= 0.7f;
-			//g *= 0.85f;
-			b *= 0.7f;
 		}
 	}
 }

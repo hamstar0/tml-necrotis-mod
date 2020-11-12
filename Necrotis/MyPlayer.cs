@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using HamstarHelpers.Helpers.Debug;
@@ -14,6 +15,11 @@ namespace Necrotis {
 
 		////
 
+		public float NecrotisPercent => Math.Max( 1f - (this.AnimaPercent * 2f), 0f );
+
+
+		////
+
 		public override bool CloneNewInstances => false;
 
 
@@ -25,7 +31,7 @@ namespace Necrotis {
 				return;
 			}
 
-			this.AnimaPercent = tag.GetFloat( "anima_percent" );
+			this.AnimaPercent = MathHelper.Clamp( tag.GetFloat("anima_percent"), 0f, 1f );
 		}
 
 		public override TagCompound Save() {
@@ -49,8 +55,9 @@ namespace Necrotis {
 		////////////////
 
 		public override void UpdateLifeRegen() {
-			if( this.AnimaPercent < 0f ) {
-				NecrotisDeBuff.ApplyLifeRegenEffect( this.player, -this.AnimaPercent );
+			float necPerc = this.NecrotisPercent;
+			if( necPerc > 0f ) {
+				NecrotisDeBuff.ApplyPlayerLifeRegenBehaviors( this.player, necPerc );
 			}
 		}
 
@@ -58,7 +65,8 @@ namespace Necrotis {
 		////////////////
 
 		public override void DrawEffects( PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright ) {
-			if( this.AnimaPercent < 0f ) {
+			float necPerc = this.NecrotisPercent;
+			if( necPerc > 0f ) {
 				NecrotisDeBuff.ApplyVisualFX( this.player, ref r, ref g, ref b );
 			}
 		}

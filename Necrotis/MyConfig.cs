@@ -147,7 +147,7 @@ namespace Necrotis {
 
 		[Range( 0f, 1f )]
 		[DefaultValue( 1f / 3f )]
-		public float DillutedEctoplasmFortifyPercent { get; set; } = 1f / 3f;
+		public float DillutedEctoplasmAnimaPercentHeal { get; set; } = 1f / 3f;
 
 
 		////

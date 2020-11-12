@@ -25,19 +25,17 @@ namespace Necrotis {
 
 
 		public override bool ConsumeItem( Item item, Player player ) {
-			if( item.type != ItemID.Ectoplasm ) {
-				return base.ConsumeItem( item, player );
+			if( item.type == ItemID.Ectoplasm ) {
+				return true;
 			}
-			return true;
+			return base.ConsumeItem( item, player );
 		}
 
 		public override void OnConsumeItem( Item item, Player player ) {
-			if( item.type != ItemID.Ectoplasm ) {
-				return;
+			if( item.type == ItemID.Ectoplasm ) {
+				var myplayer = player.GetModPlayer<NecrotisPlayer>();
+				myplayer.SubtractAnimaPercent( -1f );
 			}
-
-			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			myplayer.AfflictAnimaPercentLoss( -1f );
 		}
 	}
 }

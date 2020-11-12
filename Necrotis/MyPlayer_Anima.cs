@@ -54,7 +54,7 @@ namespace Necrotis {
 
 		////////////////
 
-		public void AfflictAnimaPercentLoss( float percentAmt, bool quiet=false ) {
+		public void SubtractAnimaPercent( float percentLost, bool quiet=false ) {
 			float old = this.AnimaPercent;
 
 			/*// If afflicted
@@ -65,8 +65,7 @@ namespace Necrotis {
 				}
 			}*/
 
-			this.AnimaPercent -= percentAmt;
-
+			this.AnimaPercent -= percentLost;
 			if( this.AnimaPercent < 0f ) {
 				this.AnimaPercent = 0f;
 			} else if( this.AnimaPercent > 1f ) {
@@ -79,13 +78,18 @@ namespace Necrotis {
 			this.CurrentAnimaPercentChangeRate += percChangeAmt;
 
 			// Display afflict amount
-			if( !quiet && Math.Abs(percentAmt) >= 0.1f ) {
+			if( !quiet && Math.Abs(percentLost) >= 0.1f ) {
 				string fmtAmt = (percChangeAmt * 100f).ToString("N0") + "%";
+				Color color;
+
 				if( percChangeAmt > 0f ) {
 					fmtAmt = "+" + fmtAmt;
+					color = Color.Lerp( Color.Gold, Color.White, 0.25f );
+				} else {
+					color = Color.Lerp( Color.Gold, Color.Black, 0.25f );
 				}
 
-				CombatText.NewText( this.player.getRect(), Color.Gold, fmtAmt );
+				CombatText.NewText( this.player.getRect(), color, fmtAmt );
 			}
 		}
 	}

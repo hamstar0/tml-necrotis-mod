@@ -6,14 +6,6 @@ using static Terraria.ModLoader.ModContent;
 
 namespace Necrotis.Buffs {
 	partial class NecrotisDeBuff : ModBuff {
-		public static bool CanDeBuff( Player player, float animaPercent ) {
-			return animaPercent < 0.5f;
-		}
-
-
-
-		////////////////
-
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis" );
 			this.Description.SetDefault(
@@ -31,13 +23,11 @@ namespace Necrotis.Buffs {
 
 		public override void Update( Player player, ref int buffIndex ) {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+			float necrotisPercent = myplayer.NecrotisPercent;
 
-			float percent = -myplayer.AnimaPercent;
-			if( percent <= 0f ) {
-				return;
+			if( necrotisPercent > 0f ) {
+				NecrotisDeBuff.ApplyBehaviors( player, necrotisPercent );
 			}
-
-			NecrotisDeBuff.ApplyEffect( player, percent );
 		}
 	}
 }
