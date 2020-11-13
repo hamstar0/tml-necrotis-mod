@@ -45,7 +45,7 @@ namespace Necrotis.Items {
 			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
-			myplayer.SubtractAnimaPercent( -percHeal, false );
+			myplayer.SubtractAnimaPercent( -percHeal, false, false );
 
 			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 

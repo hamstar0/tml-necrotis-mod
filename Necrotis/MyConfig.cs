@@ -14,6 +14,11 @@ namespace Necrotis {
 	public class NullablePercent {
 		[Range( 0f, 1f )]
 		public float Percent;
+
+		public NullablePercent() { }
+		public NullablePercent( float perc ) {
+			this.Percent = perc;
+		}
 	}
 
 
@@ -47,21 +52,13 @@ namespace Necrotis {
 
 		////
 
-		[Range( 0f, 1f )]
-		[DefaultValue( 0.01f )]
-		public float DebuffPercentUntilLowestMovement { get; set; } = 0.01f;
+		public NullablePercent DebuffPercentUntilLowestMovement { get; set; } = new NullablePercent( 0.01f );
 
-		[Range( 0f, 1f )]
-		[DefaultValue( 0.75f )]
-		public float LowestPercentOfMovementProducedByDebuff { get; set; } = 0.75f;
+		public NullablePercent LowestPercentOfMovementProducedByDebuff { get; set; } = new NullablePercent( 0.75f );
 
-		[Range( 0f, 1f )]
-		[DefaultValue( 0.01f )]
-		public float DebuffPercentUntilLowestJumping { get; set; } = 0.01f;
+		public NullablePercent DebuffPercentUntilLowestJumping { get; set; } = new NullablePercent( 0.01f );
 
-		[Range( 0f, 1f )]
-		[DefaultValue( 0.75f )]
-		public float LowestPercentOfJumpingProducedByDebuff { get; set; } = 0.75f;
+		public NullablePercent LowestPercentOfJumpingProducedByDebuff { get; set; } = new NullablePercent( 0.75f );
 
 
 		[DefaultValue( true )]
@@ -69,6 +66,9 @@ namespace Necrotis {
 
 		[DefaultValue( false )]
 		public bool DebuffReducesJumpHeight { get; set; } = false;
+
+		[DefaultValue( true )]
+		public bool DebuffReducesMaxLifeWhenActive { get; set; } = true;
 
 
 		public NullablePercent DebuffPercentBeforeBleeding { get; set; } = null;	// new NullablePercent { Percent = 0.99f };

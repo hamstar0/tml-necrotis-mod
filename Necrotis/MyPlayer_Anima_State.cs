@@ -24,7 +24,7 @@ namespace Necrotis {
 				if( amt > 0f && isTown ) {
 					return;
 				}
-				this.SubtractAnimaPercent( amt );
+				this.SubtractAnimaPercent( amt, false, false );
 
 				if( config.DebugModeInfo ) {
 					DebugHelpers.Print( ctx, amt.ToString("F6") );

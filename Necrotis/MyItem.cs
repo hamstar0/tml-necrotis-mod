@@ -19,7 +19,11 @@ namespace Necrotis {
 				return;
 			}
 
-			var tip = new TooltipLine( this.mod, "NecrotisEctoplasmTip", "Consume to restore full anima (necrotis resist %)" );
+			var tip = new TooltipLine(
+				this.mod,
+				"NecrotisEctoplasmTip",
+				"[c/FFFF88Necrotis]: Consume to restore full anima (necrotis resist %)"
+			);
 			tooltips.Add( tip );
 		}
 
@@ -34,7 +38,7 @@ namespace Necrotis {
 		public override void OnConsumeItem( Item item, Player player ) {
 			if( item.type == ItemID.Ectoplasm ) {
 				var myplayer = player.GetModPlayer<NecrotisPlayer>();
-				myplayer.SubtractAnimaPercent( -1f );
+				myplayer.SubtractAnimaPercent( -1f, false, false );
 			}
 		}
 	}

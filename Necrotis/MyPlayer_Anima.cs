@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.Dusts;
+using Necrotis.Net;
 
 
 namespace Necrotis {
@@ -53,8 +54,8 @@ namespace Necrotis {
 
 
 		////////////////
-
-		public void SubtractAnimaPercent( float percentLost, bool quiet=false ) {
+		
+		public void SubtractAnimaPercent( float percentLost, bool quiet, bool sync ) {
 			float old = this.AnimaPercent;
 
 			/*// If afflicted
@@ -77,20 +78,37 @@ namespace Necrotis {
 
 			this.CurrentAnimaPercentChangeRate += percChangeAmt;
 
-			// Display afflict amount
-			if( !quiet && Math.Abs(percentLost) >= 0.1f ) {
-				string fmtAmt = (percChangeAmt * 100f).ToString("N0") + "%";
-				Color color;
+			if( !quiet ) {
+				// Display afflict amount
+				if( Math.Abs(percentLost) >= 0.1f ) {
+					string fmtAmt = (percChangeAmt * 100f).ToString("N0") + "%";
+					Color color;
 
-				if( percChangeAmt > 0f ) {
-					fmtAmt = "+" + fmtAmt;
-					color = Color.Lerp( Color.Gold, Color.White, 0.25f );
-				} else {
-					color = Color.Lerp( Color.Gold, Color.Black, 0.25f );
+					if( percChangeAmt > 0f ) {
+						fmtAmt = "+" + fmtAmt;
+						color = Color.Lerp( Color.Gold, Color.White, 0.25f );
+					} else {
+						color = Color.Lerp( Color.Gold, Color.Black, 0.25f );
+					}
+
+					CombatText.NewText( this.player.getRect(), color, fmtAmt );
 				}
-
-				CombatText.NewText( this.player.getRect(), color, fmtAmt );
 			}
+
+			if( sync ) {
+				if( Main.netMode == NetmodeID.MultiplayerClient ) {
+					PlayerAnimaSyncProtocol.Broadcast( this );
+				} else if( Main.netMode == NetmodeID.Server ) {
+					PlayerAnimaSyncProtocol.SendToAllClients( this );
+				}
+			}
+		}
+
+
+		////////////////
+
+		internal void SyncAnima( float animaPercent ) {
+			this.AnimaPercent = animaPercent;
 		}
 	}
 }
