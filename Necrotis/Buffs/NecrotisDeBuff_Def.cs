@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HamstarHelpers.Services.Timers;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -26,7 +27,26 @@ namespace Necrotis.Buffs {
 			float necrotisPercent = myplayer.NecrotisPercent;
 
 			if( necrotisPercent > 0f ) {
-				NecrotisDeBuff.ApplyBehaviors( player, necrotisPercent );
+				this.UpdateNecrotisBehaviors( player, necrotisPercent );
+			}
+		}
+
+		private void UpdateNecrotisBehaviors( Player player, float necrotisPercent ) {
+			NecrotisDeBuff.ApplyPlayerMovementBehaviors( player, necrotisPercent );
+			NecrotisDeBuff.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
+			NecrotisDeBuff.ApplyPlayerHealthBehaviors( player, necrotisPercent );
+			NecrotisDeBuff.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
+
+			if( necrotisPercent >= 1f ) {
+				string timerName = "NecrotisDeBuff_" + player.whoAmI;
+
+				if( Timers.GetTimerTickDuration(timerName) == 0 ) {
+					Timers.SetTimer( timerName, 5, false, () => {
+						NecrotisDeBuff.ApplyWorldBehaviors( player, necrotisPercent );
+
+						return necrotisPercent >= 1f;
+					} );
+				}
 			}
 		}
 	}

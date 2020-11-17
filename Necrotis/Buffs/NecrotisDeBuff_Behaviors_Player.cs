@@ -6,16 +6,6 @@ using Terraria.ModLoader;
 
 namespace Necrotis.Buffs {
 	partial class NecrotisDeBuff : ModBuff {
-		public static void ApplyBehaviors( Player player, float necrotisPercent ) {
-			NecrotisDeBuff.ApplyPlayerMovementBehaviors( player, necrotisPercent );
-			NecrotisDeBuff.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
-			NecrotisDeBuff.ApplyPlayerHealthBehaviors( player, necrotisPercent );
-			NecrotisDeBuff.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
-		}
-
-
-		////
-
 		private static void ApplyPlayerMovementBehaviors( Player player, float necrotisPercent ) {
 			var config = NecrotisConfig.Instance;
 
