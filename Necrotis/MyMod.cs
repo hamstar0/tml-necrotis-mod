@@ -97,9 +97,28 @@ namespace Necrotis {
 					(int)ItemID.Obelisk,
 				}
 			);
+			var group3 = new RecipeGroup(
+				getName: () => Language.GetTextValue("LegacyMisc.37")+" Vase",
+				validItems: new[] {
+					(int)ItemID.BlueDungeonVase,
+					(int)ItemID.GreenDungeonVase,
+					(int)ItemID.PinkDungeonVase,
+					(int)ItemID.ObsidianVase,
+					//(int)ItemID.PinkVase,
+				}
+			);
+			var group4 = new RecipeGroup(
+				getName: () => Language.GetTextValue("LegacyMisc.37")+" Evil Biome Light Pet",
+				validItems: new[] {
+					(int)ItemID.ShadowOrb,
+					(int)ItemID.CrimsonHeart,
+				}
+			);
 
 			RecipeGroup.RegisterGroup( "Necrotis:StrangePlants", group1 );
 			RecipeGroup.RegisterGroup( "Necrotis:Tombstones", group2 );
+			RecipeGroup.RegisterGroup( "Necrotis:Vases", group3 );
+			RecipeGroup.RegisterGroup( "Necrotis:EvilBiomeLightPet", group4 );
 		}
 	}
 }

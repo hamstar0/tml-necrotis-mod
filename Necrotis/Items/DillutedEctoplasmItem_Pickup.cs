@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Services.Timers;
-
+using HamstarHelpers.Helpers.Players;
 
 namespace Necrotis.Items {
 	public partial class DillutedEctoplasmItem : ModItem {
@@ -24,9 +24,11 @@ namespace Necrotis.Items {
 			bool isEmptyHanded = player.HeldItem?.active != true;
 
 			if( this.item.active && (this.item.Center - player.Center).LengthSquared() < 256f ) {
-				if( /*!hasRoom ||*/ !isEmptyHanded ) {
+				bool isHoldingJar = player.HeldItem?.active != true || player.HeldItem.type != ModContent.ItemType<EmptyCanopicJarItem>();
+
+				if( isHoldingJar || !isEmptyHanded ) {
 					if( Timers.GetTimerTickDuration( "NecrotisPickupAlert" ) <= 0 ) {
-						Main.NewText( "Only bare hands can interact with this.", Color.Yellow );
+						Main.NewText( "Only bare hands or canopic jars can interact with this.", Color.Yellow );
 					}
 					Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 				}
@@ -36,16 +38,18 @@ namespace Necrotis.Items {
 		}
 
 		public override bool OnPickup( Player player ) {
-			/*if( player.HasBuff( BuffID.PotionSickness ) ) {
-				return false;
-			}
-			player.AddBuff( BuffID.PotionSickness, 60 * 60 );*/
-
 			var config = NecrotisConfig.Instance;
 			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
-			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
-			myplayer.SubtractAnimaPercent( -percHeal, false, false );
+			if( player.HeldItem?.active != true || player.HeldItem.type != ModContent.ItemType<EmptyCanopicJarItem>() ) {
+				var filledJar = new Item();
+				filledJar.SetDefaults( ModContent.ItemType<FilledCanopicJarItem>() );
+
+				player.inventory[ player.selectedItem ] = filledJar;
+			} else {
+				var myplayer = player.GetModPlayer<NecrotisPlayer>();
+				myplayer.SubtractAnimaPercent( -percHeal, false, false );
+			}
 
 			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 

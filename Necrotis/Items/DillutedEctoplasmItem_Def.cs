@@ -8,7 +8,7 @@ namespace Necrotis.Items {
 	public partial class DillutedEctoplasmItem : ModItem {
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Dilluted Ectoplasm" );
-			this.Tooltip.SetDefault( "Psycho-kinetic residue of spiritual entities. Dilluted." );
+			this.Tooltip.SetDefault( "Psychomagnotheric secretions from spiritual entities. Dilluted." );
 
 			int mytype = ItemType<DillutedEctoplasmItem>();
 			ItemID.Sets.ItemNoGravity[ mytype ] = true;
