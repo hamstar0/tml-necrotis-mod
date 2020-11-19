@@ -114,11 +114,33 @@ namespace Necrotis {
 					(int)ItemID.CrimsonHeart,
 				}
 			);
+			var group5 = new RecipeGroup(
+				getName: () => Language.GetTextValue("LegacyMisc.37")+" Critter",
+				validItems: new[] {
+					(int)ItemID.Bird,
+					(int)ItemID.BlueJay,
+					(int)ItemID.Bunny,
+					(int)ItemID.Cardinal,
+					(int)ItemID.Duck,
+					(int)ItemID.MallardDuck,
+					(int)ItemID.Frog,
+					(int)ItemID.Goldfish,
+					(int)ItemID.Mouse,
+					(int)ItemID.Penguin,
+					(int)ItemID.Squirrel,
+					(int)ItemID.GoldBird,
+					(int)ItemID.GoldBunny,
+					(int)ItemID.GoldFrog,
+					(int)ItemID.GoldMouse,
+					(int)ItemID.SquirrelGold,
+				}
+			);
 
 			RecipeGroup.RegisterGroup( "Necrotis:StrangePlants", group1 );
 			RecipeGroup.RegisterGroup( "Necrotis:Tombstones", group2 );
 			RecipeGroup.RegisterGroup( "Necrotis:Vases", group3 );
-			RecipeGroup.RegisterGroup( "Necrotis:EvilBiomeLightPet", group4 );
+			RecipeGroup.RegisterGroup( "Necrotis:EvilBiomeLightPets", group4 );
+			RecipeGroup.RegisterGroup( "Necrotis:Critters", group5 );
 		}
 	}
 }

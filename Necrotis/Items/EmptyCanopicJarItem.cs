@@ -15,11 +15,13 @@ namespace Necrotis.Items {
 		}
 
 		public override void SetDefaults() {
+			this.item.useStyle = ItemUseStyleID.EatingUsing;
+			this.item.useTurn = true;
+			this.item.useAnimation = 17;
+			this.item.useTime = 17;
 			this.item.width = 12;
 			this.item.height = 16;
 			this.item.maxStack = 1;
-			this.item.useTime = 10;
-			this.item.useStyle = ItemUseStyleID.SwingThrow;
 			this.item.consumable = true;
 			this.item.value = Item.buyPrice( 0, 25, 0, 0 );
 			this.item.rare = ItemRarityID.Orange;
@@ -28,19 +30,30 @@ namespace Necrotis.Items {
 		////
 
 		public override void AddRecipes() {
-			var config = NecrotisConfig.Instance;
-			if( !config.Get<bool>(nameof(config.CanopicJarRecipeEnabled)) ) {
-				return;
-			}
-
-			var recipe = new ModRecipe( this.mod );
-			recipe.AddRecipeGroup( "Necrotis:Vases", 1 );
-			recipe.AddRecipeGroup( "Necrotis:Tombstones", 1 );
-			recipe.AddRecipeGroup( "Necrotis:EvilBiomeLightPet", 1 );
-			recipe.AddIngredient( ItemID.Bone, 10 );
-			recipe.AddIngredient( ItemID.WaterCandle, 1 );
-			recipe.SetResult( this );
+			var recipe = new EmptyCanopicJarItemRecipe( this );
 			recipe.AddRecipe();
+		}
+	}
+
+
+
+
+	class EmptyCanopicJarItemRecipe : ModRecipe {
+		public EmptyCanopicJarItemRecipe( EmptyCanopicJarItem myitem ) : base( myitem.mod ) {
+			this.AddTile( TileID.DemonAltar );
+
+			this.AddRecipeGroup( "Necrotis:Vases", 1 );
+			this.AddRecipeGroup( "Necrotis:Tombstones", 1 );
+			this.AddRecipeGroup( "Necrotis:EvilBiomeLightPets", 1 );
+			this.AddIngredient( ItemID.Bone, 10 );
+			this.AddIngredient( ItemID.WaterCandle, 1 );
+
+			this.SetResult( myitem );
+		}
+
+		public override bool RecipeAvailable() {
+			var config = NecrotisConfig.Instance;
+			return config.Get<bool>(nameof(config.CanopicJarRecipeEnabled));
 		}
 	}
 }

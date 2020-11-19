@@ -19,7 +19,7 @@ namespace Necrotis.Buffs {
 			this.DisplayName.SetDefault( "Enlivened" );
 			this.Description.SetDefault(
 				"You feel strangely lively"
-				+ "\n" + "Max speed increased 15%"
+				+ "\nMax speed increased 15%"
 			);
 
 			Main.debuff[this.Type] = false;

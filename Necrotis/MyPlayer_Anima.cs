@@ -56,6 +56,10 @@ namespace Necrotis {
 		////////////////
 		
 		public void SubtractAnimaPercent( float percentLost, bool quiet, bool sync ) {
+			if( percentLost == 0 ) {
+				return;
+			}
+
 			float old = this.AnimaPercent;
 
 			/*// If afflicted

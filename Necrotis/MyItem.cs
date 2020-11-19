@@ -15,16 +15,27 @@ namespace Necrotis {
 
 
 		public override void ModifyTooltips( Item item, List<TooltipLine> tooltips ) {
-			if( item.type != ItemID.Ectoplasm ) {
-				return;
-			}
+			TooltipLine tip;
 
-			var tip = new TooltipLine(
-				this.mod,
-				"NecrotisEctoplasmTip",
-				"[c/FFFF88Necrotis]: Consume to restore full anima (necrotis resist %)"
-			);
-			tooltips.Add( tip );
+			switch( item.type ) {
+			case ItemID.Ectoplasm:
+				tip = new TooltipLine(
+					this.mod,
+					"NecrotisEctoplasmTip",
+					"[c/FFFF88Necrotis]: Consume to restore full anima (necrotis resist %)"
+				);
+				tooltips.Add( tip );
+				break;
+			case ItemID.ShinePotion:
+			case ItemID.GoldCoin:
+				tip = new TooltipLine(
+					this.mod,
+					"NecrotisEctoplasmTip",
+					"[c/FFFF88Necrotis]: New recipe available!"
+				);
+				tooltips.Add( tip );
+				break;
+			}
 		}
 
 

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.World;
+using Necrotis.Buffs;
 
 
 namespace Necrotis {
@@ -13,6 +14,7 @@ namespace Necrotis {
 			int tileX = (int)plr.position.X / 16;
 			int tileY = (int)plr.position.Y / 16;
 			bool isTown = plr.townNPCs > 1f && !Main.bloodMoon && !Main.eclipse;
+			bool isElixired = player.HasBuff( ModContent.BuffType<ElixirBuff>() );
 
 			//
 
@@ -21,12 +23,19 @@ namespace Necrotis {
 			//
 
 			void reduceAnima( float amt, string ctx ) {
+				// Town
 				if( amt > 0f && isTown ) {
 					return;
 				}
+
+				// Elixer
+				if( amt > 0f && isElixired ) {
+					amt *= config.Get<float>( nameof(config.ElixirAnimaDrainMultiplier) );
+				}
+
 				this.SubtractAnimaPercent( amt, false, false );
 
-				if( config.DebugModeInfo ) {
+				if( amt != 0 && config.DebugModeInfo ) {
 					DebugHelpers.Print( ctx, amt.ToString("F6") );
 				}
 			}

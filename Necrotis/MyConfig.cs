@@ -173,7 +173,20 @@ namespace Necrotis {
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float WitchDoctorHealCostPerPercent { get; set; } = 100f;
 
+
+		////
+
 		[DefaultValue( true )]
 		public bool CanopicJarRecipeEnabled { get; set; } = true;
+
+
+		////
+
+		[DefaultValue( true )]
+		public bool ElixirRecipeEnabled { get; set; } = true;
+
+		[Range( 0f, 1f )]
+		[DefaultValue( 0f )]
+		public float ElixirAnimaDrainMultiplier { get; set; } = 0f;
 	}
 }
