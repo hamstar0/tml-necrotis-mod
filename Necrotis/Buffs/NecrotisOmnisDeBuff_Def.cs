@@ -1,17 +1,17 @@
-﻿using HamstarHelpers.Services.Timers;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
+using HamstarHelpers.Services.Timers;
 
 
 namespace Necrotis.Buffs {
-	partial class NecrotisDeBuff : ModBuff {
+	partial class NecrotisOmnisDeBuff : ModBuff {
 		public override void SetDefaults() {
-			this.DisplayName.SetDefault( "Necrotis" );
+			this.DisplayName.SetDefault( "Necrotis Omnis" );
 			this.Description.SetDefault(
 				"You feel horriby drained"
 				+ "\n" + "Reduces max life, speed, life regen"
+				+ "\n" + "You are now being stalked by a shadow when in deep places"
 			);
 
 			Main.debuff[this.Type] = true;
@@ -32,17 +32,17 @@ namespace Necrotis.Buffs {
 		}
 
 		private void UpdateNecrotisBehaviors( Player player, float necrotisPercent ) {
-			NecrotisDeBuff.ApplyPlayerMovementBehaviors( player, necrotisPercent );
-			NecrotisDeBuff.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
-			NecrotisDeBuff.ApplyPlayerHealthBehaviors( player, necrotisPercent );
-			NecrotisDeBuff.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
+			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, necrotisPercent );
+			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
+			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, necrotisPercent );
+			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
 
 			if( necrotisPercent >= 1f ) {
-				string timerName = "NecrotisDeBuff_" + player.whoAmI;
+				string timerName = "NecrotisOmnisDeBuff_" + player.whoAmI;
 
 				if( Timers.GetTimerTickDuration(timerName) == 0 ) {
 					Timers.SetTimer( timerName, 5, false, () => {
-						NecrotisDeBuff.ApplyWorldBehaviors( player, necrotisPercent );
+						NecrotisBehavior.ApplyWorldBehaviorsOn5TickIntervals( player, necrotisPercent );
 
 						return necrotisPercent >= 1f;
 					} );

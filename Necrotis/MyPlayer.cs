@@ -57,7 +57,7 @@ namespace Necrotis {
 		public override void UpdateLifeRegen() {
 			float necPerc = this.NecrotisPercent;
 			if( necPerc > 0f ) {
-				NecrotisDeBuff.ApplyPlayerLifeRegenBehaviors( this.player, necPerc );
+				NecrotisBehavior.ApplyPlayerLifeRegenBehaviors( this.player, necPerc );
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace Necrotis {
 		public override void DrawEffects( PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright ) {
 			float necPerc = this.NecrotisPercent;
 			if( necPerc > 0f ) {
-				NecrotisDeBuff.ApplyVisualFX( this.player, ref r, ref g, ref b );
+				NecrotisBehavior.ApplyVisualFX( this.player, ref r, ref g, ref b );
 			}
 		}
 	}
