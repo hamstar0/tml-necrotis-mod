@@ -1,7 +1,6 @@
 ﻿using System;
 using Terraria;
 using Terraria.ModLoader;
-using HamstarHelpers.Services.Timers;
 
 
 namespace Necrotis.Buffs {
@@ -9,7 +8,7 @@ namespace Necrotis.Buffs {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis Natus" );
 			this.Description.SetDefault(
-				"You begin feel horriby drained"
+				"You begin feeling horriby drained"
 				+ "\n" + "Reduces max life, speed, life regen"
 			);
 
@@ -25,9 +24,7 @@ namespace Necrotis.Buffs {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			float necrotisPercent = myplayer.NecrotisPercent;
 
-			if( necrotisPercent > 0f ) {
-				this.UpdateNecrotisBehaviors( player, necrotisPercent );
-			}
+			this.UpdateNecrotisBehaviors( player, necrotisPercent );
 		}
 
 		private void UpdateNecrotisBehaviors( Player player, float necrotisPercent ) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Services.Timers;
 
@@ -23,30 +24,30 @@ namespace Necrotis.Buffs {
 		////////////////
 
 		public override void Update( Player player, ref int buffIndex ) {
-			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			float necrotisPercent = myplayer.NecrotisPercent;
-
-			if( necrotisPercent > 0f ) {
-				this.UpdateNecrotisBehaviors( player, necrotisPercent );
-			}
+			this.UpdateBehaviors( player );
 		}
 
-		private void UpdateNecrotisBehaviors( Player player, float necrotisPercent ) {
-			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, necrotisPercent );
-			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
-			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, necrotisPercent );
-			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
+		private void UpdateBehaviors( Player player ) {
+			player.AddBuff( BuffID.ChaosState, 2 );
 
-			if( necrotisPercent >= 1f ) {
-				string timerName = "NecrotisOmnisDeBuff_" + player.whoAmI;
+			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, 1f );
+			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, 1f );
+			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, 1f );
+			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, 1f );
 
-				if( Timers.GetTimerTickDuration(timerName) == 0 ) {
-					Timers.SetTimer( timerName, 5, false, () => {
-						NecrotisBehavior.ApplyWorldBehaviorsOn5TickIntervals( player, necrotisPercent );
+			string timerName = "NecrotisOmnisDeBuff_" + player.whoAmI;
 
-						return necrotisPercent >= 1f;
-					} );
-				}
+			if( Timers.GetTimerTickDuration(timerName) == 0 ) {
+				Timers.SetTimer( timerName, 5, false, () => {
+					var myplayer = player.GetModPlayer<NecrotisPlayer>();
+
+					if( myplayer.NecrotisPercent >= 1f ) {
+						NecrotisBehavior.ApplyWorldBehaviorsOn5TickIntervals( player, 1f );
+						return true;
+					} else {
+						return false;
+					}
+				} );
 			}
 		}
 	}
