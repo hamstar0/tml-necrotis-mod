@@ -6,7 +6,7 @@ using Necrotis.Buffs;
 
 
 namespace Necrotis.Items {
-	class ElixirOfLifeItem : ModItem {
+	public class ElixirOfLifeItem : ModItem {
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Elixir of Life" );
 			this.Tooltip.SetDefault( "Removes all common afflictions, restores all health, and protects against anima loss for a while." );

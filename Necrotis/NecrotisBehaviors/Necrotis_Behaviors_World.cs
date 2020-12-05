@@ -3,7 +3,7 @@ using Terraria;
 using CursedBrambles;
 
 
-namespace Necrotis.Buffs {
+namespace Necrotis.NecrotisBehaviors {
 	partial class NecrotisBehavior {
 		internal static void ApplyWorldBehaviorsOn5TickIntervals( Player player, float necrotisPercent ) {
 			if( necrotisPercent >= 1f ) {

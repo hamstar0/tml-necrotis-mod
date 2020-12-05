@@ -3,10 +3,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Services.Timers;
+using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis.Buffs {
-	partial class NecrotisOmnisDeBuff : ModBuff {
+	public partial class NecrotisOmnisDeBuff : ModBuff {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis Omnis" );
 			this.Description.SetDefault(

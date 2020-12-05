@@ -1,10 +1,11 @@
 ﻿using System;
 using Terraria;
 using Terraria.ModLoader;
+using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis.Buffs {
-	partial class NecrotisNatusDeBuff : ModBuff {
+	public partial class NecrotisNatusDeBuff : ModBuff {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis Natus" );
 			this.Description.SetDefault(

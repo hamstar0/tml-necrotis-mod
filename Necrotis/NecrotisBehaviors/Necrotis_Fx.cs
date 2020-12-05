@@ -2,7 +2,7 @@
 using Terraria;
 
 
-namespace Necrotis.Buffs {
+namespace Necrotis.NecrotisBehaviors {
 	partial class NecrotisBehavior {
 		public static void ApplyVisualFX( Player player, ref float r, ref float g, ref float b ) {
 			r *= 0.7f;

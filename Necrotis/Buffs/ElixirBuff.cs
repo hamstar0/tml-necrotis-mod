@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 
 
 namespace Necrotis.Buffs {
-	partial class ElixirBuff : ModBuff {
+	public partial class ElixirBuff : ModBuff {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Elixir" );
 			this.Description.SetDefault(

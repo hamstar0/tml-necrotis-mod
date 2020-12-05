@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace Necrotis.Items {
-	class EmptyCanopicJarItem : ModItem {
+	public class EmptyCanopicJarItem : ModItem {
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Canopic Jar (Empty)" );
 			this.Tooltip.SetDefault(

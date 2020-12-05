@@ -1,10 +1,9 @@
 ﻿using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 
-namespace Necrotis.Buffs {
+namespace Necrotis.NecrotisBehaviors {
 	partial class NecrotisBehavior {
 		internal static void ApplyPlayerMovementBehaviors( Player player, float necrotisPercent ) {
 			var config = NecrotisConfig.Instance;

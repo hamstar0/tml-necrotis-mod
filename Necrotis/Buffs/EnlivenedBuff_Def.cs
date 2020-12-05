@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 
 
 namespace Necrotis.Buffs {
-	partial class EnlivenedBuff : ModBuff {
+	public partial class EnlivenedBuff : ModBuff {
 		public static bool CanBuff( Player player, float animaPercent ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
 			return animaPercent >= config.EnlivenedAnimaPercentMinimum;
