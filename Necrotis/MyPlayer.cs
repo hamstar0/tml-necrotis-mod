@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using HamstarHelpers.Helpers.Debug;
-using Necrotis.Buffs;
 using Necrotis.Libraries.Services.FX;
+using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis {

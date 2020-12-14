@@ -16,7 +16,7 @@ namespace Necrotis.Buffs {
 				+ "\n" + "You are now being stalked by a shadow when in deep places"
 			);
 
-			Main.debuff[this.Type] = true;
+			Main.debuff[ this.Type ] = true;
 			//Main.buffNoTimeDisplay[this.Type] = true;
 			//Main.buffNoSave[this.Type] = true;
 		}
