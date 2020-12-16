@@ -19,10 +19,9 @@ namespace Necrotis.Items {
 			this.item.height = 16;
 			this.item.maxStack = 1;
 			this.item.useTurn = true;
-			//this.item.autoReuse = true;
+			this.item.useStyle = ItemUseStyleID.EatingUsing;
 			this.item.useAnimation = 15;
-			this.item.useTime = 10;
-			this.item.useStyle = ItemUseStyleID.SwingThrow;
+			this.item.useTime = 15;
 			this.item.consumable = true;
 			this.item.value = Item.buyPrice( 0, 20, 0, 0 );
 			//this.item.UseSound = SoundID.Item108;
@@ -33,9 +32,7 @@ namespace Necrotis.Items {
 		////
 
 		public override bool UseItem( Player player ) {
-			bool canUse = base.UseItem( player );
-
-			if( !canUse || player.HeldItem != this.item ) {
+			if( player.HeldItem != this.item ) {
 				return false;
 			}
 
@@ -44,14 +41,14 @@ namespace Necrotis.Items {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			myplayer.SubtractAnimaPercent( -ectoHealPerc, false, false );
 
-			var emptyJar = new Item();
-			emptyJar.SetDefaults( ModContent.ItemType<FilledCanopicJarItem>() );
-
-			player.inventory[player.selectedItem] = emptyJar;
+			int itemWho = Item.NewItem( player.position, ModContent.ItemType<EmptyCanopicJarItem>(), 1, false, 0, true );
+			if( Main.netMode == NetmodeID.MultiplayerClient ) {
+				NetMessage.SendData( MessageID.SyncItem, -1, -1, null, itemWho, 1f, 0f, 0f, 0, 0, 0 );
+			}
 
 			Main.PlaySound( SoundID.Drip, player.Center, 2 );
 
-			return canUse;
+			return false;
 		}
 	}
 }
