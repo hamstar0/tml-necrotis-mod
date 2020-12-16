@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using HamstarHelpers.Services.Timers;
 using HamstarHelpers.Helpers.Players;
 
+
 namespace Necrotis.Items {
 	public partial class DillutedEctoplasmItem : ModItem {
 		public override bool ItemSpace( Player player ) {
@@ -38,22 +39,43 @@ namespace Necrotis.Items {
 		}
 
 		public override bool OnPickup( Player player ) {
-			var config = NecrotisConfig.Instance;
-			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
+			if( !this.PickupIntoJarIf( player ) ) {
+				this.PickupWithHands( player );
+			}
 
-			if( player.HeldItem?.active != true || player.HeldItem.type != ModContent.ItemType<EmptyCanopicJarItem>() ) {
-				var filledJar = new Item();
-				filledJar.SetDefaults( ModContent.ItemType<FilledCanopicJarItem>() );
+			return false;
+		}
 
-				player.inventory[ player.selectedItem ] = filledJar;
-			} else {
-				var myplayer = player.GetModPlayer<NecrotisPlayer>();
-				myplayer.SubtractAnimaPercent( -percHeal, false, false );
+
+		////////////////
+
+		public bool PickupIntoJarIf( Player player ) {
+			int emptyJarType = ModContent.ItemType<EmptyCanopicJarItem>();
+
+			if( player.HeldItem?.active != true || player.HeldItem?.type != emptyJarType ) {
+				return false;
+			}
+
+			PlayerItemHelpers.RemoveInventoryItemQuantity( player, 1, emptyJarType );
+
+			int itemWho = Item.NewItem( player.position, ModContent.ItemType<FilledCanopicJarItem>(), 1, false, 0, true );
+			if( Main.netMode == NetmodeID.MultiplayerClient ) {
+				NetMessage.SendData( MessageID.SyncItem, -1, -1, null, itemWho, 1f, 0f, 0f, 0, 0, 0 );
 			}
 
 			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 
-			return false;
+			return true;
+		}
+
+		public void PickupWithHands( Player player ) {
+			var config = NecrotisConfig.Instance;
+			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
+
+			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+			myplayer.SubtractAnimaPercent( -percHeal, false, false );
+
+			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 		}
 	}
 }

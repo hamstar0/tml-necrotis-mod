@@ -23,7 +23,7 @@ namespace Necrotis.Items {
 			this.item.height = 16;
 			this.item.maxStack = 1;
 			this.item.consumable = true;
-			this.item.value = Item.buyPrice( 0, 25, 0, 0 );
+			this.item.value = Item.buyPrice( 0, 20, 0, 0 );
 			this.item.rare = ItemRarityID.Orange;
 		}
 

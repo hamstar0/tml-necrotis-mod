@@ -24,7 +24,7 @@ namespace Necrotis.Items {
 			this.item.useTime = 10;
 			this.item.useStyle = ItemUseStyleID.SwingThrow;
 			this.item.consumable = true;
-			this.item.value = Item.buyPrice( 0, 30, 0, 0 );
+			this.item.value = Item.buyPrice( 0, 20, 0, 0 );
 			//this.item.UseSound = SoundID.Item108;
 			this.item.rare = ItemRarityID.Orange;
 		}

@@ -22,7 +22,7 @@ namespace Necrotis {
 				tip = new TooltipLine(
 					this.mod,
 					"NecrotisEctoplasmTip",
-					"[c/FFFF88Necrotis]: Consume to restore full anima (necrotis resist %)"
+					"[c/FFFF88:Necrotis] Consume to restore full anima (necrotis resist %)"
 				);
 				tooltips.Add( tip );
 				break;
@@ -31,7 +31,7 @@ namespace Necrotis {
 				tip = new TooltipLine(
 					this.mod,
 					"NecrotisEctoplasmTip",
-					"[c/FFFF88Necrotis]: New recipe available!"
+					"[c/FFFF88:Necrotis] New recipe available!"
 				);
 				tooltips.Add( tip );
 				break;
