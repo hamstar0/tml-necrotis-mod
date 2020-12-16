@@ -29,8 +29,6 @@ namespace Necrotis.Buffs {
 		}
 
 		private void UpdateBehaviors( Player player ) {
-			player.AddBuff( BuffID.ChaosState, 2 );
-
 			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, 1f );
 			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, 1f );
 			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, 1f );
