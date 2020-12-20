@@ -1,8 +1,10 @@
 ﻿using System;
 using Terraria;
 using Terraria.ID;
+using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.Timers;
 using CursedBrambles;
+using Necrotis.Buffs;
 
 
 namespace Necrotis.NecrotisBehaviors {
@@ -20,9 +22,8 @@ namespace Necrotis.NecrotisBehaviors {
 
 			Timers.SetTimer( timerName, 5, false, () => {
 				var myplayer = player.GetModPlayer<NecrotisPlayer>();
-				bool hasFullNecrotis = myplayer.NecrotisPercent >= 1f;
 
-				if( hasFullNecrotis ) {
+				if( NecrotisOmnisDeBuff.CanBuff(player, myplayer.AnimaPercent) ) {
 					CursedBramblesAPI.SetPlayerToCreateBrambleWake( player, true, 64, 15 );
 					return true;
 				} else {

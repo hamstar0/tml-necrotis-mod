@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using HamstarHelpers.Helpers.Debug;
@@ -26,6 +27,13 @@ namespace Necrotis {
 
 		////////////////
 
+		public override void Initialize() {
+			this.AnimaPercent = 0f;
+			this.CurrentAnimaPercentChangeRate = 0f;
+		}
+
+		////
+
 		public override void Load( TagCompound tag ) {
 			if( !tag.ContainsKey( "anima_percent" ) ) {
 				return;
@@ -44,11 +52,15 @@ namespace Necrotis {
 		////////////////
 
 		public override void PreUpdate() {
-			CustomParticle.UpdateParticles();
+			if( this.player.whoAmI == Main.myPlayer ) {
+				CustomParticle.UpdateParticles();
+			}
 
-			this.UpdateAnimaStateForCurrentContext();
-			this.UpdateAnimaBehaviors();
+			if( !this.player.dead ) {
+				this.UpdateAnimaStateForCurrentContext();
+				this.UpdateAnimaBehaviors();
 //DebugHelpers.Print( "necrotis", "necrotis%: "+this.AnimaPercent.ToString("N2") );
+			}
 		}
 
 

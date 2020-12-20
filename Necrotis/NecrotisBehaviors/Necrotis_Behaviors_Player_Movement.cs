@@ -4,17 +4,19 @@ using Terraria;
 
 namespace Necrotis.NecrotisBehaviors {
 	partial class NecrotisBehavior {
-		internal static void ApplyPlayerMovementBehaviors( Player player, float necrotisPercent ) {
+		internal static void ApplyPlayerMovementBehaviors( Player player, float necrotisPercent, out float effectPercent ) {
 			var config = NecrotisConfig.Instance;
-
-			if( config.Get<bool>( nameof( config.DebuffReducesRunWalkSpeed ) ) ) {
-				float effectPercent = 1f - necrotisPercent;
-
-				NecrotisBehavior.ApplyPlayerMovementReductionBehaviors( player, effectPercent );
+			if( !config.Get<bool>( nameof(config.DebuffReducesRunWalkSpeed) ) ) {
+				effectPercent = 0f;
+				return;
 			}
+
+			effectPercent = 1f - necrotisPercent;
+
+			NecrotisBehavior.ApplyPlayerMovementReductionBehaviors( player, effectPercent );
 		}
 
-		internal static void ApplyPlayerMovementReductionBehaviors( Player player, float effectPercent ) {
+		internal static void ApplyPlayerMovementReductionBehaviors( Player player, float necrotisPercent ) {
 			var config = NecrotisConfig.Instance;
 			var afflictPercUntilLowMoveIf = config.Get<NullablePercent>( nameof(config.DebuffPercentUntilLowestMovement) );
 			var lowestMoveEffectPercentIf = config.Get<NullablePercent>( nameof(config.LowestPercentOfMovementProducedByDebuff) );
@@ -27,7 +29,7 @@ namespace Necrotis.NecrotisBehaviors {
 			float afflictPercUntilLowMove = afflictPercUntilLowMoveIf.Percent;
 			float lowestMoveEffectPercent = lowestMoveEffectPercentIf.Percent;
 
-			float moveEffectPercRange = ( effectPercent * (1f - afflictPercUntilLowMove) ) + afflictPercUntilLowMove;
+			float moveEffectPercRange = ( necrotisPercent * (1f - afflictPercUntilLowMove) ) + afflictPercUntilLowMove;
 
 			// Max effect amount
 			float moveEffectPercent = ( (1f - lowestMoveEffectPercent) * moveEffectPercRange ) + lowestMoveEffectPercent;

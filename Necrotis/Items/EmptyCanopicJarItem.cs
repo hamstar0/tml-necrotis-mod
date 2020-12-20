@@ -53,7 +53,7 @@ namespace Necrotis.Items {
 
 		public override bool RecipeAvailable() {
 			var config = NecrotisConfig.Instance;
-			return config.Get<bool>(nameof(config.CanopicJarRecipeEnabled));
+			return config.Get<bool>( nameof(config.CanopicJarRecipeEnabled) );
 		}
 	}
 }

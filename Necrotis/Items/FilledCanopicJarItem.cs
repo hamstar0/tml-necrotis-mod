@@ -31,11 +31,7 @@ namespace Necrotis.Items {
 
 		////
 
-		public override bool UseItem( Player player ) {
-			if( player.HeldItem != this.item ) {
-				return false;
-			}
-
+		public override void OnConsumeItem( Player player ) {
 			var config = NecrotisConfig.Instance;
 			float ectoHealPerc = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
@@ -47,8 +43,6 @@ namespace Necrotis.Items {
 			}
 
 			Main.PlaySound( SoundID.Drip, player.Center, 2 );
-
-			return false;
 		}
 	}
 }

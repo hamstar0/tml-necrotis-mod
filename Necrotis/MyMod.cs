@@ -40,32 +40,8 @@ namespace Necrotis {
 
 
 		public override void PostSetupContent() {
-			var potluckConfig = ModContent.GetInstance<PotLuckConfig>();
-			if( potluckConfig != null ) {
-				float ectoDropPerc = NecrotisConfig.Instance.Get<float>(
-					nameof(NecrotisConfig.DillutedEctoplasmPotDropChance)
-				);
-
-				potluckConfig.SetOverride(
-					nameof(PotLuckConfig.PotEntries),
-					new List<PotEntry> {
-						new PotEntry {
-							PercentChance = ectoDropPerc,
-							HardModeOnly = false,
-							IsSurface = true,
-							IsCaves = true,
-							IsUnderworld = true,
-							ItemDefs = new List<PotItemEntry> {
-								new PotItemEntry {
-									MinStack = 1,
-									MaxStack = 1,
-									ItemDef = new ItemDefinition( ModContent.ItemType<DillutedEctoplasmItem>() )
-								}
-							}
-						}
-					}
-				);
-			}
+			this.LoadPotLuckMod();
+			this.LoadCursedBramblesMod();
 		}
 
 
