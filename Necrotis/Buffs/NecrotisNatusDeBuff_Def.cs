@@ -6,6 +6,14 @@ using Necrotis.NecrotisBehaviors;
 
 namespace Necrotis.Buffs {
 	public partial class NecrotisNatusDeBuff : ModBuff {
+		public static bool CanBuff( Player player, float animaPercent ) {
+			return animaPercent > 0f && animaPercent <= 0.5f;
+		}
+
+
+
+		////////////////
+
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis Natus" );
 			this.Description.SetDefault(

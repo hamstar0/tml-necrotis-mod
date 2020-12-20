@@ -1,6 +1,5 @@
 ﻿using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Services.Timers;
 using Necrotis.NecrotisBehaviors;
@@ -8,6 +7,14 @@ using Necrotis.NecrotisBehaviors;
 
 namespace Necrotis.Buffs {
 	public partial class NecrotisOmnisDeBuff : ModBuff {
+		public static bool CanBuff( Player player, float animaPercent ) {
+			return animaPercent <= 0f;
+		}
+
+
+
+		////////////////
+
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis Omnis" );
 			this.Description.SetDefault(
@@ -33,21 +40,7 @@ namespace Necrotis.Buffs {
 			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, 1f );
 			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, 1f );
 			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, 1f );
-
-			string timerName = "NecrotisOmnisDeBuff_" + player.whoAmI;
-
-			if( Timers.GetTimerTickDuration(timerName) == 0 ) {
-				Timers.SetTimer( timerName, 5, false, () => {
-					var myplayer = player.GetModPlayer<NecrotisPlayer>();
-
-					if( myplayer.NecrotisPercent >= 1f ) {
-						NecrotisBehavior.ApplyWorldBehaviorsOn5TickIntervals( player, 1f );
-						return true;
-					} else {
-						return false;
-					}
-				} );
-			}
+			NecrotisBehavior.ApplyWorldBehaviors( player );
 		}
 	}
 }

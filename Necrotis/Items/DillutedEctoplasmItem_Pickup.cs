@@ -21,21 +21,20 @@ namespace Necrotis.Items {
 		public override bool CanPickup( Player player ) {
 			//return !player.HasBuff( BuffID.PotionSickness );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			//bool hasRoom = myplayer.AnimaPercent < 0.95f;
+			//bool hasRoom = myplayer.AnimaPercent < 1f;
 			bool isEmptyHanded = player.HeldItem?.active != true;
+			bool isHoldingJar = player.HeldItem?.type == ModContent.ItemType<EmptyCanopicJarItem>();
 
-			if( this.item.active && (this.item.Center - player.Center).LengthSquared() < 256f ) {
-				bool isHoldingJar = player.HeldItem?.active != true || player.HeldItem.type != ModContent.ItemType<EmptyCanopicJarItem>();
-
-				if( isHoldingJar || !isEmptyHanded ) {
-					if( Timers.GetTimerTickDuration( "NecrotisPickupAlert" ) <= 0 ) {
-						Main.NewText( "Only bare hands or canopic jars can interact with this.", Color.Yellow );
+			if( (this.item.Center - player.Center).LengthSquared() < 256f ) {	// 16 units from player center
+				if( !isEmptyHanded && !isHoldingJar ) {
+					if( Timers.GetTimerTickDuration("NecrotisPickupAlert") <= 0 ) {
+						Main.NewText( "Only bare hands or (empty) canopic jars can interact with this.", Color.Yellow );
 					}
 					Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 				}
 			}
 
-			return /*hasRoom &&*/ isEmptyHanded;
+			return isEmptyHanded || isHoldingJar;
 		}
 
 		public override bool OnPickup( Player player ) {

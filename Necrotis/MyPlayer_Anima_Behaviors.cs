@@ -1,22 +1,83 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using Necrotis.Buffs;
+using Necrotis.Net;
 
 
 namespace Necrotis {
 	partial class NecrotisPlayer : ModPlayer {
 		private void UpdateAnimaBehaviors() {
-			if( this.NecrotisPercent > 0f ) {
-				if( this.NecrotisPercent < 1f ) {
-					this.player.AddBuff( ModContent.BuffType<NecrotisNatusDeBuff>(), 2 );
-				} else {
-					this.player.AddBuff( ModContent.BuffType<NecrotisOmnisDeBuff>(), 2 );
-				}
-			} else if( EnlivenedBuff.CanBuff( player, this.AnimaPercent ) ) {
-				this.player.AddBuff( ModContent.BuffType<EnlivenedBuff>(), 2 );
+			bool isNew = false;
+
+			if( EnlivenedBuff.CanBuff( this.player, this.AnimaPercent ) ) {
+				isNew = this.ApplyEnlivened();
+			} else if( NecrotisNatusDeBuff.CanBuff( this.player, this.AnimaPercent ) ) {
+				isNew = this.ApplyNecrotisNatus();
+			} else if( NecrotisOmnisDeBuff.CanBuff( this.player, this.AnimaPercent ) ) {
+				isNew = this.ApplyNecrotisOmnis();
 			}
+
+			if( isNew ) {
+				if( Main.netMode == NetmodeID.MultiplayerClient ) {
+					PlayerAnimaSyncProtocol.Broadcast( this );
+				}
+			}
+		}
+
+
+		////
+
+		private bool ApplyEnlivened() {
+			int buffType = ModContent.BuffType<EnlivenedBuff>();
+			bool isNew = false;
+
+			if( Main.netMode != NetmodeID.Server ) {
+				isNew = !this.player.HasBuff( buffType );
+			}
+
+			this.player.AddBuff( buffType, 2 );
+
+			return isNew;
+		}
+
+		
+		private bool ApplyNecrotisNatus() {
+			int debuffType = ModContent.BuffType<NecrotisNatusDeBuff>();
+			bool isNew = false;
+
+			if( Main.netMode != NetmodeID.Server ) {
+				isNew = !this.player.HasBuff( debuffType );
+
+				if( isNew ) {
+					Main.NewText( "Your limbs begin feeling stiff.", Color.OrangeRed );
+				}
+			}
+
+			this.player.AddBuff( debuffType, 2 );
+
+			return isNew;
+		}
+
+
+		private bool ApplyNecrotisOmnis() {
+			int debuffType = ModContent.BuffType<NecrotisOmnisDeBuff>();
+			bool isNew = false;
+
+			if( Main.netMode != NetmodeID.Server ) {
+				isNew = !this.player.HasBuff( debuffType );
+
+				if( isNew ) {
+					Main.NewText( "Necrotis sets in. Darkness approaches...", Color.OrangeRed );
+				}
+			}
+
+			this.player.AddBuff( debuffType, 2 );
+
+			return isNew;
 		}
 	}
 }
