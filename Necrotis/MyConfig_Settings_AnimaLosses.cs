@@ -6,41 +6,41 @@ using Terraria.ModLoader.Config;
 namespace Necrotis {
 	public partial class NecrotisConfig : ModConfig {
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / ( 60f * 60f * -4f ) )]
+		[DefaultValue( -4f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SkyAnimaPercentLossPerTick { get; set; } = 1f / ( 60f * 60f * -4f ); // -4/m
+		public float SkyAnimaPercentLossPerTick { get; set; } = -4f / (60f * 60f * 10f);  // -4 per 10m
 
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / ( 60f * 60f * -10f ) )]
+		[DefaultValue( -5f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float BeachAnimaPercentLossPerTick { get; set; } = 1f / ( 60f * 60f * -10f );  // -10/m
+		public float BeachAnimaPercentLossPerTick { get; set; } = -5f / (60f * 60f * 10f);  // -5 per 10m
 
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * 4f) )]
+		[DefaultValue( 4f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float PlainCavesAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 4f);  // 4/m
-
+		public float PlainCavesAnimaPercentLossPerTick { get; set; } = 4f / (60f * 60f * 10f);  // 4 per 10m
+		
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * -4f) )]
+		[DefaultValue( -4f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HellAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * -4f);    // -4/m
+		public float HellAnimaPercentLossPerTick { get; set; } = -4f / (60f * 60f * 10f);  // -4 per 10m
 
 		//
 
 		[Range( -0.1f, 0.1f )]
 		[DefaultValue( 1f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DungeonAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 10f); // 10/m
+		public float DungeonAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 10f);  // 1 per 10m
 
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * 4f) )]
+		[DefaultValue( 4f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float CorruptionAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 4f);  // 4/m
+		public float CorruptionAnimaPercentLossPerTick { get; set; } = 4f / (60f * 60f * 10f);  // 4 per 10m
 
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * -1f) )]
+		[DefaultValue( -1f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HallowAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 6f);   // -1/m
+		public float HallowAnimaPercentLossPerTick { get; set; } = -1f / (60f * 60f * 10f);  // -1 per 10m
 
 		[Range( -0.1f, 0.1f )]
 		[DefaultValue( 0f )]
@@ -58,20 +58,20 @@ namespace Necrotis {
 		public float JungleAnimaPercentLossPerTick { get; set; } = 0f;  // 0/m
 
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * -1) )]
+		[DefaultValue( -1f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float ForestAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * -1f);  // -1/m
+		public float ForestAnimaPercentLossPerTick { get; set; } = -1f / (60f * 60f * 10f);  // -1 per 10m
 
 		//
 
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / ( 60f * 60f * -1 ) )]
+		[DefaultValue( 1f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float TownAnimaPercentLossPerTick { get; set; } = 1f / ( 60f * 60f * -1f );  // -1/m
+		public float TownAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 10f);  // 1 per 10m
 
 		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * 6f) )]
+		[DefaultValue( 6f / (60f * 60f * 10f) )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float NightOrEclipseAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 6f);	// 6/m
+		public float NightOrEclipseAnimaPercentLossPerTick { get; set; } = 6f / (60f * 60f * 10f);  // 6 per 10m
 	}
 }

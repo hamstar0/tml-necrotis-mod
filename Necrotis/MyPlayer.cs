@@ -57,7 +57,7 @@ namespace Necrotis {
 			}
 
 			if( !this.player.dead ) {
-				this.UpdateAnimaStateForCurrentContext();
+				this.UpdateAnimaState();
 				this.UpdateAnimaBehaviors();
 //DebugHelpers.Print( "necrotis", "necrotis%: "+this.AnimaPercent.ToString("N2") );
 			}
