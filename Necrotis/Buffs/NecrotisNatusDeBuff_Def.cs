@@ -21,6 +21,14 @@ namespace Necrotis.Buffs {
 
 		////////////////
 
+		private int LastRegenEffectPercOf100;
+		private int LastMovePercOf100;
+		private int LastMaxHpLost;
+
+
+
+		////////////////
+
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis Natus" );
 			this.Description.SetDefault( NecrotisNatusDeBuff.BaseDescription );
@@ -30,10 +38,20 @@ namespace Necrotis.Buffs {
 			//Main.buffNoSave[this.Type] = true;
 		}
 
+		public override void ModifyBuffTip( ref string tip, ref int rare ) {
+			Player plr = Main.LocalPlayer;
+			tip =NecrotisNatusDeBuff.BaseDescription
+				+ "\n" + "Max health reduced to "+plr.statLifeMax2+" (of "+(plr.statLifeMax2 + this.LastMaxHpLost)+")"
+				+ "\n" + "Health regeneration reduced to "+this.LastRegenEffectPercOf100+"%"
+				+ "\n" + "Movement speed reduced to "+this.LastMovePercOf100+"%";
+		}
+
 
 		////////////////
 
 		public override void Update( Player player, ref int buffIndex ) {
+			if( player.dead ) { return; }
+
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			float necrotisPercent = myplayer.NecrotisPercent;
 
@@ -43,17 +61,11 @@ namespace Necrotis.Buffs {
 		private void UpdateNecrotisBehaviors( Player player, float necrotisPercent ) {
 			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, necrotisPercent, out float movePercent );
 			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
-			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, necrotisPercent, out int maxHpLost );
+			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, necrotisPercent, out this.LastMaxHpLost );
 			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
 
-			int regenEffectPercOf100 = (int)((1f - necrotisPercent) * 100f);
-			int movePercOf100 = (int)(movePercent * 100f);
-
-			this.Description.SetDefault( NecrotisNatusDeBuff.BaseDescription
-				+ "\n" + "Max health reduced to "+player.statLifeMax2+" (of "+(player.statLifeMax2 + maxHpLost)+")"
-				+ "\n" + "Health regeneration reduced to "+regenEffectPercOf100+"%"
-				+ "\n" + "Movement speed reduced to "+movePercOf100+"%"
-			);
+			this.LastRegenEffectPercOf100 = (int)((1f - necrotisPercent) * 100f);
+			this.LastMovePercOf100 = (int)(movePercent * 100f);
 		}
 	}
 }

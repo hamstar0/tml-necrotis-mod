@@ -22,6 +22,13 @@ namespace Necrotis.Buffs {
 
 		////////////////
 
+		private int LastMovePercOf100;
+		private int LastMaxHpLost;
+
+
+
+		////////////////
+
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Necrotis Omnis" );
 			this.Description.SetDefault( NecrotisOmnisDeBuff.BaseDescription );
@@ -29,6 +36,14 @@ namespace Necrotis.Buffs {
 			Main.debuff[ this.Type ] = true;
 			//Main.buffNoTimeDisplay[this.Type] = true;
 			//Main.buffNoSave[this.Type] = true;
+		}
+
+		public override void ModifyBuffTip( ref string tip, ref int rare ) {
+			Player plr = Main.LocalPlayer;
+			tip = NecrotisOmnisDeBuff.BaseDescription
+				+ "\n" + "Max health reduced to " + plr.statLifeMax2 + " (of " + (plr.statLifeMax2 + this.LastMaxHpLost) + ")"
+				+ "\n" + "Health regeneration reduced to 0%"
+				+ "\n" + "Movement speed reduced to " + this.LastMovePercOf100 + "%";
 		}
 
 
@@ -39,19 +54,15 @@ namespace Necrotis.Buffs {
 		}
 
 		private void UpdateBehaviors( Player player ) {
+			if( player.dead ) { return; }
+
 			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, 1f, out float movePercent );
 			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, 1f );
-			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, 1f, out int maxHpLost );
+			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, 1f, out this.LastMaxHpLost );
 			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, 1f );
 			NecrotisBehavior.ApplyWorldBehaviors( player );
 
-			int movePercOf100 = (int)( movePercent * 100f );
-
-			this.Description.SetDefault( NecrotisOmnisDeBuff.BaseDescription
-				+ "\n" + "Max health reduced to " + player.statLifeMax2 + " (of " + (player.statLifeMax2 + maxHpLost) + ")"
-				+ "\n" + "Health regeneration reduced to 0%"
-				+ "\n" + "Movement speed reduced to " + movePercOf100 + "%"
-			);
+			this.LastMovePercOf100 = (int)( movePercent * 100f );
 		}
 	}
 }

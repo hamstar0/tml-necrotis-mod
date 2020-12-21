@@ -23,13 +23,12 @@ namespace Necrotis.NecrotisBehaviors {
 			Timers.SetTimer( timerName, 5, false, () => {
 				var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
-				if( NecrotisOmnisDeBuff.CanBuff(player, myplayer.AnimaPercent) ) {
+				if( !player.dead && NecrotisOmnisDeBuff.CanBuff(player, myplayer.AnimaPercent) ) {
 					CursedBramblesAPI.SetPlayerToCreateBrambleWake( player, true, 64, 15 );
-					return true;
 				} else {
 					CursedBramblesAPI.UnsetPlayerBrambleWakeCreating( player );
-					return false;
 				}
+				return false;
 			} );
 		}
 	}

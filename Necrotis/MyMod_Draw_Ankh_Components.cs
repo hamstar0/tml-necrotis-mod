@@ -115,7 +115,7 @@ namespace Necrotis {
 						CustomParticle.Create(
 							isInWorld: false,
 							pos: newPos,
-							tickDuration: 60 * 3,
+							tickDuration: 60 * 4,
 							color: Color.Gold,
 							scale: 2f,
 							sprayAmt: 0f,
