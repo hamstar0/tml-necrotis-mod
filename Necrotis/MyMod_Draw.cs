@@ -52,10 +52,6 @@ namespace Necrotis {
 		////////////////
 
 		public override void ModifyInterfaceLayers( List<GameInterfaceLayer> layers ) {
-			if( Main.playerInventory ) {
-				return;
-			}
-
 			int barsIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Resource Bars" ) );
 			if( barsIdx == -1 ) {
 				return;
@@ -75,7 +71,6 @@ namespace Necrotis {
 
 			bool DrawAnkh() {
 				var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-
 				this.DrawHUDAnkh( myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
 				return true;
 			};

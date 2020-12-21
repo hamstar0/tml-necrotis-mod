@@ -17,12 +17,20 @@ namespace Necrotis {
 		[DefaultValue( 30 )]
 		public int AnkhScreenPositionY { get; set; } = 30;
 
+		[Range( -4096, 4096 )]
+		[DefaultValue( -448 )]
+		public int AnkhInvScreenPositionX { get; set; } = -448;
+
+		[Range( -1024, 1024 )]
+		[DefaultValue( 30 )]
+		public int AnkhInvScreenPositionY { get; set; } = 30;
+
 
 		////
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 1f / 10f )]
-		public float DillutedEctoplasmPotDropChance { get; set; } = 1f / 10f;
+		[DefaultValue( 1f / 7f )]
+		public float DillutedEctoplasmPotDropChance { get; set; } = 1f / 7f;
 
 		[ReloadRequired]
 		public bool DillutedEctoplasmRecipeEnabled { get; set; } = false;

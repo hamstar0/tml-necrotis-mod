@@ -7,7 +7,6 @@ using Terraria.ID;
 using Terraria.GameInput;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using Terraria.UI.Gamepad;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.Items;

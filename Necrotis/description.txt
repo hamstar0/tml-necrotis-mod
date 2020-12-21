@@ -2,3 +2,4 @@ In this land of undeath and evil-tainted wilderness, you must find the means to 
 
 Credits:
 	Blasfah - Ankh sprite tweaks
+	Oli - "PreMultiplyTexture(Texture2D)"

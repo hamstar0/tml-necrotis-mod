@@ -9,10 +9,19 @@ namespace Necrotis {
 	public partial class NecrotisMod : Mod {
 		private void DrawHUDAnkh( float animaPercent, float animaChangeRate ) {
 			var config = NecrotisConfig.Instance;
-			var pos = new Vector2(
-				config.Get<int>( nameof( config.AnkhScreenPositionX ) ),
-				config.Get<int>( nameof( config.AnkhScreenPositionY ) )
-			);
+			Vector2 pos;
+
+			if( Main.playerInventory ) {
+				pos = new Vector2(
+					config.Get<int>( nameof( config.AnkhInvScreenPositionX ) ),
+					config.Get<int>( nameof( config.AnkhInvScreenPositionY ) )
+				);
+			} else {
+				pos = new Vector2(
+					config.Get<int>( nameof( config.AnkhScreenPositionX ) ),
+					config.Get<int>( nameof( config.AnkhScreenPositionY ) )
+				);
+			}
 
 			if( pos.X < 0 ) {
 				pos.X = Main.screenWidth + pos.X;

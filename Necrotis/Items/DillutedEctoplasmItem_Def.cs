@@ -1,3 +1,6 @@
+using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,26 +27,59 @@ namespace Necrotis.Items {
 
 		////////////////
 
+		 private double Animation = 0f;
+
+		public override bool PreDrawInWorld( SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI ) {
+			float amp = (float)Math.Sin( this.Animation );
+
+			scale = 0.8f + ( 0.3f * amp );
+
+			this.Animation += 1f / 60f;
+			this.Animation %= Math.PI;
+
+			Lighting.AddLight( this.item.Center, 0.5f*amp, 0.5f*amp, 0.325f*amp );
+
+			return base.PreDrawInWorld( sb, lightColor, alphaColor, ref rotation, ref scale, whoAmI );
+		}
+
+
+		////////////////
+
 		public override void AddRecipes() {
 			if( !NecrotisConfig.Instance.Get<bool>( nameof(NecrotisConfig.DillutedEctoplasmRecipeEnabled) ) ) {
 				return;
 			}
 
-			ModRecipe recipe1 = new ModRecipe( this.mod );
-			recipe1.AddIngredient( ItemID.Gel, 10 );
-			recipe1.AddRecipeGroup( "Necrotis:StrangePlants", 1 );
-			recipe1.AddRecipeGroup( "Necrotis:Tombstone", 1 );
-			recipe1.AddTile( TileID.Bottles );
-			recipe1.SetResult( this );
+			var recipe1 = new DillutedEctoplasmItemRecipe( this );
 			recipe1.AddRecipe();
-
-			ModRecipe recipe2 = new ModRecipe( this.mod );
-			recipe2.AddIngredient( ItemID.Gel, 10 );
-			recipe2.AddRecipeGroup( "Necrotis:StrangePlants", 1 );
-			recipe2.AddIngredient( ItemID.Bone, 1 );
-			recipe2.AddTile( TileID.Bottles );
-			recipe2.SetResult( this );
+			
+			var recipe2 = new DillutedEctoplasmItemRecipe( this, (ItemID.Bone, 1) );
 			recipe2.AddRecipe();
+		}
+	}
+
+
+
+
+	class DillutedEctoplasmItemRecipe : ModRecipe {
+		public DillutedEctoplasmItemRecipe( DillutedEctoplasmItem myitem, (int type, int stack)? altItem=null )
+					: base( myitem.mod ) {
+			this.AddTile( TileID.Bottles );
+
+			this.AddIngredient( ItemID.Gel, 10 );
+			this.AddRecipeGroup( "Necrotis:StrangePlants", 1 );
+			if( altItem.HasValue ) {
+				this.AddIngredient( altItem.Value.type, altItem.Value.stack );
+			} else {
+				this.AddRecipeGroup( "Necrotis:Tombstone", 1 );
+			}
+
+			this.SetResult( myitem );
+		}
+
+		public override bool RecipeAvailable() {
+			var config = NecrotisConfig.Instance;
+			return config.Get<bool>( nameof( config.DillutedEctoplasmRecipeEnabled ) );
 		}
 	}
 }

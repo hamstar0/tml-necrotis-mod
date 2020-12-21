@@ -13,7 +13,10 @@ namespace Necrotis {
 			Player plr = this.player;
 			int tileX = (int)plr.position.X / 16;
 			int tileY = (int)plr.position.Y / 16;
-			bool isTown = plr.townNPCs > 1f && !Main.bloodMoon && !Main.eclipse;
+
+			bool isTown = plr.townNPCs > 1f;
+			bool isUnsafe = !Main.bloodMoon && !Main.eclipse;
+			bool isBeach = tileX <= WorldHelpers.BeachWestTileX || tileX >= WorldHelpers.BeachEastTileX;
 			bool isElixired = player.HasBuff( ModContent.BuffType<ElixirBuff>() );
 
 			//
@@ -24,8 +27,8 @@ namespace Necrotis {
 
 			void reduceAnima( float amt, string ctx ) {
 				// Town
-				if( amt > 0f && isTown ) {
-					return;
+				if( amt > 0f && isTown && !isUnsafe ) {
+					amt = 0f;
 				}
 
 				// Elixer
@@ -36,7 +39,18 @@ namespace Necrotis {
 				this.SubtractAnimaPercent( amt, false, false );
 
 				if( amt != 0 && config.DebugModeInfo ) {
-					DebugHelpers.Print( ctx, amt.ToString("F6") );
+					if( isTown ) {
+						ctx += "_Town";
+						if( isUnsafe ) {
+							ctx += "Unsafe";
+						}
+					}
+					string amtStr = amt.ToString( "F6" );
+					if( isElixired ) {
+						amtStr += "e";
+					}
+
+					DebugHelpers.Print( ctx, amtStr );
 				}
 			}
 
@@ -87,58 +101,74 @@ namespace Necrotis {
 					reduceAnima( jungAfflict, "NecrotisCtx_UndJung" );
 					isOther = true;
 				}
-				// Empty
+				// Caves (default)
 				if( !isOther ) {
-					float undAfflict = config.Get<float>( nameof(NecrotisConfig.UndergroundAnimaPercentLossPerTick) );
-					reduceAnima( undAfflict, "NecrotisCtx_Und" );
+					float caveAfflict = config.Get<float>( nameof(NecrotisConfig.PlainCavesAnimaPercentLossPerTick) );
+					reduceAnima( caveAfflict, "NecrotisCtx_Und" );
 				}
 			}
 			//else if( yPos > (WorldHelpers.DirtLayerTopTileY << 4) ) {
 
 			// Surface
 			else if( tileY > WorldHelpers.SurfaceLayerTopTileY ) {
-				bool isBeach = tileX <= WorldHelpers.BeachWestTileX || tileX >= WorldHelpers.BeachEastTileX;
-
+				bool isOther = false;
 				// Beach
-				if( isBeach ) {
+				if( isBeach && tileY > WorldHelpers.SkyLayerBottomTileY ) {
 					float beaAfflict = config.Get<float>( nameof(NecrotisConfig.BeachAnimaPercentLossPerTick) );
 					reduceAnima( beaAfflict, "NecrotisCtx_Beach" );
+					isOther = true;
 				}
 				// Corruption/crimson
 				if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
 					float corrAfflict = config.Get<float>( nameof(NecrotisConfig.CorruptionAnimaPercentLossPerTick) );
 					reduceAnima( corrAfflict, "NecrotisCtx_Corr" );
+					isOther = true;
 				}
 				// Hallow
 				if( plr.ZoneHoly ) {
 					float hallAfflict = config.Get<float>( nameof(NecrotisConfig.HallowAnimaPercentLossPerTick) );
 					reduceAnima( hallAfflict, "NecrotisCtx_Hallow" );
+					isOther = true;
 				}
 				// Desert
 				if( !isBeach && plr.ZoneDesert ) {
 					float desAfflict = config.Get<float>( nameof(NecrotisConfig.DesertAnimaPercentLossPerTick) );
 					reduceAnima( desAfflict, "NecrotisCtx_Desert" );
+					isOther = true;
 				}
 				// Ice
 				if( plr.ZoneSnow ) {
 					float snowAfflict = config.Get<float>( nameof(NecrotisConfig.SnowAnimaPercentLossPerTick) );
 					reduceAnima( snowAfflict, "NecrotisCtx_Snow" );
+					isOther = true;
 				}
 				// Jungle
 				if( plr.ZoneJungle ) {
 					float jungAfflict = config.Get<float>( nameof(NecrotisConfig.JungleAnimaPercentLossPerTick) );
 					reduceAnima( jungAfflict, "NecrotisCtx_Jungle" );
+					isOther = true;
+				}
+				// Forest (default)
+				if( !isOther ) {
+					float forAfflict = config.Get<float>( nameof( NecrotisConfig.ForestAnimaPercentLossPerTick ) );
+					reduceAnima( forAfflict, "NecrotisCtx_Forest" );
 				}
 
 				// Night or Eclipse
-				if( !isTown && (!Main.dayTime || Main.eclipse) ) {
+				if( (!isTown || isUnsafe) && (!Main.dayTime || Main.eclipse) ) {
 					float nightAfflict = config.Get<float>( nameof(NecrotisConfig.NightOrEclipseAnimaPercentLossPerTick) );
 					reduceAnima( nightAfflict, "NecrotisCtx_Night" );
 				}
 			}
 
+			// Town (safe)
+			if( isTown && !isUnsafe ) {
+				float townAfflict = config.Get<float>( nameof(NecrotisConfig.TownAnimaPercentLossPerTick) );
+				reduceAnima( townAfflict, "NecrotisCtx_Town" );
+			}
+
 			// Sky
-			else if( tileY > WorldHelpers.SkyLayerTopTileY ) {
+			else if( tileY <= WorldHelpers.SkyLayerBottomTileY ) {
 				float skyAfflict = config.Get<float>( nameof(NecrotisConfig.SkyAnimaPercentLossPerTick) );
 				reduceAnima( skyAfflict, "NecrotisCtx_Sky" );
 			}
