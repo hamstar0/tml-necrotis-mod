@@ -67,5 +67,12 @@ namespace Necrotis {
 		[Range( 0f, 1f )]
 		[DefaultValue( 0f )]
 		public float ElixirAnimaDrainMultiplier { get; set; } = 0f;
+
+
+		////
+
+		[Range( 0f, 1f )]
+		[DefaultValue( 0.5f )]
+		public float RespawnMinimumAnima { get; set; } = 0.5f;
 	}
 }

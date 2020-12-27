@@ -51,6 +51,18 @@ namespace Necrotis {
 
 		////////////////
 
+		public override void OnRespawn( Player player ) {
+			var config = NecrotisConfig.Instance;
+			float minPerc = config.Get<float>( nameof(config.RespawnMinimumAnima) );
+
+			if( this.AnimaPercent < minPerc ) {
+				this.AnimaPercent = minPerc;
+			}
+		}
+
+
+		////////////////
+
 		public override void PreUpdate() {
 			if( this.player.whoAmI == Main.myPlayer ) {
 				CustomParticle.UpdateParticles();

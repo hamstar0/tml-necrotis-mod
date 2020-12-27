@@ -28,6 +28,14 @@ namespace Necrotis.Libraries.Services.FX {
 			CustomParticle.Particles.Add( particle );
 		}
 
+
+		public static void ClearAll() {
+			CustomParticle.Particles.Clear();
+		}
+
+
+		////////////////
+
 		internal static void UpdateParticles() {
 			int len = CustomParticle.Particles.Count;
 			for( int i=0; i<len; i++ ) {

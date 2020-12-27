@@ -3,10 +3,17 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
+using Necrotis.Libraries.Services.FX;
 
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
+		private bool WasInventory = false;
+
+
+
+		////////////////
+
 		private void DrawHUDAnkh( float animaPercent, float animaChangeRate ) {
 			var config = NecrotisConfig.Instance;
 			Vector2 pos;
@@ -21,6 +28,11 @@ namespace Necrotis {
 					config.Get<int>( nameof( config.AnkhScreenPositionX ) ),
 					config.Get<int>( nameof( config.AnkhScreenPositionY ) )
 				);
+			}
+
+			if( this.WasInventory != Main.playerInventory ) {
+				this.WasInventory = Main.playerInventory;
+				CustomParticle.ClearAll();
 			}
 
 			if( pos.X < 0 ) {

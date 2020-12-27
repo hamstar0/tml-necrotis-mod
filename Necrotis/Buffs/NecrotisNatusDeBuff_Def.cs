@@ -40,10 +40,14 @@ namespace Necrotis.Buffs {
 
 		public override void ModifyBuffTip( ref string tip, ref int rare ) {
 			Player plr = Main.LocalPlayer;
-			tip =NecrotisNatusDeBuff.BaseDescription
-				+ "\n" + "Max health reduced to "+plr.statLifeMax2+" (of "+(plr.statLifeMax2 + this.LastMaxHpLost)+")"
-				+ "\n" + "Health regeneration reduced to "+this.LastRegenEffectPercOf100+"%"
-				+ "\n" + "Movement speed reduced to "+this.LastMovePercOf100+"%";
+
+			tip = NecrotisNatusDeBuff.BaseDescription;
+			if( plr.statLifeMax > 100 ) {
+				int realMaxHp = plr.statLifeMax2 + this.LastMaxHpLost;
+				tip += "\n" + "Max health reduced to "+plr.statLifeMax2+" (of "+realMaxHp+")";
+			}
+			tip += "\n" + "Health regeneration reduced to "+this.LastRegenEffectPercOf100+"%";
+			tip += "\n" + "Movement speed reduced to "+this.LastMovePercOf100+"%";
 		}
 
 
