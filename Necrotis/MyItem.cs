@@ -15,6 +15,7 @@ namespace Necrotis {
 
 
 		public override void ModifyTooltips( Item item, List<TooltipLine> tooltips ) {
+			string modname = "[c/FFFF88:Necrotis] - ";
 			TooltipLine tip;
 
 			switch( item.type ) {
@@ -22,7 +23,7 @@ namespace Necrotis {
 				tip = new TooltipLine(
 					this.mod,
 					"NecrotisEctoplasmTip",
-					"[c/FFFF88:Necrotis] Consume to restore full anima (necrotis resist %)"
+					modname+"Consume to restore full anima (necrotis resist %)"
 				);
 				tooltips.Add( tip );
 				break;
@@ -31,7 +32,7 @@ namespace Necrotis {
 				tip = new TooltipLine(
 					this.mod,
 					"NecrotisEctoplasmTip",
-					"[c/FFFF88:Necrotis] New recipe available!"
+					modname+"New recipe available!"
 				);
 				tooltips.Add( tip );
 				break;
