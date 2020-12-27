@@ -45,7 +45,8 @@ namespace Necrotis {
 			if( cost == 0 ) {
 				color = Color.Gray;
 			} else {
-				label += " ("+ItemMoneyHelpers.RenderMoney(cost)+")";
+				string readCost = string.Join( " ", ItemMoneyHelpers.RenderMoneyDenominations(cost, true, false) );
+				label += " ("+readCost+")";
 
 				color = new Color(
 					Main.mouseTextColor,
