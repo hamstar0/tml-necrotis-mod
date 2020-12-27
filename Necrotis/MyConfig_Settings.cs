@@ -15,15 +15,15 @@ namespace Necrotis {
 
 		[Range( -1024, 1024 )]
 		[DefaultValue( 30 )]
-		public int AnkhScreenPositionY { get; set; } = 30;
+		public int AnkhScreenPositionY { get; set; } = 6;
 
 		[Range( -4096, 4096 )]
 		[DefaultValue( -448 )]
-		public int AnkhInvScreenPositionX { get; set; } = -488;
+		public int AnkhInvScreenPositionX { get; set; } = -512;
 
 		[Range( -1024, 1024 )]
 		[DefaultValue( 30 )]
-		public int AnkhInvScreenPositionY { get; set; } = 30;
+		public int AnkhInvScreenPositionY { get; set; } = 6;
 
 
 		////

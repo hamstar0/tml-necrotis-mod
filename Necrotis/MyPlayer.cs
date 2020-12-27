@@ -16,7 +16,7 @@ namespace Necrotis {
 
 		////
 
-		public float NecrotisPercent => Math.Max( 1f - (this.AnimaPercent * 2f), 0f );
+		public float NecrotisPercent => Math.Max( 1f - (this.AnimaPercent * 2f), 0f );	// below 50% anima
 
 
 		////
@@ -28,7 +28,7 @@ namespace Necrotis {
 		////////////////
 
 		public override void Initialize() {
-			this.AnimaPercent = 0f;
+			this.AnimaPercent = 0.51f;
 			this.CurrentAnimaPercentChangeRate = 0f;
 		}
 
