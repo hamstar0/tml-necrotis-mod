@@ -24,7 +24,7 @@ namespace Necrotis.NecrotisBehaviors {
 				var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
 				if( !player.dead && NecrotisOmnisDeBuff.CanBuff(player, myplayer.AnimaPercent) ) {
-					CursedBramblesAPI.SetPlayerToCreateBrambleWake( player, true, 64, 15 );
+					CursedBramblesAPI.SetPlayerToCreateBrambleWake( player, true, 64, 10 );
 				} else {
 					CursedBramblesAPI.UnsetPlayerBrambleWakeCreating( player );
 				}
