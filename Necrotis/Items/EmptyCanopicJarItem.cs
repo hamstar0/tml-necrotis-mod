@@ -21,9 +21,9 @@ namespace Necrotis.Items {
 			this.item.useTime = 17;
 			this.item.width = 12;
 			this.item.height = 16;
-			this.item.maxStack = 1;
+			this.item.maxStack = 10;
 			this.item.consumable = true;
-			this.item.value = Item.buyPrice( 0, 20, 0, 0 );
+			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
 			this.item.rare = ItemRarityID.Orange;
 		}
 

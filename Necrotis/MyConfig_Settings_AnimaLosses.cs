@@ -5,73 +5,81 @@ using Terraria.ModLoader.Config;
 
 namespace Necrotis {
 	public partial class NecrotisConfig : ModConfig {
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -2f / (60f * 60f * 10f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SkyAnimaPercentLossPerTick { get; set; } = -2f / (60f * 60f * 10f);  // -2 per 10m
+		public static float Convert10MinToTick( float val ) {
+			return val / (60f * 60f * 10f);
+		}
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -2.5f / (60f * 60f * 10f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float BeachAnimaPercentLossPerTick { get; set; } = -2.5f / (60f * 60f * 10f);  // -2.5f per 10m
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * 10f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float PlainCavesAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 10f);  // 1 per 10m
-		
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -1f / (60f * 60f * 10f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HellAnimaPercentLossPerTick { get; set; } = -1f / (60f * 60f * 10f);  // -1 per 10m
 
-		//
+		////////////////
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 4f / (60f * 60f * 10f) )]
+		[Range( -10f, 10f )]
+		[DefaultValue( -2f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DungeonAnimaPercentLossPerTick { get; set; } = 4f / (60f * 60f * 10f);  // 4 per 10m
+		public float SkyAnimaPercentLossPer10Min { get; set; } = -2f;
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 2f / (60f * 60f * 10f) )]
+		[Range( -10f, 10f )]
+		[DefaultValue( -2.5f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float CorruptionAnimaPercentLossPerTick { get; set; } = 2f / (60f * 60f * 10f);  // 2 per 10m
+		public float BeachAnimaPercentLossPer10Min { get; set; } = -2.5f;
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -1f / (60f * 60f * 10f) )]
+		[Range( -10f, 10f )]
+		[DefaultValue( 1f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HallowAnimaPercentLossPerTick { get; set; } = -1f / (60f * 60f * 10f);  // -1 per 10m
+		public float PlainCavesAnimaPercentLossPer10Min { get; set; } = 1f;
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -0.5f / (60f * 60f * 10f) )]
+		[Range( -10f, 10f )]
+		[DefaultValue( -5f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DesertAnimaPercentLossPerTick { get; set; } = -0.5f / (60f * 60f * 10f);  // -0.5 per 10m
-
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -0.5f / (60f * 60f * 10f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SnowAnimaPercentLossPerTick { get; set; } = -0.5f / (60f * 60f * 10f);  // -0.5 per 10m
-
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -0.5f / (60f * 60f * 10f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float JungleAnimaPercentLossPerTick { get; set; } = -0.5f / (60f * 60f * 10f);  // -0.5 per 10m
-
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -0.5f / (60f * 60f * 10f) )]
-		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float ForestAnimaPercentLossPerTick { get; set; } = -0.5f / (60f * 60f * 10f);  // -0.5 per 10m
+		public float HellAnimaPercentLossPer10Min { get; set; } = -5f;
 
 		//
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( -0.5f / (60f * 60f * 10f) )]
+		[Range( -10f, 10f )]
+		[DefaultValue( 3f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float TownAnimaPercentLossPerTick { get; set; } = -0.5f / (60f * 60f * 10f);  // -0.5 per 10m
+		public float DungeonAnimaPercentLossPer10Min { get; set; } = 3f;
 
-		[Range( -0.1f, 0.1f )]
-		[DefaultValue( 1f / (60f * 60f * 10f) )]
+		[Range( -10f, 10f )]
+		[DefaultValue( 1.5f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float NightOrEclipseAnimaPercentLossPerTick { get; set; } = 1f / (60f * 60f * 10f);  // 1 per 10m
+		public float CorruptionAnimaPercentLossPer10Min { get; set; } = 1.5f;
+
+		[Range( -10f, 10f )]
+		[DefaultValue( -1f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float HallowAnimaPercentLossPer10Min { get; set; } = -1f;
+
+		[Range( -10f, 10f )]
+		[DefaultValue( -0.5f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float DesertAnimaPercentLossPer10Min { get; set; } = -0.5f;
+
+		[Range( -10f, 10f )]
+		[DefaultValue( -0.5f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float SnowAnimaPercentLossPer10Min { get; set; } = -0.5f;
+
+		[Range( -10f, 10f )]
+		[DefaultValue( -0.5f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float JungleAnimaPercentLossPer10Min { get; set; } = -0.5f;
+
+		[Range( -10f, 10f )]
+		[DefaultValue( -0.5f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float ForestAnimaPercentLossPer10Min { get; set; } = -0.5f;
+
+		//
+
+		[Range( -10f, 10f )]
+		[DefaultValue( -0.5f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float TownAnimaPercentLossPerTick { get; set; } = -0.5f;
+
+		[Range( -10f, 10f )]
+		[DefaultValue( 1f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float NightOrEclipseAnimaPercentLossPerTick { get; set; } = 1f;
 	}
 }

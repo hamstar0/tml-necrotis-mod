@@ -38,7 +38,7 @@ namespace Necrotis.Items {
 		}
 
 		public override bool OnPickup( Player player ) {
-			if( !this.PickupIntoJarIf( player ) ) {
+			if( !this.PickupIntoJarIf(player, out bool isError) && !isError ) {
 				this.PickupWithHands( player );
 			}
 
@@ -48,14 +48,19 @@ namespace Necrotis.Items {
 
 		////////////////
 
-		public bool PickupIntoJarIf( Player player ) {
+		public bool PickupIntoJarIf( Player player, out bool isError ) {
 			int emptyJarType = ModContent.ItemType<EmptyCanopicJarItem>();
 
 			if( player.HeldItem?.active != true || player.HeldItem?.type != emptyJarType ) {
+				isError = false;
 				return false;
 			}
 
-			PlayerItemHelpers.RemoveInventoryItemQuantity( player, 1, emptyJarType );
+			if( PlayerItemHelpers.RemoveInventoryItemQuantity(player, emptyJarType, 1) == 0 ) {
+				Main.NewText( "Could not fill jar.", Color.Yellow );
+				isError = true;
+				return false;
+			}
 
 			int itemWho = Item.NewItem( player.position, ModContent.ItemType<FilledCanopicJarItem>(), 1, false, 0, true );
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
@@ -64,6 +69,7 @@ namespace Necrotis.Items {
 
 			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 
+			isError = false;
 			return true;
 		}
 

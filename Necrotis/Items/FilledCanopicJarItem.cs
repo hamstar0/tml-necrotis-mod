@@ -23,7 +23,9 @@ namespace Necrotis.Items {
 			this.item.useAnimation = 15;
 			this.item.useTime = 15;
 			this.item.consumable = true;
-			this.item.value = Item.buyPrice( 0, 20, 0, 0 );
+			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
+			this.item.healLife = 10;
+			this.item.healMana = 10;
 			//this.item.UseSound = SoundID.Item108;
 			this.item.rare = ItemRarityID.Orange;
 		}
@@ -31,10 +33,12 @@ namespace Necrotis.Items {
 
 		////
 
-		public override void OnConsumeItem( Player player ) {
+		//public override void OnConsumeItem( Player player ) {
+		public override bool UseItem( Player player ) {
 			var config = NecrotisConfig.Instance;
 			float ectoHealPerc = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+
 			myplayer.SubtractAnimaPercent( -ectoHealPerc, false, false );
 
 			int itemWho = Item.NewItem( player.position, ModContent.ItemType<EmptyCanopicJarItem>(), 1, false, 0, true );
@@ -43,6 +47,8 @@ namespace Necrotis.Items {
 			}
 
 			Main.PlaySound( SoundID.Drip, player.Center, 2 );
+
+			return base.UseItem( player );
 		}
 	}
 }
