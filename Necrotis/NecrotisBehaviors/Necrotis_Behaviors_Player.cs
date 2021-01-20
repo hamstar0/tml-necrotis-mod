@@ -5,6 +5,17 @@ using Terraria.ID;
 
 namespace Necrotis.NecrotisBehaviors {
 	partial class NecrotisBehavior {
+		public static void UpdateViewVisibilityScale( ref float scale, float necrotisPercent ) {
+			float lightPerc = Math.Max( 1f - necrotisPercent, 0f );
+			var config = NecrotisConfig.Instance;
+			float minLight = config.Get<float>( nameof(config.LowestPercentViewVisibilityFromDebuff) );
+
+			scale *= minLight + ((1f - minLight) * lightPerc);
+		}
+
+
+		////////////////
+
 		public static void ApplyPlayerLifeRegenBehaviors( Player player, float necrotisPercent ) {
 			float effectPerc = 1f - necrotisPercent;
 			player.lifeRegen = (int)((float)player.lifeRegen * effectPerc);
@@ -32,7 +43,7 @@ namespace Necrotis.NecrotisBehaviors {
 
 
 		////
-
+		
 		internal static void ApplyPlayerDebuffBehaviors( Player player, float necrotisPercent ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
 			var percBleed = config.Get<NullablePercent>( nameof(config.DebuffPercentBeforeBleeding) );
