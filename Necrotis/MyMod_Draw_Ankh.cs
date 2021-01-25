@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
@@ -14,7 +15,7 @@ namespace Necrotis {
 
 		////////////////
 
-		private void DrawHUDAnkh( float animaPercent, float animaChangeRate ) {
+		private void DrawHUDAnkh( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
 			var config = NecrotisConfig.Instance;
 			Vector2 pos;
 
@@ -50,8 +51,8 @@ namespace Necrotis {
 				height: necScroll
 			);
 
-			this.DrawHUDAnkhFX( pos, statSrcRect, animaChangeRate );
-			this.DrawHUDAnkhMain( pos, statSrcRect, animaPercent, animaChangeRate );
+			this.DrawHUDAnkhMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
+			this.DrawHUDAnkhFX( sb, pos, statSrcRect, animaChangeRate );
 		}
 
 		/*private void DrawAnkhHoverTooltipLayer() {

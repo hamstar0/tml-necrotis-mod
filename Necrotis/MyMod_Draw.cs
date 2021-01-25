@@ -27,6 +27,7 @@ namespace Necrotis {
 
 		////////////////
 
+		private Texture2D AnkhDripSource;
 		private Texture2D AnkhBgTex;
 		private Texture2D AnkhFgTex;
 		private Texture2D AnkhGlowTex;
@@ -38,12 +39,14 @@ namespace Necrotis {
 		////////////////
 
 		private void InitializeUI() {
+			this.AnkhDripSource = this.GetTexture( "UI/AnkhDripSource" );
 			this.AnkhBgTex = this.GetTexture( "UI/AnkhBG" );
 			this.AnkhFgTex = this.GetTexture( "UI/AnkhFG" );
 			this.AnkhGlowTex = this.GetTexture( "UI/AnkhGlow" );
 			this.AnkhUnglowTex = this.GetTexture( "UI/AnkhUnglow" );
 			this.AnkhOhmTex = this.GetTexture( "UI/AnkhOhm" );
 
+			NecrotisMod.PremultiplyTexture( this.AnkhDripSource );
 			NecrotisMod.PremultiplyTexture( this.AnkhGlowTex );
 			NecrotisMod.PremultiplyTexture( this.AnkhUnglowTex );
 		}
@@ -71,7 +74,7 @@ namespace Necrotis {
 
 			bool DrawAnkh() {
 				var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-				this.DrawHUDAnkh( myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
+				this.DrawHUDAnkh( Main.spriteBatch, myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
 				return true;
 			};
 

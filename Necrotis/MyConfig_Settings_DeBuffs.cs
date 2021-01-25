@@ -14,8 +14,8 @@ namespace Necrotis {
 		public NullablePercent LowestPercentOfJumpingProducedByDebuff { get; set; } = new NullablePercent( 0.75f );
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 0.25f )]
-		public float LowestPercentViewVisibilityFromDebuff { get; set; } = 0.25f;
+		[DefaultValue( 0.65f )]
+		public float LowestPercentViewVisibilityFromDebuff { get; set; } = 0.65f;
 
 
 		//

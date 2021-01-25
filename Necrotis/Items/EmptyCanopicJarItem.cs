@@ -8,9 +8,9 @@ namespace Necrotis.Items {
 	public class EmptyCanopicJarItem : ModItem {
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Canopic Jar (Empty)" );
-			this.Tooltip.SetDefault(
-				"Enchanted vessel for safely containing spiritual energies."
-				+"\nHold jar near wisps of soft ectoplasm to store for later use."
+			this.Tooltip.SetDefault( "Enchanted vessel for preserving mummified viscera of the dead"
+				+"\nAble to safely containing spiritual energies"
+				+"\nHold jar near wisps of soft ectoplasm to store for later use"
 			);
 		}
 

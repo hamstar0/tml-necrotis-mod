@@ -10,9 +10,12 @@ using Necrotis.Libraries.Services.FX;
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
-		private void DrawHUDAnkhMain( Vector2 pos, Rectangle srcRect, float animaPercent, float animaPercentChangeRate ) {
-			SpriteBatch sb = Main.spriteBatch;
-
+		private void DrawHUDAnkhMain(
+					SpriteBatch sb,
+					Vector2 pos,
+					Rectangle srcRect,
+					float animaPercent,
+					float animaPercentChangeRate ) {
 			if( animaPercent >= 0.9f ) {
 				var config = NecrotisConfig.Instance;
 				float minBuffPerc = config.Get<float>( nameof(config.EnlivenedAnimaPercentMinimum) );
@@ -82,50 +85,106 @@ namespace Necrotis {
 		}
 
 
-		private void DrawHUDAnkhFX( Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+		////////////////
+
+		private void DrawHUDAnkhFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+			if( Main.gamePaused ) {
+				return;
+			}
+
 			if( animaPercentChangeRate < 0f ) {
-//DebugHelpers.Print( "drain", "drain:" + (-animaPercentChangeRate * 1024f) );
-				if( Main.rand.NextFloat() < (-animaPercentChangeRate * 1024f) ) {
-					int duration = Main.rand.Next( 15, 60 );
-					var newPos = pos + new Vector2(
-						(float)innerSrcRect.Width * Main.rand.NextFloat(),
-						innerSrcRect.Y
-					);
-
-					if( !Main.gamePaused ) {
-						CustomParticle.Create(
-							isInWorld: false,
-							pos: newPos,
-							tickDuration: duration,
-							color: Color.Gold,
-							scale: 2f,
-							sprayAmt: 1f,
-							hasGravity: true
-						);
-					}
-				}
+				this.DrawHUDAnkhDrainFX( sb,  pos, innerSrcRect, animaPercentChangeRate );
 			} else if( animaPercentChangeRate > 0f ) {
-//DebugHelpers.Print( "gain", "gain:" + (-animaPercentChangeRate * 1024f) );
-				if( Main.rand.NextFloat() < (animaPercentChangeRate * 1024f) ) {
-					var newPos = pos;
-					newPos.X += (innerSrcRect.Width / 2) - 4;
-					newPos.X += Main.rand.Next( 8 );
-
-					if( !Main.gamePaused ) {
-						CustomParticle.Create(
-							isInWorld: false,
-							pos: newPos,
-							tickDuration: 60 * 4,
-							color: Color.Gold,
-							scale: 2f,
-							sprayAmt: 0f,
-							hasGravity: true
-						);
-					}
-				}
+				this.DrawHUDAnkhGainFX( sb, pos, innerSrcRect, animaPercentChangeRate );
 			}
 		}
 
+		
+		private void DrawHUDAnkhDrainFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+//DebugHelpers.Print( "drain", "drain:" + (-animaPercentChangeRate * 1024f) );
+			if( Main.rand.NextFloat() >= (-animaPercentChangeRate * 1024f) ) {
+				return;
+			}
+
+			int duration = Main.rand.Next( 15, 60 );
+			var newPos = pos + new Vector2(
+				(float)innerSrcRect.Width * Main.rand.NextFloat(),
+				innerSrcRect.Y
+			);
+
+			CustomParticle.Create(
+				isInWorld: false,
+				pos: newPos,
+				tickDuration: duration,
+				color: Color.Gold,
+				scale: 2f,
+				sprayAmt: 1f,
+				hasGravity: true
+			);
+		}
+
+		private void DrawHUDAnkhGainFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+			var srcPos = pos;
+			srcPos.X += innerSrcRect.Width / 2;
+			var origin = new Vector2( this.AnkhDripSource.Width / 2, this.AnkhDripSource.Height / 2 );
+
+			float flicker = 1f - (float)Math.Pow( Main.rand.NextFloat(), animaPercentChangeRate * 8192 );
+
+			sb.Draw(
+				texture: this.AnkhDripSource,
+				position: srcPos,
+				sourceRectangle: null,
+				color: Color.White,
+				rotation: 0f,
+				origin: origin,
+				scale: 0.5f,
+				effects: SpriteEffects.None,
+				layerDepth: 0f
+			);
+			sb.Draw(
+				texture: this.AnkhDripSource,
+				position: srcPos,
+				sourceRectangle: null,
+				color: Color.White * (0.25f + (0.5f * flicker)),
+				rotation: 0f,
+				origin: origin,
+				scale: 1f,
+				effects: SpriteEffects.None,
+				layerDepth: 0f
+			);
+			sb.Draw(
+				texture: this.AnkhDripSource,
+				position: srcPos,
+				sourceRectangle: null,
+				color: Color.White * flicker,
+				rotation: 0f,
+				origin: origin,
+				scale: 2f,
+				effects: SpriteEffects.None,
+				layerDepth: 0f
+			);
+
+//DebugHelpers.Print( "gain", "gain:" + (-animaPercentChangeRate * 1024f) );
+			if( Main.rand.NextFloat() >= (animaPercentChangeRate * 1024f) ) {
+				return;
+			}
+
+			var dripPos = srcPos;
+			dripPos.X += Main.rand.Next( 8 ) - 4;
+
+			CustomParticle.Create(
+				isInWorld: false,
+				pos: dripPos,
+				tickDuration: 60 * 4,
+				color: Color.Gold,
+				scale: 2f,
+				sprayAmt: 0f,
+				hasGravity: true
+			);
+		}
+
+
+		////////////////
 
 		/*private void DrawAnkhHoverTooltip( float animaPercent ) {
 			float percent = animaPercent * 100f;
