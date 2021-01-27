@@ -6,9 +6,9 @@ using Necrotis.NecrotisBehaviors;
 
 namespace Necrotis.Buffs {
 	public partial class NecrotisOmnisDeBuff : ModBuff {
-		private static string BaseDescription =
-				"You feel horriby drained"
-				+ "\n" + "You are now being stalked by a shadow when in deep places";
+		private static string BaseDescription = "You feel horriby drained"
+				+ "\n" + "Your anima is very low"
+				+ "\n" + "Beware the shadows of the depths";
 
 
 
@@ -22,7 +22,7 @@ namespace Necrotis.Buffs {
 
 		////////////////
 
-		private int LastMovePercOf100;
+		private float LastMovePercent;
 		private int LastMaxHpLost;
 
 
@@ -40,6 +40,11 @@ namespace Necrotis.Buffs {
 
 		public override void ModifyBuffTip( ref string tip, ref int rare ) {
 			Player plr = Main.LocalPlayer;
+			var myplayer = plr.GetModPlayer<NecrotisPlayer>();
+
+			float necrotisPercent = myplayer.NecrotisPercent;
+			int lastMovePercentOf100 = (int)( this.LastMovePercent * 100f );
+			float visibility = NecrotisBehavior.CalculateViewVisibilityScale( 1f );
 
 			tip = NecrotisOmnisDeBuff.BaseDescription;
 			if( plr.statLifeMax > 100 ) {
@@ -47,26 +52,17 @@ namespace Necrotis.Buffs {
 				tip += "\n"+"Max health reduced to "+plr.statLifeMax2+" (of "+realMaxHp+")";
 			}
 			tip += "\n"+"Health regeneration reduced to 0%";
-			tip += "\n"+"Movement speed reduced to "+this.LastMovePercOf100+"%";
+			tip += "\n"+"Movement speed reduced to "+lastMovePercentOf100+"%";
+			tip += "\n"+"Visibility reduced to "+(int)(visibility * 100f)+"%";
 		}
 
 
 		////////////////
 
 		public override void Update( Player player, ref int buffIndex ) {
-			this.UpdateBehaviors( player );
-		}
-
-		private void UpdateBehaviors( Player player ) {
-			if( player.dead ) { return; }
-
-			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, 1f, out float movePercent );
-			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, 1f );
-			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, 1f, out this.LastMaxHpLost );
-			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, 1f );
-			NecrotisBehavior.ApplyWorldBehaviors( player );
-
-			this.LastMovePercOf100 = (int)( movePercent * 100f );
+			if( !player.dead ) {
+				NecrotisBehavior.ApplyBehaviors( player, 1f, out this.LastMaxHpLost, out this.LastMovePercent );
+			}
 		}
 	}
 }

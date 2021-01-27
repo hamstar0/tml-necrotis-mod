@@ -5,12 +5,19 @@ using Terraria.ID;
 
 namespace Necrotis.NecrotisBehaviors {
 	partial class NecrotisBehavior {
-		public static void UpdateViewVisibilityScale( ref float scale, float necrotisPercent ) {
+		public static float CalculateViewVisibilityScale( float necrotisPercent ) {
 			float lightPerc = Math.Max( 1f - necrotisPercent, 0f );
 			var config = NecrotisConfig.Instance;
-			float minLight = config.Get<float>( nameof(config.LowestPercentViewVisibilityFromDebuff) );
+			float minLight = config.Get<float>( nameof( config.LowestPercentViewVisibilityFromDebuff ) );
 
-			scale *= minLight + ((1f - minLight) * lightPerc);
+			return minLight + ( ( 1f - minLight ) * lightPerc );
+		}
+
+
+		////////////////
+
+		public static void UpdateViewVisibilityScale( ref float visibility, float necrotisPercent ) {
+			visibility *= NecrotisBehavior.CalculateViewVisibilityScale( necrotisPercent );
 		}
 
 

@@ -68,6 +68,7 @@ namespace Necrotis.Items {
 			//this.AddIngredient( ItemID.Bottle, 1 );
 			this.AddIngredient( ItemID.ShinePotion, 1 );
 			this.AddIngredient( ItemID.GoldCoin, 1 );
+			this.AddIngredient( ItemID.BottledHoney, 1 );
 			this.AddRecipeGroup( "Necrotis:Critters", 3 );
 			
 			this.SetResult( myitem );

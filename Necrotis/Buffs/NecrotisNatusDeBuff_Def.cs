@@ -6,7 +6,8 @@ using Necrotis.NecrotisBehaviors;
 
 namespace Necrotis.Buffs {
 	public partial class NecrotisNatusDeBuff : ModBuff {
-		private static string BaseDescription = "You begin feeling horriby drained";
+		private static string BaseDescription = "You begin feeling horriby drained"
+				+ "\n" + "Your anima is getting low";
 				//+ "\n" + "Reduces max life, speed, life regen";
 
 
@@ -21,8 +22,7 @@ namespace Necrotis.Buffs {
 
 		////////////////
 
-		private int LastRegenEffectPercOf100;
-		private int LastMovePercOf100;
+		private float LastMovePercent;
 		private int LastMaxHpLost;
 
 
@@ -40,14 +40,21 @@ namespace Necrotis.Buffs {
 
 		public override void ModifyBuffTip( ref string tip, ref int rare ) {
 			Player plr = Main.LocalPlayer;
+			var myplayer = plr.GetModPlayer<NecrotisPlayer>();
+
+			float necrotisPercent = myplayer.NecrotisPercent;
+			int lastRegenEffectPercOf100 = (int)( (1f - necrotisPercent) * 100f );
+			int lastMovePercentOf100 = (int)( this.LastMovePercent * 100f );
+			float visibility = NecrotisBehavior.CalculateViewVisibilityScale( necrotisPercent );
 
 			tip = NecrotisNatusDeBuff.BaseDescription;
 			if( plr.statLifeMax > 100 ) {
 				int realMaxHp = plr.statLifeMax2 + this.LastMaxHpLost;
-				tip += "\n" + "Max health reduced to "+plr.statLifeMax2+" (of "+realMaxHp+")";
+				tip += "\n"+"Max health reduced to "+plr.statLifeMax2+" (of "+realMaxHp+")";
 			}
-			tip += "\n" + "Health regeneration reduced to "+this.LastRegenEffectPercOf100+"%";
-			tip += "\n" + "Movement speed reduced to "+this.LastMovePercOf100+"%";
+			tip += "\n"+"Health regeneration reduced to "+lastRegenEffectPercOf100+"%";
+			tip += "\n"+"Movement speed reduced to "+lastMovePercentOf100+"%";
+			tip += "\n"+"Visibility reduced to "+(int)(visibility * 100f)+"%";
 		}
 
 
@@ -59,17 +66,7 @@ namespace Necrotis.Buffs {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			float necrotisPercent = myplayer.NecrotisPercent;
 
-			this.UpdateNecrotisBehaviors( player, necrotisPercent );
-		}
-
-		private void UpdateNecrotisBehaviors( Player player, float necrotisPercent ) {
-			NecrotisBehavior.ApplyPlayerMovementBehaviors( player, necrotisPercent, out float movePercent );
-			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
-			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, necrotisPercent, out this.LastMaxHpLost );
-			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
-
-			this.LastRegenEffectPercOf100 = (int)((1f - necrotisPercent) * 100f);
-			this.LastMovePercOf100 = (int)(movePercent * 100f);
+			NecrotisBehavior.ApplyBehaviors( player, necrotisPercent, out this.LastMaxHpLost, out this.LastMovePercent );
 		}
 	}
 }
