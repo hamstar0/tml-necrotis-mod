@@ -16,7 +16,9 @@ namespace Necrotis {
 
 		////
 
-		public float NecrotisPercent => Math.Max( 1f - (this.AnimaPercent * 2f), 0f );	// below 50% anima
+		public float NecrotisPercent => Math.Max( 1f - (this.AnimaPercent * 2f), 0f );  // below 50% anima
+
+		public Vector2 AnkhHUDDisplayOffset { get; internal set; } = default;
 
 
 		////
@@ -35,16 +37,23 @@ namespace Necrotis {
 		////
 
 		public override void Load( TagCompound tag ) {
-			if( !tag.ContainsKey( "anima_percent" ) ) {
-				return;
+			if( tag.ContainsKey( "anima_percent" ) ) {
+				this.AnimaPercent = MathHelper.Clamp( tag.GetFloat("anima_percent"), 0f, 1f );
 			}
 
-			this.AnimaPercent = MathHelper.Clamp( tag.GetFloat("anima_percent"), 0f, 1f );
+			if( tag.ContainsKey( "ankh_offset_x" ) ) {
+				this.AnkhHUDDisplayOffset = new Vector2(
+					tag.GetInt( "ankh_offset_x" ),
+					tag.GetInt( "ankh_offset_y" )
+				);
+			}
 		}
 
 		public override TagCompound Save() {
 			return new TagCompound {
 				{ "anima_percent", this.AnimaPercent },
+				{ "ankh_offset_x", (int)this.AnkhHUDDisplayOffset.X },
+				{ "ankh_offset_y", (int)this.AnkhHUDDisplayOffset.Y }
 			};
 		}
 

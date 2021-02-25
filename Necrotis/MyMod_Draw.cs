@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
@@ -9,6 +10,13 @@ using Necrotis.Libraries.Services.FX;
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
+		public override void UpdateUI( GameTime gameTime ) {
+			this.AnkhHUD.Update();
+		}
+
+
+		////////////////
+
 		public override void ModifyInterfaceLayers( List<GameInterfaceLayer> layers ) {
 			int barsIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Resource Bars" ) );
 			if( barsIdx == -1 ) {
@@ -59,6 +67,15 @@ namespace Necrotis {
 			//layers.Insert( topIdx + 1, hoverLayer );
 
 			layers.Insert( npcChatIdx + 1, npcButtonWDLayer );
+
+			//
+
+			int cursorIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Cursor" ) );
+			if( cursorIdx == -1 ) { return; }
+
+			if( this.AnkhHUD.ConsumesCursor() ) {
+				layers.RemoveAt( cursorIdx );
+			}
 		}
 	}
 }
