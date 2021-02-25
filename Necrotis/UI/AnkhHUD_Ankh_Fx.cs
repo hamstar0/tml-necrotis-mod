@@ -2,27 +2,26 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using Necrotis.Libraries.Services.FX;
 
 
-namespace Necrotis {
-	public partial class NecrotisMod : Mod {
-		private void DrawHUDAnkhFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+namespace Necrotis.UI {
+	partial class AnkhHUD {
+		private void DrawFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
 			if( Main.gamePaused ) {
 				return;
 			}
 
 			if( animaPercentChangeRate < 0f ) {
-				this.DrawHUDAnkhDrainFX( sb,  pos, innerSrcRect, animaPercentChangeRate );
+				this.DrawDrainFX( sb,  pos, innerSrcRect, animaPercentChangeRate );
 			} else if( animaPercentChangeRate > 0f ) {
-				this.DrawHUDAnkhGainFX( sb, pos, innerSrcRect, animaPercentChangeRate );
+				this.DrawGainFX( sb, pos, innerSrcRect, animaPercentChangeRate );
 			}
 		}
 
 		
-		private void DrawHUDAnkhDrainFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+		private void DrawDrainFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
 //DebugHelpers.Print( "drain", "drain:" + (-animaPercentChangeRate * 1024f) );
 			if( Main.rand.NextFloat() >= (-animaPercentChangeRate * 1024f) ) {
 				return;
@@ -45,7 +44,7 @@ namespace Necrotis {
 			);
 		}
 
-		private void DrawHUDAnkhGainFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+		private void DrawGainFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
 			var srcPos = pos;
 			srcPos.X += innerSrcRect.Width / 2;
 			var origin = new Vector2( this.AnkhDripSource.Width / 2, this.AnkhDripSource.Height / 2 );
@@ -104,22 +103,5 @@ namespace Necrotis {
 				hasGravity: true
 			);
 		}
-
-
-		////////////////
-
-		/*private void DrawAnkhHoverTooltip( float animaPercent ) {
-			float percent = animaPercent * 100f;
-			if( percent < 0f ) { percent = 0f; }
-
-			Main.spriteBatch.DrawString(
-				spriteFont: Main.fontMouseText,
-				text: percent.ToString( "N0" ) + "% Anima (Necrotis Resist %)",
-				position: Main.MouseScreen + new Vector2( 0f, 24f ),
-				color: animaPercent > 0f
-					? Color.White
-					: Color.Red
-			);
-		}*/
 	}
 }

@@ -24,7 +24,4 @@
       <HintPath>..\..\..\Pot Luck\Project\PotLuck\bin\Release\net452\PotLuck.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\" />
-  </ItemGroup>
 </Project>

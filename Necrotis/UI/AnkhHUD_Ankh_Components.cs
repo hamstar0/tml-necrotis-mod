@@ -2,14 +2,13 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.AnimatedColor;
 
 
-namespace Necrotis {
-	public partial class NecrotisMod : Mod {
-		private void DrawHUDAnkhMain(
+namespace Necrotis.UI {
+	partial class AnkhHUD {
+		private void DrawMain(
 					SpriteBatch sb,
 					Vector2 pos,
 					Rectangle srcRect,
@@ -86,7 +85,7 @@ namespace Necrotis {
 
 		////////////////
 
-		/*private void DrawAnkhHoverTooltip( float animaPercent ) {
+		/*private void DrawHoverTooltip( float animaPercent ) {
 			float percent = animaPercent * 100f;
 			if( percent < 0f ) { percent = 0f; }
 

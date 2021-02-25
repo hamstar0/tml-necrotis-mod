@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Necrotis.NecrotisBehaviors;
+using Necrotis.UI;
 
 
 namespace Necrotis {
@@ -18,6 +19,12 @@ namespace Necrotis {
 
 		////////////////
 
+		private AnkhHUD AnkhHUD;
+
+
+
+		////////////////
+
 		public NecrotisMod() {
 			NecrotisMod.Instance = this;
 		}
@@ -26,7 +33,7 @@ namespace Necrotis {
 
 		public override void Load() {
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
-				this.InitializeUI();
+				this.AnkhHUD = new AnkhHUD();
 			}
 		}
 

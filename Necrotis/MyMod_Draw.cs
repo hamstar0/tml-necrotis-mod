@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
@@ -11,49 +9,6 @@ using Necrotis.Libraries.Services.FX;
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
-		// Credit: @Oli
-		public static void PremultiplyTexture( Texture2D texture ) {
-			Color[] buffer = new Color[texture.Width * texture.Height];
-			texture.GetData( buffer );
-
-			for( int i = 0; i < buffer.Length; i++ ) {
-				buffer[i] = Color.FromNonPremultiplied( buffer[i].R, buffer[i].G, buffer[i].B, buffer[i].A );
-			}
-
-			texture.SetData( buffer );
-		}
-
-
-
-		////////////////
-
-		private Texture2D AnkhDripSource;
-		private Texture2D AnkhBgTex;
-		private Texture2D AnkhFgTex;
-		private Texture2D AnkhGlowTex;
-		private Texture2D AnkhUnglowTex;
-		private Texture2D AnkhOhmTex;
-
-
-
-		////////////////
-
-		private void InitializeUI() {
-			this.AnkhDripSource = this.GetTexture( "UI/AnkhDripSource" );
-			this.AnkhBgTex = this.GetTexture( "UI/AnkhBG" );
-			this.AnkhFgTex = this.GetTexture( "UI/AnkhFG" );
-			this.AnkhGlowTex = this.GetTexture( "UI/AnkhGlow" );
-			this.AnkhUnglowTex = this.GetTexture( "UI/AnkhUnglow" );
-			this.AnkhOhmTex = this.GetTexture( "UI/AnkhOhm" );
-
-			NecrotisMod.PremultiplyTexture( this.AnkhDripSource );
-			NecrotisMod.PremultiplyTexture( this.AnkhGlowTex );
-			NecrotisMod.PremultiplyTexture( this.AnkhUnglowTex );
-		}
-
-
-		////////////////
-
 		public override void ModifyInterfaceLayers( List<GameInterfaceLayer> layers ) {
 			int barsIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Resource Bars" ) );
 			if( barsIdx == -1 ) {
@@ -72,32 +27,20 @@ namespace Necrotis {
 
 			//
 
-			bool DrawAnkh() {
-				var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-				this.DrawHUDAnkh( Main.spriteBatch, myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
-				return true;
-			};
-
-			bool drawParticles() {
-				CustomParticle.DrawParticles( Main.spriteBatch, false );
-				return true;
-			};
-
-			/*bool drawAnkhHoverTip() {
-				this.DrawAnkhHoverTooltipLayer();
-				return true;
-			};*/
-
-			//
-
 			var ankhLayer = new LegacyGameInterfaceLayer(
 				"Necrotis: Ankh Status Display",
-				DrawAnkh,
+				() => {
+					this.AnkhHUD.Draw( Main.spriteBatch );
+					return true;
+				},
 				InterfaceScaleType.UI
 			);
 			var particleLayer = new LegacyGameInterfaceLayer(
 				"Necrotis: UI Particles",
-				drawParticles,
+				() => {
+					CustomParticle.DrawParticles( Main.spriteBatch, false );
+					return true;
+				},
 				InterfaceScaleType.UI
 			);
 			/*var hoverLayer = new LegacyGameInterfaceLayer(

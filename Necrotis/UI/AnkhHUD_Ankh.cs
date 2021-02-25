@@ -2,20 +2,26 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using Necrotis.Libraries.Services.FX;
 
 
-namespace Necrotis {
-	public partial class NecrotisMod : Mod {
+namespace Necrotis.UI {
+	partial class AnkhHUD {
 		private bool WasInventory = false;
 
 
 
 		////////////////
 
-		private void DrawHUDAnkh( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
+		public void Draw( SpriteBatch sb ) {
+			var plr = Main.LocalPlayer;
+			var myplayer = plr.GetModPlayer<NecrotisPlayer>();
+			this.Draw( sb, myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
+		}
+
+
+		private void Draw( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
 			var config = NecrotisConfig.Instance;
 			Vector2 pos;
 
@@ -51,11 +57,11 @@ namespace Necrotis {
 				height: necScroll
 			);
 
-			this.DrawHUDAnkhMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
-			this.DrawHUDAnkhFX( sb, pos, statSrcRect, animaChangeRate );
+			this.DrawMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
+			this.DrawFX( sb, pos, statSrcRect, animaChangeRate );
 		}
 
-		/*private void DrawAnkhHoverTooltipLayer() {
+		/*private void DrawHoverTooltipLayer() {
 			var config = NecrotisConfig.Instance;
 			Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
 
