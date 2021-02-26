@@ -6,8 +6,10 @@ using Terraria.ModLoader;
 namespace Necrotis.Buffs {
 	public partial class EnlivenedBuff : ModBuff {
 		public static bool CanBuff( Player player, float animaPercent ) {
-			NecrotisConfig config = NecrotisConfig.Instance;
-			return animaPercent >= config.EnlivenedAnimaPercentMinimum;
+			var config = NecrotisConfig.Instance;
+			float minBuffPerc = config.Get<float>( nameof(config.EnlivenedAnimaPercentMinimum) );
+
+			return animaPercent >= minBuffPerc;
 		}
 
 
@@ -31,7 +33,7 @@ namespace Necrotis.Buffs {
 
 		public override void Update( Player player, ref int buffIndex ) {
 			NecrotisConfig config = NecrotisConfig.Instance;
-			float moveEffectPercent = config.EnlivenedMovementPercent;
+			float moveEffectPercent = config.Get<float>( nameof(config.EnlivenedMovementPercent) );
 
 			player.maxRunSpeed *= moveEffectPercent;
 			player.accRunSpeed = player.maxRunSpeed;

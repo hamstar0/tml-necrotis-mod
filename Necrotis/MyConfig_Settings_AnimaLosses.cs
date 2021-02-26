@@ -36,14 +36,14 @@ namespace Necrotis {
 		//
 
 		[Range( -10f, 10f )]
-		[DefaultValue( 3f )]
+		[DefaultValue( 2.5f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DungeonAnimaPercentLossPer10Min { get; set; } = 3f;
+		public float DungeonAnimaPercentLossPer10Min { get; set; } = 2.5f;
 
 		[Range( -10f, 10f )]
-		[DefaultValue( 1.5f )]
+		[DefaultValue( 1.25f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float CorruptionAnimaPercentLossPer10Min { get; set; } = 1.5f;
+		public float CorruptionAnimaPercentLossPer10Min { get; set; } = 1.25f;
 
 		[Range( -10f, 10f )]
 		[DefaultValue( -1f )]

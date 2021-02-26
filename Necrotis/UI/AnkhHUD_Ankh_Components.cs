@@ -14,6 +14,8 @@ namespace Necrotis.UI {
 					Rectangle srcRect,
 					float animaPercent,
 					float animaPercentChangeRate ) {
+			float tint = this.IsHovering ? 0.5f : 1f;
+
 			if( animaPercent >= 0.9f ) {
 				var config = NecrotisConfig.Instance;
 				float minBuffPerc = config.Get<float>( nameof(config.EnlivenedAnimaPercentMinimum) );
@@ -23,7 +25,7 @@ namespace Necrotis.UI {
 						texture: this.AnkhGlowTex,
 						position: pos + new Vector2( -5f, -5f ),
 						sourceRectangle: null,
-						color: Color.White
+						color: Color.White * tint
 					);
 				}
 			} else if( animaPercent < 0.5f ) {
@@ -31,7 +33,7 @@ namespace Necrotis.UI {
 					texture: this.AnkhUnglowTex,
 					position: pos + new Vector2( -5f, -5f ),
 					sourceRectangle: null,
-					color: Color.White
+					color: Color.White * tint
 				);
 			}
 
@@ -39,7 +41,7 @@ namespace Necrotis.UI {
 				texture: this.AnkhBgTex,
 				position: pos,
 				sourceRectangle: null,
-				color: Color.White
+				color: Color.White * tint
 			);
 
 			if( srcRect.Height > 0 ) {
@@ -47,7 +49,7 @@ namespace Necrotis.UI {
 					texture: this.AnkhFgTex,
 					position: pos + new Vector2( 0, srcRect.Y ),
 					sourceRectangle: srcRect,
-					color: Color.White
+					color: Color.White * tint
 				);
 			}
 
@@ -58,32 +60,43 @@ namespace Necrotis.UI {
 					texture: this.AnkhOhmTex,
 					position: pos,
 					sourceRectangle: null,
-					color: Color.White * glow
+					color: Color.White * glow * tint
 				);
 			}
 
 			var area = new Rectangle( (int)pos.X, (int)pos.Y, this.AnkhBgTex.Width, this.AnkhBgTex.Height );
 			if( area.Contains( Main.mouseX, Main.mouseY ) ) {
-				float percent = animaPercent * 100f;
-				if( percent < 0f ) { percent = 0f; }
-
-				Utils.DrawBorderStringFourWay(
-					sb: sb,
-					font: Main.fontMouseText,
-					text: percent.ToString("N0") + "% Anima (Necrotis Resist %)",
-					x: Main.MouseScreen.X,
-					y: Main.MouseScreen.Y + 24f,
-					textColor: animaPercent > 0.5f
-						? new Color( Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor )
-						: new Color( Main.mouseTextColor, 0, 0 ),
-					borderColor: Color.Black,
-					origin: default(Vector2)
-				);
+				this.DrawHoverTooltip( sb, animaPercent, animaPercentChangeRate );
 			}
 		}
 
 
 		////////////////
+
+		private void DrawHoverTooltip( SpriteBatch sb, float animaPercent, float animaPercentChangeRate ) {
+			int percent = (int)animaPercent * 100;
+			if( percent < 0 ) { percent = 0; }
+
+			string text = percent+"% Anima (Necrotis Resist %)";
+
+			if( animaPercentChangeRate != 0f ) {
+				int percentChangePerSec = (int)animaPercentChangeRate * 100 * 60 * 10;
+				text += "\n"+percentChangePerSec+"% per 10 seconds";
+			}
+
+			Utils.DrawBorderStringFourWay(
+				sb: sb,
+				font: Main.fontMouseText,
+				text: text,
+				x: Main.MouseScreen.X,
+				y: Main.MouseScreen.Y + 24f,
+				textColor: animaPercent > 0.5f
+					? new Color( Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor )
+					: new Color( Main.mouseTextColor, 0, 0 ),
+				borderColor: Color.Black,
+				origin: default( Vector2 )
+			);
+		}
 
 		/*private void DrawHoverTooltip( float animaPercent ) {
 			float percent = animaPercent * 100f;

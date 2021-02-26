@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Necrotis.Buffs;
+using Necrotis.Recipes;
 
 
 namespace Necrotis.Items {
@@ -53,30 +54,6 @@ namespace Necrotis.Items {
 			player.HealEffect( healAmt, true );
 
 			player.AddBuff( ModContent.BuffType<ElixirBuff>(), 60 * 60 * 3 );
-		}
-	}
-
-
-
-
-	class ElixirOfLifeItemRecipe : ModRecipe {
-		public ElixirOfLifeItemRecipe( ElixirOfLifeItem myitem ) : base( myitem.mod ) {
-			this.AddTile( TileID.DemonAltar );
-
-			//this.AddIngredient( ItemID.LifeCrystal, 1 );
-			//this.AddIngredient( ItemID.PeaceCandle, 1 );
-			//this.AddIngredient( ItemID.Bottle, 1 );
-			this.AddIngredient( ItemID.ShinePotion, 1 );
-			this.AddIngredient( ItemID.GoldCoin, 1 );
-			this.AddIngredient( ItemID.BottledHoney, 1 );
-			this.AddRecipeGroup( "Necrotis:Critters", 3 );
-			
-			this.SetResult( myitem );
-		}
-
-		public override bool RecipeAvailable() {
-			var config = NecrotisConfig.Instance;
-			return config.Get<bool>( nameof(config.ElixirRecipeEnabled) );
 		}
 	}
 }

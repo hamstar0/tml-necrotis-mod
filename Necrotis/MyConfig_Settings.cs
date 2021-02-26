@@ -36,8 +36,8 @@ namespace Necrotis {
 		public bool DillutedEctoplasmRecipeEnabled { get; set; } = false;
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 1f / 3f )]
-		public float DillutedEctoplasmAnimaPercentHeal { get; set; } = 1f / 3f;
+		[DefaultValue( 1f / 2f )]
+		public float DillutedEctoplasmAnimaPercentHeal { get; set; } = 1f / 2f;
 
 
 		////
@@ -72,7 +72,7 @@ namespace Necrotis {
 		////
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 0.5f )]
-		public float RespawnMinimumAnima { get; set; } = 0.5f;
+		[DefaultValue( 0.2f )]
+		public float RespawnMinimumAnima { get; set; } = 0.2f;
 	}
 }

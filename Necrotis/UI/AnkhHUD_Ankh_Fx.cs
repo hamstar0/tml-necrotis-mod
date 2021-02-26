@@ -27,6 +27,8 @@ namespace Necrotis.UI {
 				return;
 			}
 
+			float tint = this.IsHovering ? 0.5f : 1f;
+
 			int duration = Main.rand.Next( 15, 60 );
 			var newPos = pos + new Vector2(
 				(float)innerSrcRect.Width * Main.rand.NextFloat(),
@@ -37,7 +39,7 @@ namespace Necrotis.UI {
 				isInWorld: false,
 				pos: newPos,
 				tickDuration: duration,
-				color: Color.Gold,
+				color: Color.Gold * tint,
 				scale: 2f,
 				sprayAmt: 1f,
 				hasGravity: true
@@ -49,13 +51,15 @@ namespace Necrotis.UI {
 			srcPos.X += innerSrcRect.Width / 2;
 			var origin = new Vector2( this.AnkhDripSource.Width / 2, this.AnkhDripSource.Height / 2 );
 
+			float tint = this.IsHovering ? 0.5f : 1f;
+
 			float flicker = 1f - (float)Math.Pow( Main.rand.NextFloat(), animaPercentChangeRate * 8192 );
 
 			sb.Draw(
 				texture: this.AnkhDripSource,
 				position: srcPos,
 				sourceRectangle: null,
-				color: Color.White,
+				color: Color.White * tint,
 				rotation: 0f,
 				origin: origin,
 				scale: 0.5f,
@@ -66,7 +70,7 @@ namespace Necrotis.UI {
 				texture: this.AnkhDripSource,
 				position: srcPos,
 				sourceRectangle: null,
-				color: Color.White * (0.25f + (0.5f * flicker)),
+				color: Color.White * (0.25f + (0.5f * flicker)) * tint,
 				rotation: 0f,
 				origin: origin,
 				scale: 1f,
@@ -77,7 +81,7 @@ namespace Necrotis.UI {
 				texture: this.AnkhDripSource,
 				position: srcPos,
 				sourceRectangle: null,
-				color: Color.White * flicker,
+				color: Color.White * flicker * tint,
 				rotation: 0f,
 				origin: origin,
 				scale: 2f,
@@ -97,7 +101,7 @@ namespace Necrotis.UI {
 				isInWorld: false,
 				pos: dripPos,
 				tickDuration: 60 * 4,
-				color: Color.Gold,
+				color: Color.Gold * tint,
 				scale: 2f,
 				sprayAmt: 0f,
 				hasGravity: true

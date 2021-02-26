@@ -7,15 +7,15 @@ namespace Necrotis {
 	public partial class NecrotisConfig : ModConfig {
 		public NullablePercent DebuffPercentUntilLowestMovement { get; set; } = new NullablePercent( 0.01f );
 
-		public NullablePercent LowestPercentOfMovementProducedByDebuff { get; set; } = new NullablePercent( 0.75f );
+		public NullablePercent LowestPercentOfMovementProducedByDebuff { get; set; } = new NullablePercent( 0.85f );
 
 		public NullablePercent DebuffPercentUntilLowestJumping { get; set; } = new NullablePercent( 0.01f );
 
-		public NullablePercent LowestPercentOfJumpingProducedByDebuff { get; set; } = new NullablePercent( 0.75f );
+		public NullablePercent LowestPercentOfJumpingProducedByDebuff { get; set; } = new NullablePercent( 0.85f );
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 0.65f )]
-		public float LowestPercentViewVisibilityFromDebuff { get; set; } = 0.65f;
+		[DefaultValue( 0.85f )]
+		public float LowestPercentViewVisibilityFromDebuff { get; set; } = 0.85f;
 
 
 		//
@@ -39,10 +39,10 @@ namespace Necrotis {
 
 		////
 
-		[Range( -1f, 1f )]
+		[Range( 0f, 1f )]
 		[DefaultValue( 0.8f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float EnlivenedAnimaPercentMinimum { get; set; } = 0.9f;
+		public float EnlivenedAnimaPercentMinimum { get; set; } = 0.8f;
 
 		[Range( 0f, 10f )]
 		[DefaultValue( 1.2f )]
