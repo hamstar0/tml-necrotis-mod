@@ -9,25 +9,30 @@ namespace Necrotis.UI {
 	partial class AnkhHUD {
 		public static Vector2 GetHUDBasePosition() {
 			var config = NecrotisConfig.Instance;
-			Vector2 pos;
-
-			if( Main.playerInventory ) {
-				pos = new Vector2(
-					config.Get<int>( nameof(config.AnkhInvScreenPositionX) ),
-					config.Get<int>( nameof(config.AnkhInvScreenPositionY) )
-				);
-			} else {
-				pos = new Vector2(
-					config.Get<int>( nameof(config.AnkhScreenPositionX) ),
-					config.Get<int>( nameof(config.AnkhScreenPositionY) )
-				);
-			}
+			Vector2 pos = new Vector2(
+				config.Get<int>( nameof(config.AnkhScreenPositionX) ),
+				config.Get<int>( nameof(config.AnkhScreenPositionY) )
+			);
 
 			if( pos.X < 0 ) {
 				pos.X = Main.screenWidth + pos.X;
+			} else if( pos.X >= (Main.screenWidth - 16) ) {
+				pos.X = Main.screenWidth - 16;
 			}
+
 			if( pos.Y < 0 ) {
 				pos.Y = Main.screenHeight + pos.Y;
+			} else if( pos.Y >= (Main.screenHeight - 16) ) {
+				pos.Y = Main.screenHeight - 16;
+			}
+
+			if( Main.playerInventory ) {
+				if( pos.X >= (Main.screenWidth - 256) && pos.Y < 128 ) {
+					pos = new Vector2(
+						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionX ) ),
+						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionY ) )
+					);
+				}
 			}
 
 			return pos;
@@ -35,7 +40,7 @@ namespace Necrotis.UI {
 
 		public static Vector2 GetHUDPosition() {
 			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			return AnkhHUD.GetHUDPosition() + myplayer.AnkhHUDDisplayOffset;
+			return AnkhHUD.GetHUDBasePosition() + myplayer.AnkhHUDDisplayOffset;
 		}
 
 

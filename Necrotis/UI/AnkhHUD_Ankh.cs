@@ -22,32 +22,7 @@ namespace Necrotis.UI {
 
 
 		private void Draw( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
-			var config = NecrotisConfig.Instance;
-			Vector2 pos;
-
-			if( Main.playerInventory ) {
-				pos = new Vector2(
-					config.Get<int>( nameof( config.AnkhInvScreenPositionX ) ),
-					config.Get<int>( nameof( config.AnkhInvScreenPositionY ) )
-				);
-			} else {
-				pos = new Vector2(
-					config.Get<int>( nameof( config.AnkhScreenPositionX ) ),
-					config.Get<int>( nameof( config.AnkhScreenPositionY ) )
-				);
-			}
-
-			if( this.WasInventory != Main.playerInventory ) {
-				this.WasInventory = Main.playerInventory;
-				CustomParticle.ClearAll();
-			}
-
-			if( pos.X < 0 ) {
-				pos.X = Main.screenWidth + pos.X;
-			}
-			if( pos.Y < 0 ) {
-				pos.Y = Main.screenHeight + pos.Y;
-			}
+			Vector2 pos = AnkhHUD.GetHUDPosition();
 
 			int necScroll = (int)( animaPercent * (float)this.AnkhFgTex.Height );
 			var statSrcRect = new Rectangle(
@@ -56,6 +31,11 @@ namespace Necrotis.UI {
 				width: this.AnkhFgTex.Width,
 				height: necScroll
 			);
+
+			if( this.WasInventory != Main.playerInventory ) {
+				this.WasInventory = Main.playerInventory;
+				CustomParticle.ClearAll();
+			}
 
 			this.DrawMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
 			this.DrawFX( sb, pos, statSrcRect, animaChangeRate );

@@ -27,7 +27,7 @@ namespace Necrotis.UI {
 				return;
 			}
 
-			float tint = this.IsHovering ? 0.5f : 1f;
+			float tint = Main.playerInventory ? 0.5f : 1f;
 
 			int duration = Main.rand.Next( 15, 60 );
 			var newPos = pos + new Vector2(
@@ -51,7 +51,7 @@ namespace Necrotis.UI {
 			srcPos.X += innerSrcRect.Width / 2;
 			var origin = new Vector2( this.AnkhDripSource.Width / 2, this.AnkhDripSource.Height / 2 );
 
-			float tint = this.IsHovering ? 0.5f : 1f;
+			float tint = Main.playerInventory ? 0.5f : 1f;
 
 			float flicker = 1f - (float)Math.Pow( Main.rand.NextFloat(), animaPercentChangeRate * 8192 );
 

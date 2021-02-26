@@ -19,11 +19,11 @@ namespace Necrotis {
 
 		[Range( -4096, 4096 )]
 		[DefaultValue( -472 )]
-		public int AnkhInvScreenPositionX { get; set; } = -472;
+		public int AnkhInvScreenTopRightPositionX { get; set; } = -472;
 
 		[Range( -1024, 1024 )]
 		[DefaultValue( 30 )]
-		public int AnkhInvScreenPositionY { get; set; } = 6;
+		public int AnkhInvScreenTopRightPositionY { get; set; } = 6;
 
 
 		////

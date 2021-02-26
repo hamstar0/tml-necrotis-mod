@@ -14,7 +14,7 @@ namespace Necrotis.UI {
 					Rectangle srcRect,
 					float animaPercent,
 					float animaPercentChangeRate ) {
-			float tint = this.IsHovering ? 0.5f : 1f;
+			float tint = Main.playerInventory ? 0.5f : 1f;
 
 			if( animaPercent >= 0.9f ) {
 				var config = NecrotisConfig.Instance;
@@ -74,14 +74,18 @@ namespace Necrotis.UI {
 		////////////////
 
 		private void DrawHoverTooltip( SpriteBatch sb, float animaPercent, float animaPercentChangeRate ) {
-			int percent = (int)animaPercent * 100;
+			int percent = (int)(animaPercent * 100f);
 			if( percent < 0 ) { percent = 0; }
 
 			string text = percent+"% Anima (Necrotis Resist %)";
 
 			if( animaPercentChangeRate != 0f ) {
-				int percentChangePerSec = (int)animaPercentChangeRate * 100 * 60 * 10;
-				text += "\n"+percentChangePerSec+"% per 10 seconds";
+				int percentChangePerSec = (int)(animaPercentChangeRate * 100f * 60f * 60f);
+				text += "\n";
+				if( percentChangePerSec >= 0 ) {
+					text += "+";
+				}
+				text += percentChangePerSec+"% per minute";
 			}
 
 			Utils.DrawBorderStringFourWay(
