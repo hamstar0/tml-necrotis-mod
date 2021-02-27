@@ -37,7 +37,7 @@ namespace Necrotis.UI {
 				var config = NecrotisConfig.Instance;
 
 //DebugHelpers.Print( "ankhpos", pos.ToString()+", minX: "+(Main.screenWidth - 384)+")" );
-				if( pos.X >= (Main.screenWidth - 384) && pos.Y < 112 ) {
+				if( pos.X >= (Main.screenWidth - 384) && pos.Y < 80 ) {
 					pos += new Vector2(
 						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionOffsetX ) ),
 						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionOffsetY ) )
