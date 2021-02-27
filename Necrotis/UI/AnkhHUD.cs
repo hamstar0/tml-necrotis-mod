@@ -26,21 +26,26 @@ namespace Necrotis.UI {
 				pos.Y = Main.screenHeight - 16;
 			}
 
-			if( Main.playerInventory ) {
-				if( pos.X >= (Main.screenWidth - 256) && pos.Y < 128 ) {
-					pos = new Vector2(
-						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionX ) ),
-						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionY ) )
-					);
-				}
-			}
-
 			return pos;
 		}
 
 		public static Vector2 GetHUDPosition() {
 			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			return AnkhHUD.GetHUDBasePosition() + myplayer.AnkhHUDDisplayOffset;
+			Vector2 pos = AnkhHUD.GetHUDBasePosition() + myplayer.AnkhHUDDisplayOffset;
+
+			if( Main.playerInventory ) {
+				var config = NecrotisConfig.Instance;
+
+//DebugHelpers.Print( "ankhpos", pos.ToString()+", minX: "+(Main.screenWidth - 384)+")" );
+				if( pos.X >= (Main.screenWidth - 384) && pos.Y < 112 ) {
+					pos += new Vector2(
+						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionOffsetX ) ),
+						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionOffsetY ) )
+					);
+				}
+			}
+			
+			return pos;
 		}
 
 

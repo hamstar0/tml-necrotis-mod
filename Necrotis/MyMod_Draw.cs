@@ -60,9 +60,8 @@ namespace Necrotis {
 
 			//
 
-			//layers.RemoveAt( idx );
-			layers.Insert( barsIdx + 1, particleLayer );
-			layers.Insert( barsIdx + 1, ankhLayer );
+			layers.Add( particleLayer );    //barsIdx + 1
+			layers.Add( ankhLayer );    //barsIdx + 1
 
 			//layers.Insert( topIdx + 1, hoverLayer );
 
