@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using Necrotis.Libraries.Services.FX;
+using Necrotis.UI;
+using HUDElementsLib;
 
 
 namespace Necrotis {
 	public partial class NecrotisMod : Mod {
-		public override void UpdateUI( GameTime gameTime ) {
-			this.AnkhHUD.Update();
+		private void InitializeUI() {
+			this.AnkhHUD = AnkhHUD.CreateDefault();
+
+			HUDElementsLibAPI.AddWidget( this.AnkhHUD );
 		}
 
 
-		////////////////
+		////
 
 		public override void ModifyInterfaceLayers( List<GameInterfaceLayer> layers ) {
 			int barsIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Resource Bars" ) );
@@ -35,14 +38,6 @@ namespace Necrotis {
 
 			//
 
-			var ankhLayer = new LegacyGameInterfaceLayer(
-				"Necrotis: Ankh Status Display",
-				() => {
-					this.AnkhHUD.Draw( Main.spriteBatch );
-					return true;
-				},
-				InterfaceScaleType.UI
-			);
 			var particleLayer = new LegacyGameInterfaceLayer(
 				"Necrotis: UI Particles",
 				() => {
@@ -51,30 +46,22 @@ namespace Necrotis {
 				},
 				InterfaceScaleType.UI
 			);
+
 			/*var hoverLayer = new LegacyGameInterfaceLayer(
 				"Necrotis: Ankh Hover Tooltip",
 				drawAnkhHoverTip,
 				InterfaceScaleType.UI
 			);*/
+
 			GameInterfaceLayer npcButtonWDLayer = this.GetInterfaceLayer_NpcChatButton_WitchDoctor_HealNecrotis();
 
 			//
 
 			layers.Add( particleLayer );    //barsIdx + 1
-			layers.Add( ankhLayer );    //barsIdx + 1
 
 			//layers.Insert( topIdx + 1, hoverLayer );
 
 			layers.Insert( npcChatIdx + 1, npcButtonWDLayer );
-
-			//
-
-			int cursorIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Cursor" ) );
-			if( cursorIdx == -1 ) { return; }
-
-			if( this.AnkhHUD.ConsumesCursor() ) {
-				layers.RemoveAt( cursorIdx );
-			}
 		}
 	}
 }

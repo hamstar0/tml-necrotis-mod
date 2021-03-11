@@ -3,54 +3,36 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using HamstarHelpers.Helpers.Debug;
+using HUDElementsLib;
 
 
 namespace Necrotis.UI {
-	partial class AnkhHUD {
-		public static Vector2 GetHUDBasePosition() {
-			var config = NecrotisConfig.Instance;
-			Vector2 pos = new Vector2(
-				config.Get<int>( nameof(config.AnkhScreenPositionX) ),
-				config.Get<int>( nameof(config.AnkhScreenPositionY) )
-			);
+	partial class AnkhHUD : HUDElement {
+		public static AnkhHUD CreateDefault() {
+			var mymod = NecrotisMod.Instance;
+			Texture2D bgTex = mymod.GetTexture( "UI/AnkhBG" );
+			Vector2 pos = AnkhHUD.GetBaseHudUncomputedPosition();
+			Vector2 dim = new Vector2( bgTex.Width, bgTex.Height );
 
-			if( pos.X < 0 ) {
-				pos.X = Main.screenWidth + pos.X;
-			} else if( pos.X >= (Main.screenWidth - 16) ) {
-				pos.X = Main.screenWidth - 16;
-			}
-
-			if( pos.Y < 0 ) {
-				pos.Y = Main.screenHeight + pos.Y;
-			} else if( pos.Y >= (Main.screenHeight - 16) ) {
-				pos.Y = Main.screenHeight - 16;
-			}
-
-			return pos;
-		}
-
-		public static Vector2 GetHUDPosition() {
-			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			Vector2 pos = AnkhHUD.GetHUDBasePosition() + myplayer.AnkhHUDDisplayOffset;
-
-			if( Main.playerInventory ) {
-				var config = NecrotisConfig.Instance;
-
-//DebugHelpers.Print( "ankhpos", pos.ToString()+", minX: "+(Main.screenWidth - 384)+")" );
-				if( pos.X >= (Main.screenWidth - 384) && pos.Y < 80 ) {
-					pos += new Vector2(
-						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionOffsetX ) ),
-						config.Get<int>( nameof( config.AnkhInvScreenTopRightPositionOffsetY ) )
-					);
-				}
-			}
-			
-			return pos;
+			return new AnkhHUD( pos, dim );
 		}
 
 
 		////////////////
 
+		public static Vector2 GetBaseHudUncomputedPosition() {
+			var config = NecrotisConfig.Instance;
+			Vector2 pos = new Vector2(
+				config.Get<int>( nameof(config.InitialAnkhScreenPositionX) ),
+				config.Get<int>( nameof(config.InitialAnkhScreenPositionY) )
+			);
+
+			return pos;
+		}
+
+
+		////////////////
+		
 		// Credit: @Oli
 		public static void PremultiplyTexture( Texture2D texture ) {
 			Color[] buffer = new Color[texture.Width * texture.Height];
@@ -74,13 +56,11 @@ namespace Necrotis.UI {
 		private Texture2D AnkhUnglowTex;
 		private Texture2D AnkhOhmTex;
 
-		private bool IsHovering = false;
-
 
 
 		////////////////
 
-		public AnkhHUD() {
+		private AnkhHUD( Vector2 pos, Vector2 dim ) : base( "Anima Gauge", pos, dim )  {
 			var mymod = NecrotisMod.Instance;
 			this.AnkhDripSource = mymod.GetTexture( "UI/AnkhDripSource" );
 			this.AnkhBgTex = mymod.GetTexture( "UI/AnkhBG" );
@@ -92,27 +72,6 @@ namespace Necrotis.UI {
 			AnkhHUD.PremultiplyTexture( this.AnkhDripSource );
 			AnkhHUD.PremultiplyTexture( this.AnkhGlowTex );
 			AnkhHUD.PremultiplyTexture( this.AnkhUnglowTex );
-		}
-
-
-		////////////////
-
-		public void Update() {
-			if( Main.playerInventory ) {
-				this.RunHUDEditor( out bool isHovering );
-
-				Main.LocalPlayer.mouseInterface = Main.LocalPlayer.mouseInterface || isHovering;
-				this.IsHovering = isHovering;
-			} else {
-				this.IsHovering = false;
-			}
-		}
-
-
-		////////////////
-
-		public bool ConsumesCursor() {
-			return this.IsHovering;
 		}
 	}
 }

@@ -33,7 +33,7 @@ namespace Necrotis {
 
 		public override void Load() {
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
-				this.AnkhHUD = new AnkhHUD();
+				this.InitializeUI();
 			}
 		}
 

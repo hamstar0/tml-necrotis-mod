@@ -14,15 +14,17 @@ namespace Necrotis.UI {
 
 		////////////////
 
-		public void Draw( SpriteBatch sb ) {
+		public override void Draw( SpriteBatch sb ) {
+			base.Draw( sb );
+
 			var plr = Main.LocalPlayer;
 			var myplayer = plr.GetModPlayer<NecrotisPlayer>();
-			this.Draw( sb, myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
+			this.DrawAnkh( sb, myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
 		}
 
 
-		private void Draw( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
-			Vector2 pos = AnkhHUD.GetHUDPosition();
+		private void DrawAnkh( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
+			Vector2 pos = this.GetHudComputedPosition( true );
 
 			int necScroll = (int)( animaPercent * (float)this.AnkhFgTex.Height );
 			var statSrcRect = new Rectangle(
@@ -37,8 +39,8 @@ namespace Necrotis.UI {
 				CustomParticle.ClearAll();
 			}
 
-			this.DrawMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
-			this.DrawFX( sb, pos, statSrcRect, animaChangeRate );
+			this.DrawAnkhMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
+			this.DrawAnkhFx( sb, pos, statSrcRect, animaChangeRate );
 		}
 
 		/*private void DrawHoverTooltipLayer() {

@@ -8,7 +8,7 @@ using HamstarHelpers.Services.AnimatedColor;
 
 namespace Necrotis.UI {
 	partial class AnkhHUD {
-		private void DrawMain(
+		private void DrawAnkhMain(
 					SpriteBatch sb,
 					Vector2 pos,
 					Rectangle srcRect,

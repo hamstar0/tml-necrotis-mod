@@ -8,7 +8,7 @@ using Necrotis.Libraries.Services.FX;
 
 namespace Necrotis.UI {
 	partial class AnkhHUD {
-		private void DrawFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
+		private void DrawAnkhFx( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
 			if( Main.gamePaused ) {
 				return;
 			}

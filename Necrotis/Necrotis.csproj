@@ -20,6 +20,9 @@
     <Reference Include="HamstarHelpers">
       <HintPath>..\..\..\Mod Helpers\Project\HamstarHelpers\bin\Release\net452\HamstarHelpers.dll</HintPath>
     </Reference>
+    <Reference Include="HUDElementsLib">
+      <HintPath>..\..\..\HUD Elements Lib\Project\HUDElementsLib\bin\Release\net45\HUDElementsLib.dll</HintPath>
+    </Reference>
     <Reference Include="PotLuck">
       <HintPath>..\..\..\Pot Luck\Project\PotLuck\bin\Release\net452\PotLuck.dll</HintPath>
     </Reference>
