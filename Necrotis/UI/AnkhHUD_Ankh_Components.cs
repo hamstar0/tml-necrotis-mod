@@ -8,6 +8,28 @@ using HamstarHelpers.Services.AnimatedColor;
 
 namespace Necrotis.UI {
 	partial class AnkhHUD {
+		public static string GetGeneralHoverText( float animaPercent, float animaPercentChangeRate ) {
+			int percent = (int)( animaPercent * 100f );
+			if( percent < 0 ) { percent = 0; }
+
+			string text = percent + "% Anima (Necrotis Resist %)";
+
+			if( animaPercentChangeRate != 0f ) {
+				int percentChangePerSec = (int)( animaPercentChangeRate * 100f * 60f * 60f );
+				text += "\n";
+				if( percentChangePerSec >= 0 ) {
+					text += "+";
+				}
+				text += percentChangePerSec + "% per minute";
+			}
+
+			return text;
+		}
+
+
+
+		////////////////
+
 		private void DrawAnkhMain(
 					SpriteBatch sb,
 					Vector2 pos,
@@ -66,27 +88,19 @@ namespace Necrotis.UI {
 
 			var area = new Rectangle( (int)pos.X, (int)pos.Y, this.AnkhBgTex.Width, this.AnkhBgTex.Height );
 			if( area.Contains( Main.mouseX, Main.mouseY ) ) {
-				this.DrawHoverTooltip( sb, animaPercent, animaPercentChangeRate );
+				this.DrawHoverTooltipIf( sb, animaPercent, animaPercentChangeRate );
 			}
 		}
 
 
 		////////////////
 
-		private void DrawHoverTooltip( SpriteBatch sb, float animaPercent, float animaPercentChangeRate ) {
-			int percent = (int)(animaPercent * 100f);
-			if( percent < 0 ) { percent = 0; }
-
-			string text = percent+"% Anima (Necrotis Resist %)";
-
-			if( animaPercentChangeRate != 0f ) {
-				int percentChangePerSec = (int)(animaPercentChangeRate * 100f * 60f * 60f);
-				text += "\n";
-				if( percentChangePerSec >= 0 ) {
-					text += "+";
-				}
-				text += percentChangePerSec+"% per minute";
+		private void DrawHoverTooltipIf( SpriteBatch sb, float animaPercent, float animaPercentChangeRate ) {
+			if( this.IsShowingDefaultHoverText ) {
+				return;
 			}
+
+			string text = AnkhHUD.GetGeneralHoverText( animaPercent, animaPercentChangeRate );
 
 			Utils.DrawBorderStringFourWay(
 				sb: sb,
@@ -101,19 +115,5 @@ namespace Necrotis.UI {
 				origin: default( Vector2 )
 			);
 		}
-
-		/*private void DrawHoverTooltip( float animaPercent ) {
-			float percent = animaPercent * 100f;
-			if( percent < 0f ) { percent = 0f; }
-
-			Main.spriteBatch.DrawString(
-				spriteFont: Main.fontMouseText,
-				text: percent.ToString( "N0" ) + "% Anima (Necrotis Resist %)",
-				position: Main.MouseScreen + new Vector2( 0f, 24f ),
-				color: animaPercent > 0f
-					? Color.White
-					: Color.Red
-			);
-		}*/
 	}
 }

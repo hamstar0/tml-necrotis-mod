@@ -24,7 +24,7 @@ namespace Necrotis.UI {
 
 
 		private void DrawAnkh( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
-			Vector2 pos = this.GetHudComputedPosition( true );
+			Vector2 pos = this.GetHUDComputedPosition( true );
 
 			int necScroll = (int)( animaPercent * (float)this.AnkhFgTex.Height );
 			var statSrcRect = new Rectangle(
@@ -42,25 +42,5 @@ namespace Necrotis.UI {
 			this.DrawAnkhMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
 			this.DrawAnkhFx( sb, pos, statSrcRect, animaChangeRate );
 		}
-
-		/*private void DrawHoverTooltipLayer() {
-			var config = NecrotisConfig.Instance;
-			Texture2D bgTex = this.GetTexture( "UI/AnkhBG" );
-
-			var pos = new Vector2(
-				config.Get<int>( nameof( NecrotisConfig.AnkhScreenPositionX ) ),
-				config.Get<int>( nameof( NecrotisConfig.AnkhScreenPositionY ) )
-			);
-
-			var area = new Rectangle( (int)pos.X, (int)pos.Y, bgTex.Width, bgTex.Height );
-			if( !area.Contains( Main.mouseX, Main.mouseY ) ) {
-				return;
-			}
-
-			var myplayer = Main.LocalPlayer.GetModPlayer<NecrotisPlayer>();
-			float animaPercent = myplayer.CurrentAnimaPercentChangeRate;
-
-			this.DrawAnkhHoverTooltip( animaPercent );
-		}*/
 	}
 }

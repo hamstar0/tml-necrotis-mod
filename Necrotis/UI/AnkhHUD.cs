@@ -56,6 +56,8 @@ namespace Necrotis.UI {
 		private Texture2D AnkhUnglowTex;
 		private Texture2D AnkhOhmTex;
 
+		private bool IsShowingDefaultHoverText = false;
+
 
 
 		////////////////
@@ -72,6 +74,17 @@ namespace Necrotis.UI {
 			AnkhHUD.PremultiplyTexture( this.AnkhDripSource );
 			AnkhHUD.PremultiplyTexture( this.AnkhGlowTex );
 			AnkhHUD.PremultiplyTexture( this.AnkhUnglowTex );
+		}
+
+
+		////////////////
+
+		public override string GetHoverText( bool isCollisionToggleButton, bool isAnchorRightToggle, bool isAnchorBottomToggle ) {
+			string text = base.GetHoverText( isCollisionToggleButton, isAnchorRightToggle, isAnchorBottomToggle );
+
+			this.IsShowingDefaultHoverText = !string.IsNullOrEmpty( text );
+
+			return text;
 		}
 	}
 }
