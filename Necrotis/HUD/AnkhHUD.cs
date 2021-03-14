@@ -10,7 +10,7 @@ namespace Necrotis.HUD {
 	partial class AnkhHUD : HUDElement {
 		public static AnkhHUD CreateDefault() {
 			var mymod = NecrotisMod.Instance;
-			Texture2D bgTex = mymod.GetTexture( "UI/AnkhBG" );
+			Texture2D bgTex = mymod.GetTexture( "HUD/AnkhBG" );
 			Vector2 pos = AnkhHUD.GetBaseHudUncomputedPosition();
 			Vector2 dim = new Vector2( bgTex.Width, bgTex.Height );
 
@@ -64,12 +64,12 @@ namespace Necrotis.HUD {
 
 		private AnkhHUD( Vector2 pos, Vector2 dim ) : base( "Anima Gauge", pos, dim )  {
 			var mymod = NecrotisMod.Instance;
-			this.AnkhDripSource = mymod.GetTexture( "UI/AnkhDripSource" );
-			this.AnkhBgTex = mymod.GetTexture( "UI/AnkhBG" );
-			this.AnkhFgTex = mymod.GetTexture( "UI/AnkhFG" );
-			this.AnkhGlowTex = mymod.GetTexture( "UI/AnkhGlow" );
-			this.AnkhUnglowTex = mymod.GetTexture( "UI/AnkhUnglow" );
-			this.AnkhOhmTex = mymod.GetTexture( "UI/AnkhOhm" );
+			this.AnkhDripSource = mymod.GetTexture( "HUD/AnkhDripSource" );
+			this.AnkhBgTex = mymod.GetTexture( "HUD/AnkhBG" );
+			this.AnkhFgTex = mymod.GetTexture( "HUD/AnkhFG" );
+			this.AnkhGlowTex = mymod.GetTexture( "HUD/AnkhGlow" );
+			this.AnkhUnglowTex = mymod.GetTexture( "HUD/AnkhUnglow" );
+			this.AnkhOhmTex = mymod.GetTexture( "HUD/AnkhOhm" );
 
 			AnkhHUD.PremultiplyTexture( this.AnkhDripSource );
 			AnkhHUD.PremultiplyTexture( this.AnkhGlowTex );
