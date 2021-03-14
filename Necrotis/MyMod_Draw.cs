@@ -5,7 +5,7 @@ using Terraria.UI;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using Necrotis.Libraries.Services.FX;
-using Necrotis.UI;
+using Necrotis.HUD;
 using HUDElementsLib;
 
 

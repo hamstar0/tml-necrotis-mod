@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Necrotis.NecrotisBehaviors;
-using Necrotis.UI;
+using Necrotis.HUD;
 
 
 namespace Necrotis {

@@ -6,7 +6,7 @@ using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.AnimatedColor;
 
 
-namespace Necrotis.UI {
+namespace Necrotis.HUD {
 	partial class AnkhHUD {
 		public static string GetGeneralHoverText( float animaPercent, float animaPercentChangeRate ) {
 			int percent = (int)( animaPercent * 100f );

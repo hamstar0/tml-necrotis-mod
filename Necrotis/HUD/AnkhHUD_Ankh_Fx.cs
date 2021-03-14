@@ -6,7 +6,7 @@ using HamstarHelpers.Helpers.Debug;
 using Necrotis.Libraries.Services.FX;
 
 
-namespace Necrotis.UI {
+namespace Necrotis.HUD {
 	partial class AnkhHUD {
 		private void DrawAnkhFx( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
 			if( Main.gamePaused ) {

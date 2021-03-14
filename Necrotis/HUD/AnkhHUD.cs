@@ -6,7 +6,7 @@ using HamstarHelpers.Helpers.Debug;
 using HUDElementsLib;
 
 
-namespace Necrotis.UI {
+namespace Necrotis.HUD {
 	partial class AnkhHUD : HUDElement {
 		public static AnkhHUD CreateDefault() {
 			var mymod = NecrotisMod.Instance;
