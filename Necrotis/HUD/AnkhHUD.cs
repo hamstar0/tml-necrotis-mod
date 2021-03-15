@@ -79,12 +79,23 @@ namespace Necrotis.HUD {
 
 		////////////////
 
-		public override string GetHoverText( bool isCollisionToggleButton, bool isAnchorRightToggle, bool isAnchorBottomToggle ) {
-			string text = base.GetHoverText( isCollisionToggleButton, isAnchorRightToggle, isAnchorBottomToggle );
+		public override (string text, int duration) GetHoverText(
+					bool editMode,
+					bool isCollisionToggleButton,
+					bool isResetButton,
+					bool isAnchorRightToggle,
+					bool isAnchorBottomToggle ) {
+			(string text, int duration) = base.GetHoverText(
+				editMode,
+				isCollisionToggleButton,
+				isResetButton,
+				isAnchorRightToggle,
+				isAnchorBottomToggle
+			);
 
 			this.IsShowingDefaultHoverText = !string.IsNullOrEmpty( text );
 
-			return text;
+			return (text, -1);
 		}
 	}
 }
