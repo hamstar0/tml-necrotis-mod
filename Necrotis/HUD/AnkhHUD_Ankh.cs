@@ -14,8 +14,8 @@ namespace Necrotis.HUD {
 
 		////////////////
 
-		public override void Draw( SpriteBatch sb ) {
-			base.Draw( sb );
+		protected override void DrawSelf( SpriteBatch sb ) {
+			base.DrawSelf( sb );
 
 			var plr = Main.LocalPlayer;
 			var myplayer = plr.GetModPlayer<NecrotisPlayer>();
