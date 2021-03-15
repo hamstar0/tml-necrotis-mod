@@ -95,7 +95,7 @@ namespace Necrotis.HUD {
 
 			this.IsShowingDefaultHoverText = !string.IsNullOrEmpty( text );
 
-			return (text, -1);
+			return (text, duration);
 		}
 	}
 }
