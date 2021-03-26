@@ -49,7 +49,7 @@ namespace Necrotis {
 
 			// Town (safe)
 			if( isTown && !isUnsafe ) {
-				float townAfflict = config.Get<float>( nameof( NecrotisConfig.TownAnimaPercentLossPerTick ) );
+				float townAfflict = config.Get<float>( nameof( NecrotisConfig.TownAnimaPercentLossPer10Min ) );
 				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(townAfflict), "NecrotisCtx_Town" );
 			}
 		}
@@ -170,7 +170,7 @@ namespace Necrotis {
 
 			// Night or Eclipse
 			if( (!isTown || isUnsafe) && ( !Main.dayTime || Main.eclipse ) ) {
-				float nightAfflict = config.Get<float>( nameof( NecrotisConfig.NightOrEclipseAnimaPercentLossPerTick ) );
+				float nightAfflict = config.Get<float>( nameof( NecrotisConfig.NightOrEclipseAnimaPercentLossPer10Min ) );
 				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(nightAfflict), "NecrotisCtx_NightOrEclipse" );
 			}
 		}
