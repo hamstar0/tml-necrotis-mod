@@ -31,6 +31,10 @@ namespace Necrotis {
 		[DefaultValue( 1f / 2f )]
 		public float DillutedEctoplasmAnimaPercentHeal { get; set; } = 1f / 2f;
 
+		[Range( 0, 60 * 60 )]
+		[DefaultValue( 30 )]
+		public int DillutedEctoplasmRespiritedDurationSeconds { get; set; } = 30;
+
 
 		////
 
@@ -59,6 +63,10 @@ namespace Necrotis {
 		[Range( 0f, 1f )]
 		[DefaultValue( 0f )]
 		public float ElixirAnimaDrainMultiplier { get; set; } = 0f;
+
+		[Range( 0, 60 * 60 )]
+		[DefaultValue( 60 * 3 )]
+		public int ElixirDurationInSeconds { get; set; } = 60 * 3;
 
 
 		////

@@ -191,16 +191,18 @@ namespace Necrotis {
 
 			bool isTown = plr.townNPCs > 1f;
 			bool isUnsafe = Main.bloodMoon || Main.eclipse;
-			bool isElixired = player.HasBuff( ModContent.BuffType<ElixirBuff>() );
+			bool isElixired = player.HasBuff( ModContent.BuffType<RespiritedBuff>() );
 
-			// Town
-			if( percent > 0f && isTown && !isUnsafe ) {
-				percent = 0f;
-			}
+			if( percent > 0f ) {    // is drain
+				// Town
+				if( isTown && !isUnsafe ) {
+					percent = 0f;
+				}
 
-			// Elixer
-			if( percent > 0f && isElixired ) {
-				percent *= config.Get<float>( nameof(config.ElixirAnimaDrainMultiplier) );
+				// Elixer
+				if( isElixired ) {
+					percent *= config.Get<float>( nameof(config.ElixirAnimaDrainMultiplier) );
+				}
 			}
 
 			this.SubtractAnimaPercent( percent, false, false );

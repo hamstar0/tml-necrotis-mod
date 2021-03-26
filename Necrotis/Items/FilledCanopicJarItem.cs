@@ -35,18 +35,12 @@ namespace Necrotis.Items {
 
 		//public override void OnConsumeItem( Player player ) {
 		public override bool UseItem( Player player ) {
-			var config = NecrotisConfig.Instance;
-			float ectoHealPerc = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
-			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-
-			myplayer.SubtractAnimaPercent( -ectoHealPerc, false, false );
+			DillutedEctoplasmItem.ApplyEctoplasmDose( player );
 
 			int itemWho = Item.NewItem( player.position, ModContent.ItemType<EmptyCanopicJarItem>(), 1, false, 0, true );
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
 				NetMessage.SendData( MessageID.SyncItem, -1, -1, null, itemWho, 1f, 0f, 0f, 0, 0, 0 );
 			}
-
-			Main.PlaySound( SoundID.Drip, player.Center, 2 );
 
 			return base.UseItem( player );
 		}

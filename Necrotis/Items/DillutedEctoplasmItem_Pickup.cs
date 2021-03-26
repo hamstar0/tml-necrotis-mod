@@ -39,7 +39,7 @@ namespace Necrotis.Items {
 
 		public override bool OnPickup( Player player ) {
 			if( !this.PickupIntoJarIf(player, out bool isError) && !isError ) {
-				this.PickupWithHands( player );
+				DillutedEctoplasmItem.ApplyEctoplasmDose( player );
 			}
 
 			return false;
@@ -71,16 +71,6 @@ namespace Necrotis.Items {
 
 			isError = false;
 			return true;
-		}
-
-		public void PickupWithHands( Player player ) {
-			var config = NecrotisConfig.Instance;
-			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
-
-			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			myplayer.SubtractAnimaPercent( -percHeal, false, false );
-
-			Main.PlaySound( SoundID.Drip, this.item.Center, 2 );
 		}
 	}
 }

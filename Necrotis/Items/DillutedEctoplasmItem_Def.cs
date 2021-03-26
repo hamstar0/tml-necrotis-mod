@@ -4,17 +4,35 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using Necrotis.Recipes;
+using Necrotis.Buffs;
 
 
 namespace Necrotis.Items {
 	public partial class DillutedEctoplasmItem : ModItem {
+		public static void ApplyEctoplasmDose( Player player ) {
+			var config = NecrotisConfig.Instance;
+			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
+
+			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+			myplayer.SubtractAnimaPercent( -percHeal, false, false );
+
+			int respiritedSeconds = config.Get<int>( nameof(config.DillutedEctoplasmRespiritedDurationSeconds) );
+			int respiritedTicks = respiritedSeconds * 60;
+			player.AddBuff( ModContent.BuffType<RespiritedBuff>(), respiritedTicks );
+
+			Main.PlaySound( SoundID.Drip, player.Center, 2 );
+		}
+
+
+
+		////////////////
+
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Dilluted Ectoplasm" );
 			this.Tooltip.SetDefault( "Psychomagnotheric secretions from spiritual entities. Dilluted." );
 
-			int mytype = ItemType<DillutedEctoplasmItem>();
+			int mytype = ModContent.ItemType<DillutedEctoplasmItem>();
 			ItemID.Sets.ItemNoGravity[ mytype ] = true;
 		}
 
