@@ -38,6 +38,7 @@ namespace Necrotis.Items {
 			DillutedEctoplasmItem.ApplyEctoplasmDose( player );
 
 			int itemWho = Item.NewItem( player.position, ModContent.ItemType<EmptyCanopicJarItem>(), 1, false, 0, true );
+
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
 				NetMessage.SendData( MessageID.SyncItem, -1, -1, null, itemWho, 1f, 0f, 0f, 0, 0, 0 );
 			}
