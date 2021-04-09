@@ -24,7 +24,7 @@ namespace Necrotis {
 						HardModeOnly = false,
 						IsSurface = true,
 						IsCaves = true,
-						IsUnderworld = true,
+						IsUnderworld = false,
 						ItemDefs = new List<PotItemEntry> {
 							new PotItemEntry {
 								MinStack = 1,
