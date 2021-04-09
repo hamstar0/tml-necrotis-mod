@@ -16,13 +16,13 @@ namespace Necrotis.Items {
 		}
 
 		public override void SetDefaults() {
+			this.item.width = 12;
+			this.item.height = 16;
+			this.item.maxStack = 15;
 			this.item.useStyle = ItemUseStyleID.EatingUsing;
 			this.item.useTurn = true;
 			this.item.useAnimation = 17;
 			this.item.useTime = 17;
-			this.item.width = 12;
-			this.item.height = 16;
-			this.item.maxStack = 10;
 			this.item.consumable = true;
 			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
 			this.item.rare = ItemRarityID.Orange;
