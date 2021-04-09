@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HamstarHelpers.Services.Timers;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,6 +35,15 @@ namespace Necrotis.Items {
 		////
 
 		//public override void OnConsumeItem( Player player ) {
+		public override bool CanUseItem( Player player ) {
+			string timerName = "NecrotisFilledJarEat_" + player.whoAmI;
+			bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
+
+			Timers.SetTimer( timerName, 15, false, () => false );
+
+			return !hasCooldown;
+		}
+
 		public override bool UseItem( Player player ) {
 			DillutedEctoplasmItem.ApplyEctoplasmDose( player );
 

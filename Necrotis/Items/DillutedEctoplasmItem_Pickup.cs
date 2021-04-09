@@ -34,6 +34,17 @@ namespace Necrotis.Items {
 				}
 			}
 
+			if( isEmptyHanded || isHoldingJar ) {
+				string timerName = "NecrotisPickupRepeatStopper_" + player.whoAmI;
+				bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
+
+				Timers.SetTimer( timerName, 15, false, () => false );
+
+				if( hasCooldown ) {
+					return false;
+				}
+			}
+
 			return isEmptyHanded || isHoldingJar;
 		}
 
