@@ -1,8 +1,8 @@
-﻿using HamstarHelpers.Services.Timers;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using HamstarHelpers.Services.Timers;
 
 
 namespace Necrotis.Items {
@@ -18,15 +18,15 @@ namespace Necrotis.Items {
 		public override void SetDefaults() {
 			this.item.width = 12;
 			this.item.height = 16;
-			this.item.maxStack = 1;
-			this.item.useTurn = true;
+			this.item.maxStack = 15;
 			this.item.useStyle = ItemUseStyleID.EatingUsing;
+			this.item.useTurn = true;
 			this.item.useAnimation = 15;
 			this.item.useTime = 15;
 			this.item.consumable = true;
 			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
-			this.item.healLife = 10;
-			this.item.healMana = 10;
+			//this.item.healLife = 10;
+			//this.item.healMana = 10;
 			//this.item.UseSound = SoundID.Item108;
 			this.item.rare = ItemRarityID.Orange;
 		}
