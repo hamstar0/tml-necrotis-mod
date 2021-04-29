@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Services.Timers;
 
 
 namespace Necrotis.Items {
@@ -18,33 +17,23 @@ namespace Necrotis.Items {
 		public override void SetDefaults() {
 			this.item.width = 12;
 			this.item.height = 16;
-			this.item.maxStack = 15;
+			this.item.maxStack = 30;
 			this.item.useStyle = ItemUseStyleID.EatingUsing;
 			this.item.useTurn = true;
 			this.item.useAnimation = 15;
 			this.item.useTime = 15;
 			this.item.consumable = true;
 			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
-			//this.item.healLife = 10;
-			//this.item.healMana = 10;
+			this.item.healLife = 10;
+			this.item.healMana = 10;
 			//this.item.UseSound = SoundID.Item108;
 			this.item.rare = ItemRarityID.Orange;
 		}
 
 
-		////
+		////////////////
 
-		//public override void OnConsumeItem( Player player ) {
-		public override bool CanUseItem( Player player ) {
-			string timerName = "NecrotisFilledJarEat_" + player.whoAmI;
-			bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
-
-			Timers.SetTimer( timerName, 15, false, () => false );
-
-			return !hasCooldown;
-		}
-
-		public override bool UseItem( Player player ) {
+		public override void OnConsumeItem( Player player ) {
 			DillutedEctoplasmItem.ApplyEctoplasmDose( player );
 
 			int itemWho = Item.NewItem( player.position, ModContent.ItemType<EmptyCanopicJarItem>(), 1, false, 0, true );
@@ -52,8 +41,6 @@ namespace Necrotis.Items {
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
 				NetMessage.SendData( MessageID.SyncItem, -1, -1, null, itemWho, 1f, 0f, 0f, 0, 0, 0 );
 			}
-
-			return base.UseItem( player );
 		}
 	}
 }

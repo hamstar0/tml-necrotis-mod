@@ -85,7 +85,7 @@ namespace Necrotis {
 			if( !quiet ) {
 				// Display afflict amount
 				if( Math.Abs(percentLost) >= 0.1f ) {
-					string fmtAmt = (percChangeAmt * 100f).ToString("N0") + "%";
+					string fmtAmt = (int)(percChangeAmt * 100f)+"%";
 					Color color;
 
 					if( percChangeAmt > 0f ) {
