@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 using Necrotis.Libraries.Services.FX;
 using Necrotis.HUD;
 using HUDElementsLib;

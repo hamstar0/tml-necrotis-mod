@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Utilities;
-using HamstarHelpers.Classes.Loadable;
-using HamstarHelpers.Helpers.TModLoader;
+using ModLibsCore.Classes.Loadable;
+using ModLibsCore.Libraries.TModLoader;
 
 
 namespace Necrotis.Libraries.Services.FX {
@@ -100,7 +100,7 @@ namespace Necrotis.Libraries.Services.FX {
 			this.SprayAmt = sprayAmt;
 			this.HasGravity = hasGravity;
 
-			UnifiedRandom rand = TmlHelpers.SafelyGetRand();
+			UnifiedRandom rand = TmlLibraries.SafelyGetRand();
 
 			this.Velocity = new Vector2(
 				(rand.NextFloat() - 0.5f) * this.SprayAmt,

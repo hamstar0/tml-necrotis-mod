@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.HUD;
+using ModLibsGeneral.Libraries.HUD;
 using Necrotis.Items;
 
 
@@ -20,7 +20,7 @@ namespace Necrotis {
 					continue;
 				}
 
-				var mapPos = HUDMapHelpers.GetFullMapPositionAsScreenPosition( item.position );
+				var mapPos = HUDMapLibraries.GetFullMapPositionAsScreenPosition( item.position );
 				if( !mapPos.IsOnScreen ) {
 					continue;
 				}

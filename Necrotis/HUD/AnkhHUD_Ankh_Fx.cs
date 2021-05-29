@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 using Necrotis.Libraries.Services.FX;
 
 
@@ -22,7 +22,7 @@ namespace Necrotis.HUD {
 
 		
 		private void DrawDrainFX( SpriteBatch sb, Vector2 pos, Rectangle innerSrcRect, float animaPercentChangeRate ) {
-//DebugHelpers.Print( "drain", "drain:" + (-animaPercentChangeRate * 1024f) );
+//DebugLibraries.Print( "drain", "drain:" + (-animaPercentChangeRate * 1024f) );
 			if( Main.rand.NextFloat() >= (-animaPercentChangeRate * 1024f) ) {
 				return;
 			}
@@ -89,7 +89,7 @@ namespace Necrotis.HUD {
 				layerDepth: 0f
 			);
 
-//DebugHelpers.Print( "gain", "gain:" + (-animaPercentChangeRate * 1024f) );
+//DebugLibraries.Print( "gain", "gain:" + (-animaPercentChangeRate * 1024f) );
 			if( Main.rand.NextFloat() >= (animaPercentChangeRate * 1024f) ) {
 				return;
 			}

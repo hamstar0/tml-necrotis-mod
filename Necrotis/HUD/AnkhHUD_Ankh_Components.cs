@@ -2,8 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Services.AnimatedColor;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Services.AnimatedColor;
 
 
 namespace Necrotis.HUD {

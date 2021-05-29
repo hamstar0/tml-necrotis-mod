@@ -2,8 +2,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Services.Timers;
-using HamstarHelpers.Helpers.Players;
+using ModLibsCore.Services.Timers;
+using ModLibsGeneral.Libraries.Players;
 
 
 namespace Necrotis.Items {
@@ -67,7 +67,7 @@ namespace Necrotis.Items {
 				return false;
 			}
 
-			if( PlayerItemHelpers.RemoveInventoryItemQuantity(player, emptyJarType, 1) == 0 ) {
+			if( PlayerItemLibraries.RemoveInventoryItemQuantity(player, emptyJarType, 1) == 0 ) {
 				Main.NewText( "Could not fill jar.", Color.Yellow );
 				isError = true;
 				return false;

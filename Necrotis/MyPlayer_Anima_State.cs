@@ -1,8 +1,8 @@
 ﻿using System;
 using Terraria;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.World;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.World;
 using Necrotis.Buffs;
 
 
@@ -19,19 +19,19 @@ namespace Necrotis {
 			//
 
 			// Underworld
-			if( tileY > WorldHelpers.UnderworldLayerTopTileY ) {
+			if( tileY > WorldLibraries.UnderworldLayerTopTileY ) {
 				this.UpdateAnimaStateForUnderworld();
 			}
 			// Dirt layer
-			else if( tileY > WorldHelpers.DirtLayerTopTileY ) {
+			else if( tileY > WorldLibraries.DirtLayerTopTileY ) {
 				this.UpdateAnimaStateForUnderground();
 			}
 			// Surface
-			else if( tileY > WorldHelpers.SurfaceLayerTopTileY ) {
+			else if( tileY > WorldLibraries.SurfaceLayerTopTileY ) {
 				this.UpdateAnimaStateForSurface();
 			}
 			// Sky
-			else if( tileY <= WorldHelpers.SkyLayerBottomTileY ) {
+			else if( tileY <= WorldLibraries.SkyLayerBottomTileY ) {
 				this.UpdateAnimaStateForSky();
 			}
 			this.UpdateAnimaStateForAll();
@@ -121,11 +121,11 @@ namespace Necrotis {
 
 			bool isTown = plr.townNPCs > 1f;
 			bool isUnsafe = Main.bloodMoon || Main.eclipse;
-			bool isBeach = tileX <= WorldHelpers.BeachWestTileX || tileX >= WorldHelpers.BeachEastTileX;
+			bool isBeach = tileX <= WorldLibraries.BeachWestTileX || tileX >= WorldLibraries.BeachEastTileX;
 			bool isOther = false;
 
 			// Beach
-			if( isBeach && tileY > WorldHelpers.SkyLayerBottomTileY ) {
+			if( isBeach && tileY > WorldLibraries.SkyLayerBottomTileY ) {
 				float beaAfflict = config.Get<float>( nameof( NecrotisConfig.BeachAnimaPercentLossPer10Min ) );
 				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(beaAfflict), "NecrotisCtx_Beach" );
 				isOther = true;
@@ -219,7 +219,7 @@ namespace Necrotis {
 					amtStr += "e";
 				}
 
-				DebugHelpers.Print( context, amtStr );
+				DebugLibraries.Print( context, amtStr );
 			}
 		}
 	}

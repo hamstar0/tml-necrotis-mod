@@ -1,8 +1,8 @@
 ﻿using System;
 using Terraria;
 using Terraria.ID;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Services.Timers;
+using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Services.Timers;
 using CursedBrambles;
 using Necrotis.Buffs;
 

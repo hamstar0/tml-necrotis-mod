@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.Dusts;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.Dusts;
 using Necrotis.Net;
 
 
@@ -45,7 +45,7 @@ namespace Necrotis {
 			
 			myplayer.AnimaPercent += healAmount;
 
-			DustHelpers.CreateMany( dustType: DustHelpers.GoldGlitterTypeID, position: player.Center, quantity: 8 );
+			DustLibraries.CreateMany( dustType: DustLibraries.GoldGlitterTypeID, position: player.Center, quantity: 8 );
 			Main.PlaySound( SoundID.Item4 );
 
 			return true;

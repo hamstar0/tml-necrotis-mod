@@ -8,8 +8,8 @@ using Terraria.GameInput;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.Items;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.Items;
 
 
 namespace Necrotis {
@@ -45,7 +45,7 @@ namespace Necrotis {
 			if( cost == 0 ) {
 				color = Color.Gray;
 			} else {
-				string readCost = string.Join( " ", ItemMoneyHelpers.RenderMoneyDenominations(cost, true, false, false) );
+				string readCost = string.Join( " ", ItemMoneyLibraries.RenderMoneyDenominations(cost, true, false, false) );
 				label += " ("+readCost+")";
 
 				color = new Color(

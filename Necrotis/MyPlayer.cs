@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 using Necrotis.Libraries.Services.FX;
 using Necrotis.NecrotisBehaviors;
 
@@ -80,7 +80,7 @@ namespace Necrotis {
 			if( !this.player.dead ) {
 				this.UpdateAnimaState();
 				this.UpdateAnimaBehaviors();
-//DebugHelpers.Print( "necrotis", "necrotis%: "+this.AnimaPercent.ToString("N2") );
+//DebugLibraries.Print( "necrotis", "necrotis%: "+this.AnimaPercent.ToString("N2") );
 			}
 		}
 
