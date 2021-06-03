@@ -19,19 +19,19 @@ namespace Necrotis {
 			//
 
 			// Underworld
-			if( tileY > WorldLibraries.UnderworldLayerTopTileY ) {
+			if( tileY > WorldLocationLibraries.UnderworldLayerTopTileY ) {
 				this.UpdateAnimaStateForUnderworld();
 			}
 			// Dirt layer
-			else if( tileY > WorldLibraries.DirtLayerTopTileY ) {
+			else if( tileY > WorldLocationLibraries.DirtLayerTopTileY ) {
 				this.UpdateAnimaStateForUnderground();
 			}
 			// Surface
-			else if( tileY > WorldLibraries.SurfaceLayerTopTileY ) {
+			else if( tileY > WorldLocationLibraries.SurfaceLayerTopTileY ) {
 				this.UpdateAnimaStateForSurface();
 			}
 			// Sky
-			else if( tileY <= WorldLibraries.SkyLayerBottomTileY ) {
+			else if( tileY <= WorldLocationLibraries.SkyLayerBottomTileY ) {
 				this.UpdateAnimaStateForSky();
 			}
 			this.UpdateAnimaStateForAll();
@@ -121,11 +121,11 @@ namespace Necrotis {
 
 			bool isTown = plr.townNPCs > 1f;
 			bool isUnsafe = Main.bloodMoon || Main.eclipse;
-			bool isBeach = tileX <= WorldLibraries.BeachWestTileX || tileX >= WorldLibraries.BeachEastTileX;
+			bool isBeach = tileX <= WorldLocationLibraries.BeachWestTileX || tileX >= WorldLocationLibraries.BeachEastTileX;
 			bool isOther = false;
 
 			// Beach
-			if( isBeach && tileY > WorldLibraries.SkyLayerBottomTileY ) {
+			if( isBeach && tileY > WorldLocationLibraries.SkyLayerBottomTileY ) {
 				float beaAfflict = config.Get<float>( nameof( NecrotisConfig.BeachAnimaPercentLossPer10Min ) );
 				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(beaAfflict), "NecrotisCtx_Beach" );
 				isOther = true;
