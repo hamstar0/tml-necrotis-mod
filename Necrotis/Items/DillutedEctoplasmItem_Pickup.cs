@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ModLibsCore.Libraries.Debug;
 using ModLibsCore.Services.Timers;
 using ModLibsGeneral.Libraries.Players;
 
@@ -24,8 +25,10 @@ namespace Necrotis.Items {
 			//bool hasRoom = myplayer.AnimaPercent < 1f;
 			bool isEmptyHanded = player.HeldItem?.active != true;
 			bool isHoldingJar = player.HeldItem?.type == ModContent.ItemType<EmptyCanopicJarItem>();
+			float distSqr = (this.item.Center - player.MountedCenter).LengthSquared();
 
-			if( (this.item.Center - player.Center).LengthSquared() < 256f ) {	// 16 units from player center
+//DebugLibraries.Print( "pickup_"+this.item.whoAmI, "isEmptyHanded:"+isEmptyHanded+", isHoldingJar:"+isHoldingJar+", distSqr:"+(int)distSqr );
+			if( distSqr < 576f ) {	// 24 units from player center
 				if( !isEmptyHanded && !isHoldingJar ) {
 					if( Timers.GetTimerTickDuration("NecrotisPickupAlert") <= 0 ) {
 						Main.NewText( "Only bare hands or (empty) canopic jars can interact with this.", Color.Yellow );
