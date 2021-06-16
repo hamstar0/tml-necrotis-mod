@@ -28,6 +28,12 @@ namespace Necrotis.Items {
 
 		////////////////
 
+		public override bool CloneNewInstances => false;
+
+
+
+		////////////////
+
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Dilluted Ectoplasm" );
 			this.Tooltip.SetDefault( "Psychomagnotheric secretions from spiritual entities. Dilluted." );

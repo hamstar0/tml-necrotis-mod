@@ -14,7 +14,7 @@ namespace Necrotis.Items {
 		}
 
 		public override void GrabRange( Player player, ref int grabRange ) {
-			grabRange = 16;
+			grabRange = 24;
 		}
 
 		////////////////
@@ -23,32 +23,35 @@ namespace Necrotis.Items {
 			//return !player.HasBuff( BuffID.PotionSickness );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			//bool hasRoom = myplayer.AnimaPercent < 1f;
-			bool isEmptyHanded = player.HeldItem?.active != true;
+			bool isEmptyHanded = player.HeldItem?.IsAir ?? true;
 			bool isHoldingJar = player.HeldItem?.type == ModContent.ItemType<EmptyCanopicJarItem>();
+
 			float distSqr = (this.item.Center - player.MountedCenter).LengthSquared();
+			bool isWithinRange = distSqr < (24f * 24f);
 
 //DebugLibraries.Print( "pickup_"+this.item.whoAmI, "isEmptyHanded:"+isEmptyHanded+", isHoldingJar:"+isHoldingJar+", distSqr:"+(int)distSqr );
-			if( distSqr < 576f ) {	// 24 units from player center
+			if( isWithinRange ) {	// 24 units from player center
 				if( !isEmptyHanded && !isHoldingJar ) {
 					if( Timers.GetTimerTickDuration("NecrotisPickupAlert") <= 0 ) {
 						Main.NewText( "Only bare hands or (empty) canopic jars can interact with this.", Color.Yellow );
 					}
 					Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 				}
-			}
 
-			if( isEmptyHanded || isHoldingJar ) {
-				string timerName = "NecrotisPickupRepeatStopper_" + player.whoAmI;
-				bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
+				if( isEmptyHanded || isHoldingJar ) {
+					string timerName = "NecrotisPickupRepeatStopper_" + player.whoAmI;
 
-				Timers.SetTimer( timerName, 15, false, () => false );
+					bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
 
-				if( hasCooldown ) {
-					return false;
+					Timers.SetTimer( timerName, 15, false, () => false );
+
+					if( hasCooldown ) {
+						return false;
+					}
 				}
 			}
-
-			return isEmptyHanded || isHoldingJar;
+			
+			return (isEmptyHanded || isHoldingJar) && isWithinRange;
 		}
 
 		public override bool OnPickup( Player player ) {
@@ -63,9 +66,13 @@ namespace Necrotis.Items {
 		////////////////
 
 		public bool PickupIntoJarIf( Player player, out bool isError ) {
-			int emptyJarType = ModContent.ItemType<EmptyCanopicJarItem>();
+			if( player.HeldItem?.IsAir ?? true ) {
+				isError = false;
+				return false;
+			}
 
-			if( player.HeldItem?.active != true || player.HeldItem?.type != emptyJarType ) {
+			int emptyJarType = ModContent.ItemType<EmptyCanopicJarItem>();
+			if( player.HeldItem?.type != emptyJarType ) {
 				isError = false;
 				return false;
 			}
