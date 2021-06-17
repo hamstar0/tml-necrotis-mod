@@ -9,6 +9,27 @@ using ModLibsGeneral.Libraries.Players;
 
 namespace Necrotis.Items {
 	public partial class DillutedEctoplasmItem : ModItem {
+		internal static bool CanPickupAny( NecrotisPlayer myplayer ) {
+			int ectoType = ModContent.ItemType<DillutedEctoplasmItem>();
+
+			for( int i=0; i<Main.item.Length; i++ ) {
+				Item item = Main.item[i];
+				if( item?.IsAir != false ) { continue; }
+				if( item.type != ectoType ) { continue; }
+
+				var mymoditem = item.modItem as DillutedEctoplasmItem;
+				if( mymoditem.CanPickup(myplayer.player) ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+
+
+		////////////////
+
 		public override bool ItemSpace( Player player ) {
 			return true;
 		}
@@ -18,7 +39,7 @@ namespace Necrotis.Items {
 		}
 
 		////////////////
-
+		
 		public override bool CanPickup( Player player ) {
 			//return !player.HasBuff( BuffID.PotionSickness );
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
@@ -29,7 +50,10 @@ namespace Necrotis.Items {
 			float distSqr = (this.item.Center - player.MountedCenter).LengthSquared();
 			bool isWithinRange = distSqr < (24f * 24f);
 
-//DebugLibraries.Print( "pickup_"+this.item.whoAmI, "isEmptyHanded:"+isEmptyHanded+", isHoldingJar:"+isHoldingJar+", distSqr:"+(int)distSqr );
+//DebugLibraries.Print(
+//	"pickup_"+this.item.whoAmI,
+//	"isEmptyHanded:"+isEmptyHanded+", isHoldingJar:"+isHoldingJar+", distSqr:"+(int)distSqr
+//);
 			if( isWithinRange ) {	// 24 units from player center
 				if( !isEmptyHanded && !isHoldingJar ) {
 					if( Timers.GetTimerTickDuration("NecrotisPickupAlert") <= 0 ) {

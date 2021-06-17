@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using ModLibsCore.Libraries.Debug;
 using Necrotis.Libraries.Services.FX;
 using Necrotis.NecrotisBehaviors;
+using Necrotis.Items;
 
 
 namespace Necrotis {
@@ -74,7 +76,12 @@ namespace Necrotis {
 
 		public override void PreUpdate() {
 			if( this.player.whoAmI == Main.myPlayer ) {
-				CustomParticle.UpdateParticles();
+				if( Main.netMode != NetmodeID.Server ) {
+					if( Main.netMode != NetmodeID.MultiplayerClient ) {
+						DillutedEctoplasmItem.CanPickupAny( this );
+					}
+					CustomParticle.UpdateParticles();
+				}
 			}
 
 			if( !this.player.dead ) {
