@@ -77,7 +77,7 @@ namespace Necrotis {
 		public override void PreUpdate() {
 			if( this.player.whoAmI == Main.myPlayer ) {
 				if( Main.netMode != NetmodeID.Server ) {
-					if( Main.netMode != NetmodeID.MultiplayerClient ) {
+					if( Main.netMode == NetmodeID.MultiplayerClient ) {
 						DillutedEctoplasmItem.CanPickupAny( this );
 					}
 					CustomParticle.UpdateParticles();
