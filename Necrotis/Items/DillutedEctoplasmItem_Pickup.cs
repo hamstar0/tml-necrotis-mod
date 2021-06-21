@@ -9,9 +9,15 @@ using ModLibsGeneral.Libraries.Players;
 
 namespace Necrotis.Items {
 	public partial class DillutedEctoplasmItem : ModItem {
+		public const int DefaultGrabRange = 24;
+
+
+
+		////////////////
+		
 		internal static bool CanPickupAny( NecrotisPlayer myplayer ) {
 			int ectoType = ModContent.ItemType<DillutedEctoplasmItem>();
-
+			
 			for( int i=0; i<Main.item.Length; i++ ) {
 				Item item = Main.item[i];
 				if( item?.IsAir != false ) { continue; }
@@ -34,21 +40,17 @@ namespace Necrotis.Items {
 			return true;
 		}
 
-		public override void GrabRange( Player player, ref int grabRange ) {
-			grabRange = 24;
-		}
-
 		////////////////
 		
 		public override bool CanPickup( Player player ) {
-			//return !player.HasBuff( BuffID.PotionSickness );
-			var myplayer = player.GetModPlayer<NecrotisPlayer>();
+//return !player.HasBuff( BuffID.PotionSickness );
+			//var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			//bool hasRoom = myplayer.AnimaPercent < 1f;
 			bool isEmptyHanded = player.HeldItem?.IsAir ?? true;
 			bool isHoldingJar = player.HeldItem?.type == ModContent.ItemType<EmptyCanopicJarItem>();
 
 			float distSqr = (this.item.Center - player.MountedCenter).LengthSquared();
-			bool isWithinRange = distSqr < (24f * 24f);
+			bool isWithinRange = distSqr < (DillutedEctoplasmItem.DefaultGrabRange * DillutedEctoplasmItem.DefaultGrabRange);
 
 //DebugLibraries.Print(
 //	"pickup_"+this.item.whoAmI,
@@ -61,26 +63,31 @@ namespace Necrotis.Items {
 					}
 					Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 				}
-
-				if( isEmptyHanded || isHoldingJar ) {
-					string timerName = "NecrotisPickupRepeatStopper_" + player.whoAmI;
-
-					bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
-
-					Timers.SetTimer( timerName, 15, false, () => false );
-
-					if( hasCooldown ) {
-						return false;
-					}
-				}
 			}
 			
+/*if( (isEmptyHanded || isHoldingJar) && isWithinRange ) {
+LogLibraries.LogOnce( ""//(((isEmptyHanded || isHoldingJar) && isWithinRange) ? "TRUE" : "FALSE")
+//	+" - isEmptyHanded:"+isEmptyHanded+", isHoldingJar:"+isHoldingJar+", isWithinRange:"+isWithinRange
+	+" - rects:"+player.getRect().Intersects(this.item.getRect())
+	+" - inv/anim:"+(player.inventory[player.selectedItem].type != 0)+","+(player.itemAnimation <= 0)
+//	+" - plr:"+(player.whoAmI == Main.myPlayer)+" ("+player.whoAmI+", "+Main.myPlayer+")"
+	+" - owner:"+this.item.owner
+);
+}*/
 			return (isEmptyHanded || isHoldingJar) && isWithinRange;
 		}
 
 		public override bool OnPickup( Player player ) {
-			if( !this.PickupIntoJarIf(player, out bool isError) && !isError ) {
-				DillutedEctoplasmItem.ApplyEctoplasmDose( player );
+			string timerName = "NecrotisPickupRepeatStopper_" + player.whoAmI+"_"+this.item.whoAmI;
+			bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
+
+			Timers.SetTimer( timerName, 15, false, () => false );
+
+			if( !hasCooldown ) {
+				// If picked up into jar, don't apply dose
+				if( !this.PickupIntoJarIf( player, out bool isError ) && !isError ) {
+					DillutedEctoplasmItem.ApplyEctoplasmDose( player );
+				}
 			}
 
 			return false;
@@ -90,7 +97,7 @@ namespace Necrotis.Items {
 		////////////////
 
 		public bool PickupIntoJarIf( Player player, out bool isError ) {
-			if( player.HeldItem?.IsAir ?? true ) {
+			if( player.HeldItem?.IsAir != false ) {
 				isError = false;
 				return false;
 			}
@@ -107,7 +114,14 @@ namespace Necrotis.Items {
 				return false;
 			}
 
-			int itemWho = Item.NewItem( player.position, ModContent.ItemType<FilledCanopicJarItem>(), 1, false, 0, true );
+			int itemWho = Item.NewItem(
+				position: player.position,
+				Type: ModContent.ItemType<FilledCanopicJarItem>(),
+				Stack: 1,
+				noBroadcast: false,
+				prefixGiven: 0,
+				noGrabDelay: true
+			);
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
 				NetMessage.SendData( MessageID.SyncItem, -1, -1, null, itemWho, 1f, 0f, 0f, 0, 0, 0 );
 			}
