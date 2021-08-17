@@ -78,16 +78,15 @@ LogLibraries.LogOnce( ""//(((isEmptyHanded || isHoldingJar) && isWithinRange) ? 
 		}
 
 		public override bool OnPickup( Player player ) {
-			string timerName = "NecrotisPickupRepeatStopper_" + player.whoAmI+"_"+this.item.whoAmI;
-			bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
+			//string timerName = "NecrotisPickupRepeatStopper_" + player.whoAmI + "_" + this.item.whoAmI;
+			//bool hasCooldown = Timers.GetTimerTickDuration( timerName ) > 0;
 
-			Timers.SetTimer( timerName, 15, false, () => false );
+			//Timers.SetTimer( timerName, 30, false, () => false );
 
-			if( !hasCooldown ) {
-				// If picked up into jar, don't apply dose
-				if( !this.PickupIntoJarIf( player, out bool isError ) && !isError ) {
-					DillutedEctoplasmItem.ApplyEctoplasmDose( player );
-				}
+			//if( !hasCooldown ) {
+			// If picked up into jar, don't apply dose
+			if( !this.PickupIntoJarIf( player, out bool isError ) && !isError ) {
+				DillutedEctoplasmItem.ApplyEctoplasmDose( player );
 			}
 
 			return false;

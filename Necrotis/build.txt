@@ -1,6 +1,6 @@
 displayName = Necrotis
 author = hamstar
-version = 1.12.1
+version = 1.12.2
 modReferences = ModLibsCore@1.0.0, ModLibsGeneral@1.0.0, CursedBrambles@0.6.1, PotLuck@1.0.1, HUDElementsLib@3.0.0
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*
 homepage = https://github.com/hamstar0/tml-necrotis-mod
