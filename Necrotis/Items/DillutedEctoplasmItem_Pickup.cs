@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using ModLibsCore.Services.Timers;
 using ModLibsGeneral.Libraries.Players;
+using Messages;
 
 
 namespace Necrotis.Items {
@@ -63,6 +64,28 @@ namespace Necrotis.Items {
 					}
 					Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 				}
+				
+				MessagesAPI.AddMessage(
+					title: "Dilluted Ectoplasm",
+					description: "Scattered around and within the island of Terraria are innumerable burial urns"
+						+" found simply lying about: Unguarded, yet undisturbed. An odd thing, seeing as their"
+						+" contents are often treasures for the taking. More notable than treasure, however,"
+						+" is the presence of corporeal spiritual essence in a form known as ectoplasm. Though"
+						+" dilluted due to age and material contamination, the substance itself is pure, but"
+						+" often typically difficult to obtain due to circumstances."
+						+"\n \nIt is theorized that someone with the means (or maybe a very particular nature) could"
+						+" harness ectoplasm for their own use. Ancient records suggest the roots of magic itself"
+						+" exist within the nature of this spiritual energy, but all knowledge of how to tap into"
+						+" this seems to have been lost to time..."
+						+"\n \nWhat is known about ectoplasm, however, is that its raw form has been reported"
+						+" to alleviate symptoms of the necrotis plague by way of simple contact. Ethics aside,"
+						+" if only the island wasn't so dangerous, we could at least begin using it for research"
+						+" into a possible cure for the plague...",
+					modOfOrigin: NecrotisMod.Instance,
+					alertPlayer: true,
+					isImportant: false,
+					parentMessage: MessagesAPI.StoryLoreCategoryMsg
+				);
 			}
 			
 /*if( (isEmptyHanded || isHoldingJar) && isWithinRange ) {
