@@ -64,7 +64,9 @@ namespace Necrotis.Items {
 					}
 					Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 				}
-				
+
+				string id = "Necrotis_DillutedEctoplasm";
+
 				MessagesAPI.AddMessage(
 					title: "Dilluted Ectoplasm",
 					description: "Scattered around and within the island of Terraria are innumerable burial urns"
@@ -82,9 +84,10 @@ namespace Necrotis.Items {
 						+" if only the island wasn't so dangerous, we could at least begin using it for research"
 						+" into a possible cure for the plague...",
 					modOfOrigin: NecrotisMod.Instance,
-					alertPlayer: true,
+					alertPlayer: MessagesAPI.IsUnread( id ),
 					isImportant: false,
-					parentMessage: MessagesAPI.StoryLoreCategoryMsg
+					parentMessage: MessagesAPI.StoryLoreCategoryMsg,
+					id: id
 				);
 			}
 			
