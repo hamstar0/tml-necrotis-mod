@@ -62,6 +62,14 @@ namespace Necrotis {
 
 			float old = this.AnimaPercent;
 
+			//
+
+			foreach( var hook in NecrotisMod.Instance.AnimaChangeHooks ) {
+				hook.Invoke( this.player, old, ref percentLost, ref quiet );
+			}
+
+			//
+
 			/*// If afflicted
 			if( this.AnimaPercent < 0.5f ) {
 				// Reduce amount of added affliction

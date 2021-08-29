@@ -19,6 +19,7 @@ namespace Necrotis.HUD {
 
 			var plr = Main.LocalPlayer;
 			var myplayer = plr.GetModPlayer<NecrotisPlayer>();
+
 			this.DrawAnkh( sb, myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
 		}
 
