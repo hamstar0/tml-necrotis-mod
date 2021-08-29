@@ -35,8 +35,11 @@ namespace Necrotis.HUD {
 					Vector2 pos,
 					Rectangle srcRect,
 					float animaPercent,
-					float animaPercentChangeRate ) {
+					float animaPercentChangeRate,
+					float shieldPercent ) {
 			float tint = Main.playerInventory ? 0.5f : 1f;
+
+			//
 
 			if( animaPercent >= 0.9f ) {
 				var config = NecrotisConfig.Instance;
@@ -59,6 +62,23 @@ namespace Necrotis.HUD {
 				);
 			}
 
+			//
+			
+			if( shieldPercent > 0f ) {
+				float flicker = Main.rand.NextFloat();
+				flicker = flicker * flicker * flicker * flicker;
+				flicker = shieldPercent + ((1f - shieldPercent) * flicker);
+
+				sb.Draw(
+					texture: this.AnkhShieldTex,
+					position: pos + new Vector2( -8f, -8f ),
+					sourceRectangle: null,
+					color: Color.White * tint * flicker
+				);
+			}
+
+			//
+
 			sb.Draw(
 				texture: this.AnkhBgTex,
 				position: pos,
@@ -75,16 +95,20 @@ namespace Necrotis.HUD {
 				);
 			}
 
+			//
+
 			if( animaPercent == 0f ) {
-				float glow = (float)AnimatedColors.Strobe.CurrentColor.R / 255f;
+				float ohmGlow = (float)AnimatedColors.Strobe.CurrentColor.R / 255f;
 
 				sb.Draw(
 					texture: this.AnkhOhmTex,
 					position: pos,
 					sourceRectangle: null,
-					color: Color.White * glow * tint
+					color: Color.White * ohmGlow * tint
 				);
 			}
+
+			//
 
 			var area = new Rectangle( (int)pos.X, (int)pos.Y, this.AnkhBgTex.Width, this.AnkhBgTex.Height );
 			if( area.Contains( Main.mouseX, Main.mouseY ) ) {

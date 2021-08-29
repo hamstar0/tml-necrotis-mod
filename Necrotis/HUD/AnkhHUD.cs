@@ -55,6 +55,7 @@ namespace Necrotis.HUD {
 		private Texture2D AnkhGlowTex;
 		private Texture2D AnkhUnglowTex;
 		private Texture2D AnkhOhmTex;
+		private Texture2D AnkhShieldTex;
 
 		private bool IsShowingDefaultHoverText = false;
 
@@ -70,6 +71,7 @@ namespace Necrotis.HUD {
 			this.AnkhGlowTex = mymod.GetTexture( "HUD/AnkhGlow" );
 			this.AnkhUnglowTex = mymod.GetTexture( "HUD/AnkhUnglow" );
 			this.AnkhOhmTex = mymod.GetTexture( "HUD/AnkhOhm" );
+			this.AnkhShieldTex = mymod.GetTexture( "HUD/AnkhShield" );
 
 			AnkhHUD.PremultiplyTexture( this.AnkhDripSource );
 			AnkhHUD.PremultiplyTexture( this.AnkhGlowTex );

@@ -26,21 +26,18 @@ namespace Necrotis {
 		internal IList<AnimaChangeHook> AnimaChangeHooks = new List<AnimaChangeHook>();
 
 
-		////////////////
+		////
 
-		public UIElement AnkhElement => this.AnkhHUD as UIElement;
+		internal Mod SoulBarriersMod = null;
 
 
-
-		////////////////
-
-		public NecrotisMod() {
-			NecrotisMod.Instance = this;
-		}
 
 		////////////////
 
 		public override void Load() {
+			NecrotisMod.Instance = this;
+			this.SoulBarriersMod = ModLoader.GetMod( "SoulBarriers" );
+
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
 				this.InitializeUI();
 			}

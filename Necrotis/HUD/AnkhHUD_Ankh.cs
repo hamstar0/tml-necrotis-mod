@@ -8,23 +8,51 @@ using Necrotis.Libraries.Services.FX;
 
 namespace Necrotis.HUD {
 	partial class AnkhHUD {
-		private bool WasInventory = false;
+		public static float GetAnkhShield_SoulBarriers_WeakRef( Player player ) {
+			SoulBarriers.Barriers.BarrierTypes.Barrier barrier
+				= SoulBarriers.SoulBarriersAPI.GetPlayerBarrier( player );
+
+			float perc = (float)barrier.Strength / (float)player.statManaMax2;
+			perc = Math.Min( 1f, perc );
+
+			return perc;
+		}
 
 
 
 		////////////////
 
+		private bool WasInventory = false;
+
+
+
+		////////////////
+		
 		protected override void DrawSelf( SpriteBatch sb ) {
 			base.DrawSelf( sb );
 
-			var plr = Main.LocalPlayer;
-			var myplayer = plr.GetModPlayer<NecrotisPlayer>();
+			Player player = Main.LocalPlayer;
+			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
-			this.DrawAnkh( sb, myplayer.AnimaPercent, myplayer.CurrentAnimaPercentChangeRate );
+			//
+
+			float shieldPercent = 0;
+			if( NecrotisMod.Instance.SoulBarriersMod != null ) {
+				shieldPercent = AnkhHUD.GetAnkhShield_SoulBarriers_WeakRef( player );
+			}
+
+			//
+
+			this.DrawAnkh(
+				sb: sb,
+				animaPercent: myplayer.AnimaPercent,
+				animaChangeRate: myplayer.CurrentAnimaPercentChangeRate,
+				shieldPrecent: shieldPercent
+			);
 		}
 
 
-		private void DrawAnkh( SpriteBatch sb, float animaPercent, float animaChangeRate ) {
+		private void DrawAnkh( SpriteBatch sb, float animaPercent, float animaChangeRate, float shieldPrecent ) {
 			Vector2 pos = this.GetHUDComputedPosition( true );
 
 			int necScroll = (int)( animaPercent * (float)this.AnkhFgTex.Height );
@@ -40,7 +68,7 @@ namespace Necrotis.HUD {
 				CustomParticle.ClearAll();
 			}
 
-			this.DrawAnkhMain( sb, pos, statSrcRect, animaPercent, animaChangeRate );
+			this.DrawAnkhMain( sb, pos, statSrcRect, animaPercent, animaChangeRate, shieldPrecent );
 			this.DrawAnkhFx( sb, pos, statSrcRect, animaChangeRate );
 		}
 	}
