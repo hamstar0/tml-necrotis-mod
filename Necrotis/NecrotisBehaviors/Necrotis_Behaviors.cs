@@ -24,19 +24,27 @@ namespace Necrotis.NecrotisBehaviors {
 		////////////////
 
 		public static void ApplyAnimaDefenses_PBG_WeakRef() {
-			SoulBarriers.SoulBarriersAPI.AddBarrierCreateHook( ( barrier ) => {
+			SoulBarriers.SoulBarriersAPI.AddBarrierCreateHook( (barrier) => {
 				if( !(barrier is SoulBarriers.Barriers.BarrierTypes.Spherical.Personal.PersonalBarrier) ) {
 					return;
 				}
 
-				void OnAnimaChange( Player player, float oldPercent, ref float percentLost, ref bool quiet ) {
+				void OnAnimaChange( Player plr, float oldAnimaPercent, ref float animaPercentLost, ref bool quiet ) {
+					if( !barrier.IsActive ) {
+						return;
+					}
+					if( animaPercentLost < 0f ) {
+						return;
+					}
+
 //LogLibraries.Log( "CALLING OnAnimaChange "+barrier.ToString()+" - "+percentLost );
-					barrier.ApplyMetaphysicalHit( null, percentLost, false );
+					double oldBarrierStr = barrier.Strength;
+					barrier.ApplyMetaphysicalHit( null, animaPercentLost, false );
 
-					float amtChanged = oldPercent - (float)barrier.Strength;
-					percentLost -= amtChanged;
+					double amtChanged = oldBarrierStr - barrier.Strength;
+					animaPercentLost -= (float)amtChanged;
 
-					quiet = Math.Abs(amtChanged) < 1f;
+					quiet = Math.Abs(amtChanged) < 1d;
 				}
 
 				NecrotisAPI.AddAnimaChangeHook( OnAnimaChange );

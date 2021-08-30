@@ -8,19 +8,27 @@ using ModLibsGeneral.Services.AnimatedColor;
 
 namespace Necrotis.HUD {
 	partial class AnkhHUD {
-		public static string GetGeneralHoverText( float animaPercent, float animaPercentChangeRate ) {
+		public static string GetGeneralHoverText(
+					float animaPercent,
+					float animaPercentChangeRate,
+					float shieldPercent ) {
 			int percent = (int)( animaPercent * 100f );
 			if( percent < 0 ) { percent = 0; }
 
 			string text = percent + "% Anima (Necrotis Resist %)";
 
 			if( animaPercentChangeRate != 0f ) {
-				int percentChangePerSec = (int)( animaPercentChangeRate * 100f * 60f * 60f );
+				int percentChangePerSec = (int)(animaPercentChangeRate * 100f * 60f * 60f);
 				text += "\n";
 				if( percentChangePerSec >= 0 ) {
 					text += "+";
 				}
 				text += percentChangePerSec + "% per minute";
+			}
+
+			if( shieldPercent > 0f ) {
+				string shield = ((int)(shieldPercent * 100f)).ToString();
+				text += "\n"+shield+"% Barrier";
 			}
 
 			return text;
@@ -71,7 +79,7 @@ namespace Necrotis.HUD {
 
 				sb.Draw(
 					texture: this.AnkhShieldTex,
-					position: pos + new Vector2( -8f, -8f ),
+					position: pos + new Vector2(-4f, -4f),
 					sourceRectangle: null,
 					color: Color.White * tint * flicker
 				);
@@ -112,19 +120,23 @@ namespace Necrotis.HUD {
 
 			var area = new Rectangle( (int)pos.X, (int)pos.Y, this.AnkhBgTex.Width, this.AnkhBgTex.Height );
 			if( area.Contains( Main.mouseX, Main.mouseY ) ) {
-				this.DrawHoverTooltipIf( sb, animaPercent, animaPercentChangeRate );
+				this.DrawHoverTooltipIf( sb, animaPercent, animaPercentChangeRate, shieldPercent );
 			}
 		}
 
 
 		////////////////
 
-		private void DrawHoverTooltipIf( SpriteBatch sb, float animaPercent, float animaPercentChangeRate ) {
+		private void DrawHoverTooltipIf(
+					SpriteBatch sb,
+					float animaPercent,
+					float animaPercentChangeRate,
+					float shieldPercent ) {
 			if( this.IsShowingDefaultHoverText ) {
 				return;
 			}
 
-			string text = AnkhHUD.GetGeneralHoverText( animaPercent, animaPercentChangeRate );
+			string text = AnkhHUD.GetGeneralHoverText( animaPercent, animaPercentChangeRate, shieldPercent );
 
 			Utils.DrawBorderStringFourWay(
 				sb: sb,
