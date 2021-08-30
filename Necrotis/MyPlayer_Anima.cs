@@ -64,9 +64,7 @@ namespace Necrotis {
 
 			//
 
-			foreach( var hook in NecrotisMod.Instance.AnimaChangeHooks ) {
-				hook.Invoke( this.player, old, ref percentLost, ref quiet );
-			}
+			NecrotisAPI.RunAnimaChangeHooks( this.player, old, ref percentLost, ref quiet );
 
 			//
 			

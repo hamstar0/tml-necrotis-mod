@@ -10,7 +10,10 @@ namespace Necrotis.HUD {
 	partial class AnkhHUD {
 		public static float GetAnkhShield_SoulBarriers_WeakRef( Player player ) {
 			SoulBarriers.Barriers.BarrierTypes.Barrier barrier
-				= SoulBarriers.SoulBarriersAPI.GetPlayerBarrier( player );
+					= SoulBarriers.SoulBarriersAPI.GetPlayerBarrier( player );
+			if( barrier == null ) {
+				return 0f;
+			}
 
 			return (float)barrier.GetStrengthPercent( player.statManaMax2 );
 		}

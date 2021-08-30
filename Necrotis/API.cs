@@ -1,30 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
+using ModLibsCore.Classes.Loadable;
+using ModLibsCore.Libraries.Debug;
 
 
 namespace Necrotis {
-	public delegate void AnimaChangeHook( Player player, float oldPercent, ref float percentLost, ref bool quiet );
-
-
-
-
-	public static class NecrotisAPI {
+	public partial class NecrotisAPI : ILoadable {
 		public static float GetAnimaPercentOfPlayer( Player player ) {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			return myplayer.AnimaPercent;
 		}
 
 
-		public static void SubtractAnimaPercentFromPlayer( Player player, float percent, bool quiet, bool sync=true ) {
+		public static void SubtractAnimaPercentFromPlayer( Player player, float percent, bool quiet, bool sync = true ) {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			myplayer.SubtractAnimaPercent( percent, quiet, sync );
 		}
 
 
-		////
-		
-		public static void AddAnimaChangeHook( AnimaChangeHook hook ) {
-			NecrotisMod.Instance.AnimaChangeHooks.Add( hook );
-		}
+
+		////////////////
+
+		private IList<AnimaChangeHook> AnimaChangeHooks = new List<AnimaChangeHook>();
+
+
+
+		////////////////
+
+		void ILoadable.OnModsLoad() { }
+
+		void ILoadable.OnPostModsLoad() { }
+
+		void ILoadable.OnModsUnload() { }
 	}
 }

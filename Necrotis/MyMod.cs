@@ -24,8 +24,6 @@ namespace Necrotis {
 
 		private AnkhHUD AnkhHUD;
 
-		internal IList<AnimaChangeHook> AnimaChangeHooks = new List<AnimaChangeHook>();
-
 
 		////
 

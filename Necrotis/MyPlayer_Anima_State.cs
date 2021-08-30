@@ -206,6 +206,7 @@ namespace Necrotis {
 			}
 
 			this.SubtractAnimaPercent( percent, false, false );
+//LogLibraries.Log( "CALLING ReduceAnimaPerContext "+context+", %:"+percent );
 
 			if( config.DebugModeInfo ) {
 				if( isTown ) {

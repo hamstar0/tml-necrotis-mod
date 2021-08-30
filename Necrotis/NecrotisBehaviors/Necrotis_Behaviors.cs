@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using ModLibsCore.Libraries.Debug;
 
 
 namespace Necrotis.NecrotisBehaviors {
@@ -29,10 +30,13 @@ namespace Necrotis.NecrotisBehaviors {
 				}
 
 				void OnAnimaChange( Player player, float oldPercent, ref float percentLost, ref bool quiet ) {
-					barrier.ApplyMetaphysicalHit( null, percentLost, true );
+//LogLibraries.Log( "CALLING OnAnimaChange "+barrier.ToString()+" - "+percentLost );
+					barrier.ApplyMetaphysicalHit( null, percentLost, false );
 
 					float amtChanged = oldPercent - (float)barrier.Strength;
 					percentLost -= amtChanged;
+
+					quiet = Math.Abs(amtChanged) < 1f;
 				}
 
 				NecrotisAPI.AddAnimaChangeHook( OnAnimaChange );
