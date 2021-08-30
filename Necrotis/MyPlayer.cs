@@ -30,7 +30,7 @@ namespace Necrotis {
 
 
 		////////////////
-
+		
 		public override void Initialize() {
 			this.AnimaPercent = 0.51f;
 			this.CurrentAnimaPercentChangeRate = 0f;

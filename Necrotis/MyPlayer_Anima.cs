@@ -69,7 +69,7 @@ namespace Necrotis {
 			}
 
 			//
-
+			
 			/*// If afflicted
 			if( this.AnimaPercent < 0.5f ) {
 				// Reduce amount of added affliction

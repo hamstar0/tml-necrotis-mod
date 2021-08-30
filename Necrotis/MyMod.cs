@@ -13,6 +13,7 @@ namespace Necrotis {
 		public static string GithubProjectName => "tml-necrotis-mod";
 
 
+
 		////////////////
 
 		public static NecrotisMod Instance { get; private set; }
@@ -40,6 +41,10 @@ namespace Necrotis {
 
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
 				this.InitializeUI();
+			}
+
+			if( NecrotisMod.Instance.SoulBarriersMod != null ) {
+				NecrotisBehavior.ApplyAnimaDefenses_PBG_WeakRef();
 			}
 		}
 

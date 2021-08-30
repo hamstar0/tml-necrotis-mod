@@ -12,10 +12,7 @@ namespace Necrotis.HUD {
 			SoulBarriers.Barriers.BarrierTypes.Barrier barrier
 				= SoulBarriers.SoulBarriersAPI.GetPlayerBarrier( player );
 
-			float perc = (float)barrier.Strength / (float)player.statManaMax2;
-			perc = Math.Min( 1f, perc );
-
-			return perc;
+			return (float)barrier.GetStrengthPercent( player.statManaMax2 );
 		}
 
 
