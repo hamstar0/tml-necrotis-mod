@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.UI;
 using Terraria.ModLoader;
 using Necrotis.NecrotisBehaviors;
 using Necrotis.HUD;
