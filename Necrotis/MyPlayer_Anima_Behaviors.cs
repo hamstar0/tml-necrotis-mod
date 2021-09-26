@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using Necrotis.Buffs;
 using Necrotis.Net;
+using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis {
@@ -13,17 +14,17 @@ namespace Necrotis {
 		private void UpdateAnimaBehaviors() {
 			bool isNew = false;
 
-			if( EnlivenedBuff.CanBuff( this.player, this.AnimaPercent ) ) {
+			if( EnlivenedBuff.CanBuff(this.player, this.AnimaPercent) ) {
 				isNew = this.ApplyEnlivened();
-			} else if( NecrotisNatusDeBuff.CanBuff( this.player, this.AnimaPercent ) ) {
+			} else if( NecrotisNatusDeBuff.CanBuff(this.player, this.AnimaPercent) ) {
 				isNew = this.ApplyNecrotisNatus();
-			} else if( NecrotisOmnisDeBuff.CanBuff( this.player, this.AnimaPercent ) ) {
+			} else if( NecrotisOmnisDeBuff.CanBuff(this.player, this.AnimaPercent) ) {
 				isNew = this.ApplyNecrotisOmnis();
 			}
 
 			if( isNew ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
-					PlayerAnimaSyncProtocol.Broadcast( this );
+					PlayerAnimaSyncProtocol.BroadcastFromClientToAll( this, AnimaSource.SyncOnly );
 				}
 			}
 		}

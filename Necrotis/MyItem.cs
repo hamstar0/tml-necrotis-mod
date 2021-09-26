@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
+using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis {
@@ -51,7 +52,7 @@ namespace Necrotis {
 		public override void OnConsumeItem( Item item, Player player ) {
 			if( item.type == ItemID.Ectoplasm ) {
 				var myplayer = player.GetModPlayer<NecrotisPlayer>();
-				myplayer.SubtractAnimaPercent( -1f, false, false );
+				myplayer.SubtractAnimaPercent( -1f, false, AnimaSource.Ectoplasm, false );
 			}
 		}
 	}

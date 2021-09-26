@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using ModLibsGeneral.Libraries.Dusts;
 using Necrotis.Net;
+using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis {
@@ -30,7 +31,8 @@ namespace Necrotis {
 			return (int)(healAmount * costPerPercent);
 		}
 
-		////
+
+		////////////////
 
 		public static bool HealAtCost( Player player, float healAmount ) {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
@@ -48,6 +50,14 @@ namespace Necrotis {
 			DustLibraries.CreateMany( dustType: DustLibraries.GoldGlitterTypeID, position: player.Center, quantity: 8 );
 			Main.PlaySound( SoundID.Item4 );
 
+			//
+
+			if( Main.netMode == NetmodeID.MultiplayerClient ) {
+				PlayerAnimaSyncProtocol.BroadcastFromClientToAll( myplayer, AnimaSource.WitchDoctor );
+			} else if( Main.netMode == NetmodeID.Server ) {
+				PlayerAnimaSyncProtocol.SendToAllClients( myplayer, AnimaSource.WitchDoctor );
+			}
+
 			return true;
 		}
 
@@ -55,7 +65,7 @@ namespace Necrotis {
 
 		////////////////
 		
-		public void SubtractAnimaPercent( float percentLost, bool quiet, bool sync ) {
+		public void SubtractAnimaPercent( float percentLost, bool noPopupNumbers, AnimaSource source, bool sync ) {
 			if( percentLost == 0f ) {
 				return;
 			}
@@ -64,17 +74,26 @@ namespace Necrotis {
 
 			//
 
-			NecrotisAPI.RunAnimaChangeHooks( this.player, old, ref percentLost, ref quiet );
+			NecrotisAPI.RunAnimaChangeHooks( this.player, old, source, ref percentLost, ref noPopupNumbers );
+			if( percentLost == 0f ) {
+				if( NecrotisConfig.Instance.DebugModeInfo ) {
+					LogLibraries.AlertOnce( "A hook has negated an anima subtraction attempt (source: "+source.ToString()+")" );
+				}
+
+				return;
+			}
 
 			//
-			
-			/*// If afflicted
+
+			/*// If afflicted with necrotis (low anima)
 			if( this.AnimaPercent < 0.5f ) {
 				// Reduce amount of added affliction
 				if( percentAmt > 0f ) {
 					percentAmt *= 0.25f;
 				}
 			}*/
+
+			//
 
 			this.AnimaPercent -= percentLost;
 			if( this.AnimaPercent < 0f ) {
@@ -88,7 +107,9 @@ namespace Necrotis {
 
 			this.CurrentAnimaPercentChangeRate += percChangeAmt;
 
-			if( !quiet ) {
+			//
+
+			if( !noPopupNumbers ) {
 				// Display afflict amount
 				if( Math.Abs(percentLost) >= 0.1f ) {
 					string fmtAmt = (int)(percentLost * 100f)+"%";
@@ -105,11 +126,13 @@ namespace Necrotis {
 				}
 			}
 
+			//
+
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
-					PlayerAnimaSyncProtocol.Broadcast( this );
+					PlayerAnimaSyncProtocol.BroadcastFromClientToAll( this, source );
 				} else if( Main.netMode == NetmodeID.Server ) {
-					PlayerAnimaSyncProtocol.SendToAllClients( this );
+					PlayerAnimaSyncProtocol.SendToAllClients( this, source );
 				}
 			}
 		}
@@ -117,7 +140,13 @@ namespace Necrotis {
 
 		////////////////
 
-		internal void SyncAnima( float animaPercent ) {
+		internal void SyncAnima( float animaPercent, AnimaSource source ) {
+			var config = NecrotisConfig.Instance;
+			if( config.DebugModeInfo ) {
+				LogLibraries.AlertOnce( "Synced anima change from "+source.ToString()
+					+"; was "+this.AnimaPercent+", is "+animaPercent );
+			}
+
 			this.AnimaPercent = animaPercent;
 		}
 	}

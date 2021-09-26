@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using Necrotis.Recipes;
 using Necrotis.Buffs;
+using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis.Items {
@@ -16,7 +17,7 @@ namespace Necrotis.Items {
 			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
 
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			myplayer.SubtractAnimaPercent( -percHeal, false, false );
+			myplayer.SubtractAnimaPercent( -percHeal, false, AnimaSource.Ectoplasm, false );
 
 			int respiritedSeconds = config.Get<int>( nameof(config.DillutedEctoplasmRespiritedDurationSeconds) );
 			int respiritedTicks = respiritedSeconds * 60;
