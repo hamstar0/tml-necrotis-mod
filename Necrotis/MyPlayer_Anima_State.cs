@@ -222,23 +222,8 @@ namespace Necrotis {
 				}
 			}
 
-			this.SubtractAnimaPercent( percent, false, AnimaSource.Environmental, false );
+			this.SubtractAnimaPercent( percent, false, context, false );
 //LogLibraries.Log( "CALLING ReduceAnimaPerContext "+context+", %:"+percent );
-
-			if( config.DebugModeInfo ) {f
-				if( isTown ) {
-					context += "_Town";
-					if( isUnsafe ) {
-						context += "Unsafe";
-					}
-				}
-				string amtStr = percent.ToString( "F6" );
-				if( isElixired ) {
-					amtStr += "e";
-				}
-
-				DebugLibraries.Print( context, amtStr );
-			}
 		}
 	}
 }

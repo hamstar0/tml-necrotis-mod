@@ -17,7 +17,7 @@ namespace Necrotis.Items {
 			float percHeal = config.Get<float>( nameof(config.DillutedEctoplasmAnimaPercentHeal) );
 
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			myplayer.SubtractAnimaPercent( -percHeal, false, AnimaSource.Ectoplasm, false );
+			myplayer.SubtractAnimaPercent( -percHeal, false, "Ecto Pickup", false );
 
 			int respiritedSeconds = config.Get<int>( nameof(config.DillutedEctoplasmRespiritedDurationSeconds) );
 			int respiritedTicks = respiritedSeconds * 60;

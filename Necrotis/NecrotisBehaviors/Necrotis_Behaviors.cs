@@ -29,7 +29,12 @@ namespace Necrotis.NecrotisBehaviors {
 					return;
 				}
 
-				void OnAnimaChange( Player plr, float oldAnimaPercent, ref float animaPercentLost, ref bool quiet ) {
+				void OnAnimaChange(
+							Player plr,
+							float oldAnimaPercent,
+							ref string context,
+							ref float animaPercentLost,
+							ref bool quiet ) {
 					if( !barrier.IsActive ) {
 						return;
 					}
@@ -45,6 +50,8 @@ namespace Necrotis.NecrotisBehaviors {
 					animaPercentLost -= (float)amtChanged;
 
 					quiet = Math.Abs(amtChanged) < 1d;
+
+					context += " +PBG";
 				}
 
 				NecrotisAPI.AddAnimaChangeHook( OnAnimaChange );

@@ -18,10 +18,10 @@ namespace Necrotis {
 					Player player,
 					float percent,
 					bool noPopupNumbers,
-					AnimaSource source = AnimaSource.Custom,
+					string context = "Custom",
 					bool sync = true ) {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
-			myplayer.SubtractAnimaPercent( percent, noPopupNumbers, source, sync );
+			myplayer.SubtractAnimaPercent( percent, noPopupNumbers, context, sync );
 		}
 
 

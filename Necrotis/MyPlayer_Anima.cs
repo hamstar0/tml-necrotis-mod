@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using ModLibsGeneral.Libraries.Dusts;
 using Necrotis.Net;
-using Necrotis.NecrotisBehaviors;
+using Necrotis.Buffs;
 
 
 namespace Necrotis {
@@ -53,9 +53,9 @@ namespace Necrotis {
 			//
 
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
-				PlayerAnimaSyncProtocol.BroadcastFromClientToAll( myplayer, AnimaSource.WitchDoctor );
+				PlayerAnimaSyncProtocol.BroadcastFromClientToAll( myplayer, "Witch Doctor" );
 			} else if( Main.netMode == NetmodeID.Server ) {
-				PlayerAnimaSyncProtocol.SendToAllClients( myplayer, AnimaSource.WitchDoctor );
+				PlayerAnimaSyncProtocol.SendToAllClients( myplayer, "Witch Doctor" );
 			}
 
 			return true;
@@ -65,7 +65,7 @@ namespace Necrotis {
 
 		////////////////
 		
-		public void SubtractAnimaPercent( float percentLost, bool noPopupNumbers, AnimaSource source, bool sync ) {
+		public void SubtractAnimaPercent( float percentLost, bool noPopupNumbers, string context, bool sync ) {
 			if( percentLost == 0f ) {
 				return;
 			}
@@ -74,10 +74,10 @@ namespace Necrotis {
 
 			//
 
-			NecrotisAPI.RunAnimaChangeHooks( this.player, old, source, ref percentLost, ref noPopupNumbers );
+			NecrotisAPI.RunAnimaChangeHooks( this.player, old, ref context, ref percentLost, ref noPopupNumbers );
 			if( percentLost == 0f ) {
 				if( NecrotisConfig.Instance.DebugModeInfo ) {
-					LogLibraries.AlertOnce( "A hook has negated an anima subtraction attempt (source: "+source.ToString()+")" );
+					LogLibraries.AlertOnce( "A hook has negated an anima subtraction attempt (source: "+context+")" );
 				}
 
 				return;
@@ -130,20 +130,41 @@ namespace Necrotis {
 
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
-					PlayerAnimaSyncProtocol.BroadcastFromClientToAll( this, source );
+					PlayerAnimaSyncProtocol.BroadcastFromClientToAll( this, context );
 				} else if( Main.netMode == NetmodeID.Server ) {
-					PlayerAnimaSyncProtocol.SendToAllClients( this, source );
+					PlayerAnimaSyncProtocol.SendToAllClients( this, context );
 				}
+			}
+
+			//
+
+			if( NecrotisConfig.Instance.DebugModeInfo ) {
+				bool isTown = this.player.townNPCs > 1f;
+				bool isUnsafe = Main.bloodMoon || Main.eclipse;
+				bool isElixired = player.HasBuff( ModContent.BuffType<RespiritedBuff>() );
+
+				if( isTown ) {
+					context += "_Town";
+					if( isUnsafe ) {
+						context += "Unsafe";
+					}
+				}
+				string amtStr = percentLost.ToString( "F6" );
+				if( isElixired ) {
+					amtStr += "e";
+				}
+
+				DebugLibraries.Print( context, amtStr );
 			}
 		}
 
 
 		////////////////
 
-		internal void SyncAnima( float animaPercent, AnimaSource source ) {
+		internal void SyncAnima( float animaPercent, string context ) {
 			var config = NecrotisConfig.Instance;
 			if( config.DebugModeInfo ) {
-				LogLibraries.AlertOnce( "Synced anima change from "+source.ToString()
+				LogLibraries.AlertOnce( "Synced anima change from "+context
 					+"; was "+this.AnimaPercent+", is "+animaPercent );
 			}
 

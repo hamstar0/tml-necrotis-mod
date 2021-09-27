@@ -52,7 +52,7 @@ namespace Necrotis {
 		public override void OnConsumeItem( Item item, Player player ) {
 			if( item.type == ItemID.Ectoplasm ) {
 				var myplayer = player.GetModPlayer<NecrotisPlayer>();
-				myplayer.SubtractAnimaPercent( -1f, false, AnimaSource.Ectoplasm, false );
+				myplayer.SubtractAnimaPercent( -1f, false, "Canopic Jar", false );
 			}
 		}
 	}

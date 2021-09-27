@@ -24,7 +24,7 @@ namespace Necrotis {
 
 			if( isNew ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
-					PlayerAnimaSyncProtocol.BroadcastFromClientToAll( this, AnimaSource.SyncOnly );
+					PlayerAnimaSyncProtocol.BroadcastFromClientToAll( this, "Sync Only" );
 				}
 			}
 		}
