@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Terraria;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Libraries.Debug;
-using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis {
@@ -18,7 +17,7 @@ namespace Necrotis {
 					Player player,
 					float percent,
 					bool noPopupNumbers,
-					string context = "Custom",
+					string context,
 					bool sync = true ) {
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 			myplayer.SubtractAnimaPercent( percent, noPopupNumbers, context, sync );

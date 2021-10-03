@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ModLoader;
 using ModLibsCore.Classes.Loadable;
-using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis {

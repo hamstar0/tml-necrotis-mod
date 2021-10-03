@@ -70,11 +70,12 @@ namespace Necrotis {
 				return;
 			}
 
-			float old = this.AnimaPercent;
-
 			//
 
+			float old = this.AnimaPercent;
+
 			NecrotisAPI.RunAnimaChangeHooks( this.player, old, ref context, ref percentLost, ref noPopupNumbers );
+
 			if( percentLost == 0f ) {
 				if( NecrotisConfig.Instance.DebugModeInfo ) {
 					LogLibraries.AlertOnce( "A hook has negated an anima subtraction attempt (source: "+context+")" );
