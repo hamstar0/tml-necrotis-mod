@@ -13,10 +13,11 @@ namespace Necrotis.Recipes {
 			//this.AddIngredient( ItemID.LifeCrystal, 1 );
 			//this.AddIngredient( ItemID.PeaceCandle, 1 );
 			//this.AddIngredient( ItemID.Bottle, 1 );
-			this.AddIngredient( ItemID.ShinePotion, 1 );
+			//this.AddIngredient( ItemID.ShinePotion, 1 );
+			this.AddIngredient( ItemID.FallenStar, 1 );
 			this.AddIngredient( ItemID.GoldCoin, 1 );
-			this.AddIngredient( ItemID.BottledHoney, 1 );
 			this.AddRecipeGroup( "Necrotis:Critters", 3 );
+			this.AddIngredient( ItemID.BottledHoney, 1 );
 			
 			this.SetResult( myitem );
 		}
