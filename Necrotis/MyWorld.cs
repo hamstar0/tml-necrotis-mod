@@ -44,8 +44,8 @@ namespace Necrotis {
 					continue;
 				}
 
-				tag[ "dilluted_ecto_x_"+j ] = (float)item.position.X;
-				tag[ "dilluted_ecto_y_"+j ] = (float)item.position.Y;
+				tag[ "dilluted_ecto_x_"+j ] = (float)item.Center.X;
+				tag[ "dilluted_ecto_y_"+j ] = (float)item.Center.Y;
 				j++;
 			}
 
@@ -71,10 +71,10 @@ namespace Necrotis {
 
 			foreach( (float wldX, ISet<float> wldYs) in this.LoadEctoPositions ) {
 				foreach( float wldY in wldYs ) {
-					int itemWho = Item.NewItem(
-						position: new Vector2( wldX, wldY ),
-						Type: ectoType
-					);
+					var pos = new Vector2( wldX, wldY );
+					int itemWho = Item.NewItem( position: pos, Type: ectoType );
+
+					Main.item[itemWho].Center = pos;
 					Main.item[itemWho].velocity = default;
 				}
 			}
