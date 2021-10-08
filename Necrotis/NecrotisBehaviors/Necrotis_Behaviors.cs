@@ -14,10 +14,7 @@ namespace Necrotis.NecrotisBehaviors {
 			NecrotisBehavior.ApplyPlayerJumpingBehaviors( player, necrotisPercent );
 			NecrotisBehavior.ApplyPlayerHealthBehaviors( player, necrotisPercent, out lastMaxHpLost );
 			NecrotisBehavior.ApplyPlayerDebuffBehaviors( player, necrotisPercent );
-
-			if( necrotisPercent >= 1f ) {
-				NecrotisBehavior.ApplyWorldBehaviors( player );
-			}
+			NecrotisBehavior.ApplyWorldBehaviors( player, necrotisPercent );
 		}
 
 
