@@ -58,9 +58,7 @@ namespace Necrotis {
 		////
 
 		[DefaultValue( true )]
-		public bool ElixirVanillaRecipeEnabled { get; set; } = true;
-
-		public bool ElixirAdventureRecipeEnabled { get; set; } = false;
+		public bool ElixirRecipeEnabled { get; set; } = true;
 
 		[Range( 0f, 1f )]
 		[DefaultValue( 0f )]
