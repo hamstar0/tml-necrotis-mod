@@ -31,8 +31,16 @@ namespace Necrotis.Items {
 		}
 
 		public override void AddRecipes() {
-			var recipe = new ElixirOfLifeItemRecipe( this );
-			recipe.AddRecipe();
+			var config = NecrotisConfig.Instance;
+
+			if( config.Get<bool>( nameof(config.ElixirVanillaRecipeEnabled) ) ) {
+				var recipe = new ElixirOfLifeItemRecipe( this, false );
+				recipe.AddRecipe();
+			}
+			if( config.Get<bool>( nameof(config.ElixirAdventureRecipeEnabled) ) ) {
+				var recipe = new ElixirOfLifeItemRecipe( this, true );
+				recipe.AddRecipe();
+			}
 		}
 
 		////
