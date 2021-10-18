@@ -17,7 +17,8 @@ namespace Necrotis.Recipes {
 			this.AddIngredient( ItemID.FallenStar, 1 );
 			this.AddIngredient( ItemID.GoldCoin, 1 );
 			this.AddRecipeGroup( "Necrotis:Critters", 3 );
-			this.AddIngredient( ItemID.BottledHoney, 1 );
+			//this.AddIngredient( ItemID.BottledHoney, 1 );
+			this.needHoney = true;
 			
 			this.SetResult( myitem );
 		}

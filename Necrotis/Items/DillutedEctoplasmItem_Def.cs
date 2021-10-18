@@ -7,7 +7,6 @@ using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using Necrotis.Recipes;
 using Necrotis.Buffs;
-using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis.Items {

@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using ModLibsGeneral.Libraries.World;
 using Necrotis.Buffs;
-using Necrotis.NecrotisBehaviors;
 
 
 namespace Necrotis {
@@ -23,7 +22,7 @@ namespace Necrotis {
 			if( tileY > WorldLocationLibraries.UnderworldLayerTopTileY ) {
 				this.UpdateAnimaStateForUnderworld();
 			}
-			// Dirt layer
+			// Underground layer
 			else if( tileY > WorldLocationLibraries.DirtLayerTopTileY ) {
 				this.UpdateAnimaStateForUnderground();
 			}
@@ -52,7 +51,7 @@ namespace Necrotis {
 				var config = NecrotisConfig.Instance;
 				float townAfflict = config.Get<float>( nameof(config.TownAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(townAfflict), "NecrotisCtx_Town" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(townAfflict), "NecrotisCtx_Town" );
 			}
 		}
 
@@ -61,7 +60,7 @@ namespace Necrotis {
 			var config = NecrotisConfig.Instance;
 			float hellAfflict = config.Get<float>( nameof(config.HellAnimaPercentLossPer10Min) );
 
-			this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(hellAfflict), "NecrotisCtx_Hell" );
+			this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(hellAfflict), "NecrotisCtx_Hell" );
 		}
 
 
@@ -74,42 +73,42 @@ namespace Necrotis {
 			if( plr.ZoneDungeon ) {
 				float dungAfflict = config.Get<float>( nameof(config.DungeonAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(dungAfflict), "NecrotisCtx_Dungeon" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(dungAfflict), "NecrotisCtx_Dungeon" );
 				isOther = true;
 			}
 			// Corruption/crimson
 			if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
 				float corrAfflict = config.Get<float>( nameof(config.CorruptionAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(corrAfflict), "NecrotisCtx_UndCorr" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(corrAfflict), "NecrotisCtx_UndCorr" );
 				isOther = true;
 			}
 			// Hallow
 			if( plr.ZoneHoly ) {
 				float holyAfflict = config.Get<float>( nameof(config.HallowAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(holyAfflict), "NecrotisCtx_UndHallow" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(holyAfflict), "NecrotisCtx_UndHallow" );
 				isOther = true;
 			}
 			// Desert
 			if( plr.ZoneUndergroundDesert ) {   //plr.ZoneDesert ) {
 				float desAfflict = config.Get<float>( nameof(config.DesertAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(desAfflict), "NecrotisCtx_UndDesert" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(desAfflict), "NecrotisCtx_UndDesert" );
 				isOther = true;
 			}
 			// Ice
 			if( plr.ZoneSnow ) {
 				float snowAfflict = config.Get<float>( nameof(config.SnowAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(snowAfflict), "NecrotisCtx_UndIce" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(snowAfflict), "NecrotisCtx_UndIce" );
 				isOther = true;
 			}
 			// Jungle
 			if( plr.ZoneJungle ) {
 				float jungAfflict = config.Get<float>( nameof(config.JungleAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(jungAfflict), "NecrotisCtx_UndJung" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(jungAfflict), "NecrotisCtx_UndJung" );
 				isOther = true;
 			}
 
@@ -117,7 +116,7 @@ namespace Necrotis {
 			if( !isOther ) {
 				float caveAfflict = config.Get<float>( nameof(config.PlainCavesAnimaPercentLossPer10Min) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(caveAfflict), "NecrotisCtx_Und" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(caveAfflict), "NecrotisCtx_Und" );
 			}
 		}
 
@@ -137,28 +136,28 @@ namespace Necrotis {
 			if( isBeach && tileY > WorldLocationLibraries.SkyLayerBottomTileY ) {
 				float beaAfflict = config.Get<float>( nameof( NecrotisConfig.BeachAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(beaAfflict), "NecrotisCtx_Beach" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(beaAfflict), "NecrotisCtx_Beach" );
 				isOther = true;
 			}
 			// Desert
 			if( !isBeach && plr.ZoneDesert ) {
 				float desAfflict = config.Get<float>( nameof( NecrotisConfig.DesertAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(desAfflict), "NecrotisCtx_Desert" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(desAfflict), "NecrotisCtx_Desert" );
 				isOther = true;
 			}
 			// Ice
 			if( plr.ZoneSnow ) {
 				float snowAfflict = config.Get<float>( nameof( NecrotisConfig.SnowAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(snowAfflict), "NecrotisCtx_Snow" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(snowAfflict), "NecrotisCtx_Snow" );
 				isOther = true;
 			}
 			// Jungle
 			if( plr.ZoneJungle ) {
 				float jungAfflict = config.Get<float>( nameof( NecrotisConfig.JungleAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(jungAfflict), "NecrotisCtx_Jungle" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(jungAfflict), "NecrotisCtx_Jungle" );
 				isOther = true;
 			}
 
@@ -166,14 +165,14 @@ namespace Necrotis {
 			if( plr.ZoneHoly ) {
 				float hallAfflict = config.Get<float>( nameof( NecrotisConfig.HallowAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(hallAfflict), "NecrotisCtx_Hallow" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(hallAfflict), "NecrotisCtx_Hallow" );
 				//isOther = true;
 			}
 			// Corruption/crimson
 			else if( plr.ZoneCorrupt || plr.ZoneCrimson ) {
 				float corrAfflict = config.Get<float>( nameof( NecrotisConfig.CorruptionAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(corrAfflict), "NecrotisCtx_Corr" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(corrAfflict), "NecrotisCtx_Corr" );
 				isOther = true;
 			}
 
@@ -181,14 +180,14 @@ namespace Necrotis {
 			if( !isOther ) {
 				float forAfflict = config.Get<float>( nameof( NecrotisConfig.ForestAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(forAfflict), "NecrotisCtx_Forest" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(forAfflict), "NecrotisCtx_Forest" );
 			}
 
 			// Night or Eclipse
-			if( (!isTown || isUnsafe) && ( !Main.dayTime || Main.eclipse ) ) {
+			if( (!isTown || isUnsafe) && (!Main.dayTime || Main.eclipse) ) {
 				float nightAfflict = config.Get<float>( nameof( NecrotisConfig.NightOrEclipseAnimaPercentLossPer10Min ) );
 
-				this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(nightAfflict), "NecrotisCtx_NightOrEclipse" );
+				this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(nightAfflict), "NecrotisCtx_NightOrEclipse" );
 			}
 		}
 
@@ -196,13 +195,13 @@ namespace Necrotis {
 			var config = NecrotisConfig.Instance;
 			float skyAfflict = config.Get<float>( nameof( NecrotisConfig.SkyAnimaPercentLossPer10Min ) );
 
-			this.ReduceAnimaPerContext( NecrotisConfig.Convert10MinToTick(skyAfflict), "NecrotisCtx_Sky" );
+			this.SubtractAnimaPerContext( NecrotisConfig.Convert10MinToTick(skyAfflict), "NecrotisCtx_Sky" );
 		}
 
 
 		////////////////
 
-		private void ReduceAnimaPerContext( float percent, string context ) {
+		private void SubtractAnimaPerContext( float percent, string context ) {
 			var config = NecrotisConfig.Instance;
 			Player plr = this.player;
 
