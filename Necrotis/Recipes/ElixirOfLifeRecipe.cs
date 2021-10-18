@@ -13,17 +13,18 @@ namespace Necrotis.Recipes {
 			//this.AddIngredient( ItemID.Bottle, 1 );
 			//this.AddIngredient( ItemID.ShinePotion, 1 );
 			if( adventureModeVersion ) {
+				this.AddTile( TileID.DemonAltar );
 				this.AddIngredient( ItemID.FallenStar, 1 );
 				this.AddIngredient( ItemID.GoldCoin, 1 );
+				//this.AddIngredient( ItemID.LesserManaPotion, 1 );
+				this.AddIngredient( ItemID.BottledHoney, 1 );
 				this.AddRecipeGroup( "Necrotis:Critters", 3 );
-				this.AddIngredient( ItemID.LesserManaPotion, 1 );
-				//this.AddIngredient( ItemID.BottledHoney, 1 );
-				this.needHoney = true;
+				//this.needHoney = true;
 			} else {
 				this.AddTile( TileID.DemonAltar );
 				this.AddIngredient( ItemID.GoldCoin, 1 );
-				this.AddRecipeGroup( "Necrotis:Critters", 3 );
 				this.AddIngredient( ItemID.BottledHoney, 1 );
+				this.AddRecipeGroup( "Necrotis:Critters", 3 );
 			}
 
 			this.SetResult( myitem );
