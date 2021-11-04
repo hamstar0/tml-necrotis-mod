@@ -24,14 +24,14 @@ namespace Necrotis {
 		public float BeachAnimaPercentLossPer10Min { get; set; } = -1.25f;
 
 		[Range( -100f, 100f )]
-		[DefaultValue( 0.75f )]
+		[DefaultValue( 0.85f )]	// was 0.75f
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float PlainCavesAnimaPercentLossPer10Min { get; set; } = 0.75f;
+		public float PlainCavesAnimaPercentLossPer10Min { get; set; } = 0.85f;
 
 		[Range( -100f, 100f )]
-		[DefaultValue( -3f )]
+		[DefaultValue( 0f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float HellAnimaPercentLossPer10Min { get; set; } = -3f;
+		public float HellAnimaPercentLossPer10Min { get; set; } = 0f;
 
 		//
 
@@ -51,31 +51,31 @@ namespace Necrotis {
 		public float HallowAnimaPercentLossPer10Min { get; set; } = -1f;
 
 		[Range( -100f, 100f )]
-		[DefaultValue( -0.25f )]	// was 0.5f
+		[DefaultValue( -0.15f )]    // was 0.25f
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float DesertAnimaPercentLossPer10Min { get; set; } = -0.25f;
+		public float DesertAnimaPercentLossPer10Min { get; set; } = -0.15f;
 
 		[Range( -100f, 100f )]
-		[DefaultValue( -0.25f )]    // was 0.5f
+		[DefaultValue( -0.15f )]    // was 0.25f
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float SnowAnimaPercentLossPer10Min { get; set; } = -0.25f;
+		public float SnowAnimaPercentLossPer10Min { get; set; } = -0.15f;
 
 		[Range( -100f, 100f )]
-		[DefaultValue( -0.25f )]    // was 0.5f
+		[DefaultValue( -0.15f )]    // was 0.25f
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float JungleAnimaPercentLossPer10Min { get; set; } = -0.25f;
+		public float JungleAnimaPercentLossPer10Min { get; set; } = -0.15f;
 
 		[Range( -100f, 100f )]
-		[DefaultValue( -0.25f )]    // was 0.5f
+		[DefaultValue( -0.15f )]    // was 0.25f
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float ForestAnimaPercentLossPer10Min { get; set; } = -0.25f;
+		public float ForestAnimaPercentLossPer10Min { get; set; } = -0.15f;
 
 		//
 
 		[Range( -100f, 100f )]
-		[DefaultValue( -0.25f )]    // was 0.5f
+		[DefaultValue( -0.15f )]    // was 0.25f
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float TownAnimaPercentLossPer10Min { get; set; } = -0.25f;
+		public float TownAnimaPercentLossPer10Min { get; set; } = -0.15f;
 
 		[Range( -100f, 100f )]
 		[DefaultValue( 0.5f )]
