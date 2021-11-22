@@ -74,6 +74,18 @@ namespace Necrotis {
 
 		////////////////
 
+		public override void OnHitByProjectile( Projectile proj, int damage, bool crit ) {
+			if( proj.type == ProjectileID.DemonSickle ) {
+				var config = NecrotisConfig.Instance;
+				float percent = config.Get<float>( nameof(config.DemonSickleAnimaPercentLoss) );
+
+				this.SubtractAnimaPercent( percent, false, "Demon Sickle", false );
+			}
+		}
+
+
+		////////////////
+
 		public override void PreUpdate() {
 			if( this.player.whoAmI == Main.myPlayer ) {
 				if( Main.netMode != NetmodeID.Server ) {
@@ -90,7 +102,6 @@ namespace Necrotis {
 //DebugLibraries.Print( "necrotis", "necrotis%: "+this.AnimaPercent.ToString("N2") );
 			}
 		}
-
 
 		////////////////
 

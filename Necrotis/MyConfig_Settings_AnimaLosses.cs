@@ -13,6 +13,13 @@ namespace Necrotis {
 
 		////////////////
 
+		[Range( 0f, 1f )]
+		[DefaultValue( 0.1f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float DemonSickleAnimaPercentLoss { get; set; } = 0.1f;
+
+		//
+
 		[Range( -100f, 100f )]
 		[DefaultValue( -1f )]   // was 2f
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
