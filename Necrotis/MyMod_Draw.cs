@@ -21,20 +21,20 @@ namespace Necrotis {
 		////
 
 		public override void ModifyInterfaceLayers( List<GameInterfaceLayer> layers ) {
-			int barsIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Resource Bars" ) );
-			if( barsIdx == -1 ) {
-				return;
-			}
+			//int barsIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Resource Bars" ) );
+			//if( barsIdx == -1 ) {
+			//	return;
+			//}
 
 			int npcChatIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: NPC / Sign Dialog" ) );
 			if( npcChatIdx == -1 ) {
 				return;
 			}
 
-			int topIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Mouse Over" ) );
-			if( topIdx == -1 ) {
-				return;
-			}
+			//int topIdx = layers.FindIndex( layer => layer.Name.Equals( "Vanilla: Mouse Over" ) );
+			//if( topIdx == -1 ) {
+			//	return;
+			//}
 
 			//
 

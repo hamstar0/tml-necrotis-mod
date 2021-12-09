@@ -11,12 +11,14 @@ using Messages;
 namespace Necrotis.Items {
 	public partial class DillutedEctoplasmItem : ModItem {
 		private static void CanPickupAlerts( Player player, bool isEmptyHanded, bool isHoldingJar ) {
-			if( !isEmptyHanded && !isHoldingJar ) {
+			if( !isEmptyHanded && !isHoldingJar && player.whoAmI == Main.myPlayer ) {
 				if( Timers.GetTimerTickDuration("NecrotisPickupAlert") <= 0 ) {
 					Main.NewText( "Only bare hands or (empty) canopic jars can interact with this.", Color.Yellow );
 				}
 				Timers.SetTimer( "NecrotisPickupAlert", 60, false, () => false );
 			}
+
+			//
 
 			string id = "Necrotis_DillutedEctoplasm";
 
