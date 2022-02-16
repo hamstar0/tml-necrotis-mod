@@ -29,8 +29,6 @@ namespace Necrotis.HUD {
 		////////////////
 
 		protected override void PostDrawSelf( bool isSelfDrawn, SpriteBatch sb ) {
-			base.DrawSelf( sb );
-
 			Player player = Main.LocalPlayer;
 			var myplayer = player.GetModPlayer<NecrotisPlayer>();
 
