@@ -41,6 +41,10 @@ namespace Necrotis.Items {
 
 			int mytype = ModContent.ItemType<DillutedEctoplasmItem>();
 			ItemID.Sets.ItemNoGravity[ mytype ] = true;
+
+			if( ModLoader.GetMod("PKEMeter") != null ) {
+				DillutedEctoplasmItem.InitializeScannableMessage_WeakRef();
+			}
 		}
 
 		public override void SetDefaults() {
