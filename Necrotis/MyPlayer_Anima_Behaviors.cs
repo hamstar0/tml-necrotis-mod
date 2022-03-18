@@ -17,7 +17,7 @@ namespace Necrotis {
 			if( EnlivenedBuff.CanBuff(this.player, this.AnimaPercent) ) {
 				isNew = this.ApplyEnlivened();
 			} else if( NecrotisNatusDeBuff.CanBuff(this.player, this.AnimaPercent) ) {
-				isNew = this.ApplyNecrotisNatus();
+				isNew = this.ApplyNecrotisNatus( this.AnimaPercent );
 			} else if( NecrotisOmnisDeBuff.CanBuff(this.player, this.AnimaPercent) ) {
 				isNew = this.ApplyNecrotisOmnis();
 			}
@@ -46,19 +46,23 @@ namespace Necrotis {
 		}
 
 		
-		private bool ApplyNecrotisNatus() {
-			int debuffType = ModContent.BuffType<NecrotisNatusDeBuff>();
+		private bool ApplyNecrotisNatus( float animaPercent ) {
+			int smDebuffType = ModContent.BuffType<NecrotisNatusDeBuff>();
 			bool isNew = false;
 
 			if( Main.netMode != NetmodeID.Server ) {
-				isNew = !this.player.HasBuff( debuffType );
+				isNew = !this.player.HasBuff( smDebuffType );
 
 				if( isNew ) {
-					Main.NewText( "Your limbs begin feeling stiff.", Color.OrangeRed );
+					if( animaPercent < 0.02f ) {
+						Main.NewText( "Your vision starts to clear...", Color.OrangeRed );
+					} else {
+						Main.NewText( "Your limbs begin feeling stiff.", Color.OrangeRed );
+					}
 				}
 			}
 
-			this.player.AddBuff( debuffType, 2 );
+			this.player.AddBuff( smDebuffType, 2 );
 
 			return isNew;
 		}
