@@ -7,7 +7,7 @@ using Necrotis.NecrotisBehaviors;
 namespace Necrotis.Buffs {
 	public partial class NecrotisNatusDeBuff : ModBuff {
 		private static string BaseDescription = "You begin feeling horriby drained"
-				+ "\n" + "Your anima is getting low";
+				+ "\n" + "Your spiritual energy (anima) is getting low";
 				//+ "\n" + "Reduces max life, speed, life regen";
 
 
@@ -15,7 +15,7 @@ namespace Necrotis.Buffs {
 		////////////////
 
 		public static bool CanBuff( Player player, float animaPercent ) {
-			return animaPercent > 0f && animaPercent <= 0.5f;
+			return animaPercent >= 0.01f && animaPercent <= 0.5f;
 		}
 
 
@@ -50,11 +50,11 @@ namespace Necrotis.Buffs {
 			tip = NecrotisNatusDeBuff.BaseDescription;
 			if( plr.statLifeMax > 100 ) {
 				int realMaxHp = plr.statLifeMax2 + this.LastMaxHpLost;
-				tip += "\n"+"Max health reduced to "+plr.statLifeMax2+" (of "+realMaxHp+")";
+				tip += "\n"+$"Max health reduced to {plr.statLifeMax2} (of {realMaxHp})";
 			}
-			tip += "\n"+"Health regeneration reduced to "+lastRegenEffectPercOf100+"%";
-			tip += "\n"+"Movement speed reduced to "+lastMovePercentOf100+"%";
-			tip += "\n"+"Visibility reduced to "+(int)(visibility * 100f)+"%";
+			tip += "\n"+$"Health regeneration reduced to {lastRegenEffectPercOf100}%";
+			tip += "\n"+$"Movement speed reduced to {lastMovePercentOf100}%";
+			tip += "\n"+$"Visibility reduced to {(int)(visibility * 100f)}%";
 		}
 
 
