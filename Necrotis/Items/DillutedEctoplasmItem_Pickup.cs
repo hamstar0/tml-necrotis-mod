@@ -125,7 +125,9 @@ LogLibraries.LogOnce( ""//(((isEmptyHanded || isHoldingJar) && isWithinRange) ? 
 			}
 
 			if( PlayerItemLibraries.RemoveInventoryItemQuantity(player, emptyJarType, 1) == 0 ) {
-				Main.NewText( "Could not fill jar.", Color.Yellow );
+				if( player.whoAmI == Main.myPlayer ) {
+					Main.NewText( "Could not fill jar.", Color.Yellow );
+				}
 				isError = true;
 				return false;
 			}

@@ -50,7 +50,7 @@ namespace Necrotis {
 			int smDebuffType = ModContent.BuffType<NecrotisNatusDeBuff>();
 			bool isNew = false;
 
-			if( Main.netMode != NetmodeID.Server ) {
+			if( Main.netMode != NetmodeID.Server && this.player.whoAmI == Main.myPlayer ) {
 				isNew = !this.player.HasBuff( smDebuffType );
 
 				if( isNew ) {
@@ -72,7 +72,7 @@ namespace Necrotis {
 			int debuffType = ModContent.BuffType<NecrotisOmnisDeBuff>();
 			bool isNew = false;
 
-			if( Main.netMode != NetmodeID.Server ) {
+			if( Main.netMode != NetmodeID.Server && this.player.whoAmI == Main.myPlayer ) {
 				isNew = !this.player.HasBuff( debuffType );
 
 				if( isNew ) {
