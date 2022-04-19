@@ -10,7 +10,11 @@ namespace Necrotis.Items {
 	public class ElixirOfLifeItem : ModItem {
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Elixir of Life" );
-			this.Tooltip.SetDefault( "Removes all common afflictions, restores all health, and protects against anima loss for a while" );
+			this.Tooltip.SetDefault(
+				"Removes all common afflictions"
+				//+"\nRestores all health"
+				+"\nProtects against anima loss for a while"
+			);
 		}
 
 		public override void SetDefaults() {
@@ -54,10 +58,14 @@ namespace Necrotis.Items {
 			player.ClearBuff( BuffID.Blackout );
 			player.ClearBuff( BuffID.Venom );
 
-			int healAmt = player.statLifeMax2 - player.statLife;
+			//
 
-			player.statLife = healAmt;
-			player.HealEffect( healAmt, true );
+			//int healAmt = player.statLifeMax2 - player.statLife;
+			//
+			//player.statLife += healAmt;
+			//player.HealEffect( healAmt, true );
+
+			//
 
 			int seconds = config.Get<int>( nameof(config.ElixirDurationInSeconds) );
 			int ticks = seconds * 60;   //60 * 60 * 3
