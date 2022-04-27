@@ -4,8 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
-using ModLibsCore.Services.Timers;
-using ModLibsGeneral.Libraries.Players;
 using Messages;
 
 
@@ -14,20 +12,20 @@ namespace Necrotis.Items {
 		private static string MessageId = "Necrotis_DillutedEctoplasm";
 		private static string MessageTitle = "Dilluted Ectoplasm";
 		private static string MessageBody =
-			"Scattered around and within the island of Terraria are innumerable burial urns"
-			+ " found simply lying about: Unguarded, yet undisturbed. An odd thing, seeing as their"
-			+ " contents are often treasures for the taking. More notable than treasure, however,"
-			+ " is the presence of corporeal spiritual essence in a form known as ectoplasm. Though"
-			+ " dilluted due to age and material contamination, the substance itself is stable, but"
-			+ " often typically difficult to obtain due to circumstances."
-			+ "\n \nIt is theorized that someone with the means (or maybe a very particular nature) could"
-			+ " harness ectoplasm for their own use. Ancient records suggest the roots of magic itself"
-			+ " exist within the nature of this spiritual energy, but all knowledge of how to tap into"
-			+ " this seems to have been lost to time..."
-			+ "\n \nWhat is known about ectoplasm, however, is that its raw form has been reported"
-			+ " to alleviate symptoms of the necrotis plague by way of simple contact. Ethics aside,"
-			+ " if only the island wasn't so dangerous, we could at least begin using it for research"
-			+ " into a possible cure for the plague...";
+			"Scattered around and within the island of Terraria are innumerable burial urns: Unguarded,"
+			+" yet undisturbed. An odd thing, seeing as their contents are often treasures for the"
+			+" taking. More notable than treasure, however, is the presence of corporeal spiritual"
+			+" essence in a form known as ectoplasm. Though dilluted due to age and material"
+			+" contamination, the substance itself is stable, but often difficult to obtain"
+			+" due to circumstances."
+			+"\n \nIt is theorized that someone with the means (or maybe a very particular nature) could"
+			+" harness ectoplasm for their own use. Ancient records suggest the roots of magic itself"
+			+" exist within the nature of this spiritual energy, but all knowledge of how to tap into"
+			+" this reliably seems to have been lost to time..."
+			+"\n \nOne important thing that has been noted about ectoplasm, however, is that direct"
+			+" contact with it has been reported to alleviate symptoms of the necrotis plague. Ethics"
+			+" aside, if only we could get better access to the island, we could at least begin"
+			+" researching it for a possible cure for the plague...";
 
 		
 
