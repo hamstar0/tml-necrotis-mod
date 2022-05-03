@@ -63,7 +63,7 @@ namespace Necrotis.HUD {
 
 		////////////////
 
-		private AnkhHUD( Vector2 pos, Vector2 dim ) : base( "Anima Gauge", pos, dim )  {
+		private AnkhHUD( Vector2 pos, Vector2 dim ) : base( "Anima Gauge", pos, dim, () => true )  {
 			var mymod = NecrotisMod.Instance;
 			this.AnkhDripSource = mymod.GetTexture( "HUD/AnkhDripSource" );
 			this.AnkhBgTex = mymod.GetTexture( "HUD/AnkhBG" );
