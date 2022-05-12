@@ -8,9 +8,9 @@ namespace Necrotis.NecrotisBehaviors {
 		public static float CalculateViewVisibilityScale( float necrotisPercent ) {
 			float lightPerc = Math.Max( 1f - necrotisPercent, 0f );
 			var config = NecrotisConfig.Instance;
-			float minLight = config.Get<float>( nameof( config.LowestPercentViewVisibilityFromDebuff ) );
+			float minLight = config.Get<float>( nameof(config.LowestPercentViewVisibilityFromDebuff) );
 
-			return minLight + ( ( 1f - minLight ) * lightPerc );
+			return minLight + ((1f - minLight) * lightPerc);
 		}
 
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using ModLibsCore.Libraries.Debug;
 using HUDElementsLib;
+using Necrotis.Libraries.Libraries.XNA;
 
 
 namespace Necrotis.HUD {
@@ -32,18 +33,6 @@ namespace Necrotis.HUD {
 
 
 		////////////////
-		
-		// Credit: @Oli
-		public static void PremultiplyTexture( Texture2D texture ) {
-			Color[] buffer = new Color[texture.Width * texture.Height];
-			texture.GetData( buffer );
-
-			for( int i = 0; i < buffer.Length; i++ ) {
-				buffer[i] = Color.FromNonPremultiplied( buffer[i].R, buffer[i].G, buffer[i].B, buffer[i].A );
-			}
-
-			texture.SetData( buffer );
-		}
 
 
 
@@ -73,9 +62,9 @@ namespace Necrotis.HUD {
 			this.AnkhOhmTex = mymod.GetTexture( "HUD/AnkhOhm" );
 			this.AnkhShieldTex = mymod.GetTexture( "HUD/AnkhShield" );
 
-			AnkhHUD.PremultiplyTexture( this.AnkhDripSource );
-			AnkhHUD.PremultiplyTexture( this.AnkhGlowTex );
-			AnkhHUD.PremultiplyTexture( this.AnkhUnglowTex );
+			XNALibraries.PremultiplyTexture( this.AnkhDripSource );
+			XNALibraries.PremultiplyTexture( this.AnkhGlowTex );
+			XNALibraries.PremultiplyTexture( this.AnkhUnglowTex );
 		}
 
 

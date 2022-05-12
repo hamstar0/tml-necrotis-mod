@@ -169,6 +169,8 @@ namespace Necrotis {
 					+"; was "+this.AnimaPercent+", is "+animaPercent );
 			}
 
+			//
+
 			this.AnimaPercent = animaPercent;
 		}
 	}

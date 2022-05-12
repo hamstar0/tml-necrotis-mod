@@ -54,7 +54,7 @@ namespace Necrotis {
 				isNew = !this.player.HasBuff( smDebuffType );
 
 				if( isNew ) {
-					if( animaPercent < 0.01f ) {	// = Recovering from necrotis
+					if( this.CurrentAnimaPercentChangeRate > 0f ) {	// = Recovering from necrotis
 						Main.NewText( "Your vision starts to clear.", Color.OrangeRed );
 					} else {
 						Main.NewText( "You begin feeling stiff. Find spiritual replenishinment.", Color.OrangeRed );

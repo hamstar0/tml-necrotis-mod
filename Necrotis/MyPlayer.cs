@@ -40,7 +40,9 @@ namespace Necrotis {
 
 		public override void Load( TagCompound tag ) {
 			if( tag.ContainsKey( "anima_percent" ) ) {
-				this.AnimaPercent = MathHelper.Clamp( tag.GetFloat("anima_percent"), 0f, 1f );
+				float animaPerc = MathHelper.Clamp( tag.GetFloat("anima_percent"), 0f, 1f );
+
+				this.AnimaPercent = animaPerc;
 			}
 
 			if( tag.ContainsKey( "ankh_offset_x" ) ) {

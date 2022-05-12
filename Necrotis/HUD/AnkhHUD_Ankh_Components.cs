@@ -61,7 +61,7 @@ namespace Necrotis.HUD {
 						color: Color.White * tint
 					);
 				}
-			} else if( animaPercent < 0.5f ) {
+			} else if( animaPercent < 0.5f && !Main.playerInventory ) {
 				sb.Draw(
 					texture: this.AnkhUnglowTex,
 					position: pos + new Vector2( -5f, -5f ),
