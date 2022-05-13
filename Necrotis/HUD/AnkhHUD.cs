@@ -12,10 +12,14 @@ namespace Necrotis.HUD {
 		public static AnkhHUD CreateDefault() {
 			var mymod = NecrotisMod.Instance;
 			Texture2D bgTex = mymod.GetTexture( "HUD/AnkhBG" );
-			Vector2 pos = AnkhHUD.GetBaseHudUncomputedPosition();
+			Vector2 posOffset = AnkhHUD.GetBaseHudUncomputedPosition();
+			Vector2 posPerc = new Vector2(
+				posOffset.X < 0f ? 1f : 0f,
+				posOffset.Y < 0f ? 1f : 0f
+			);
 			Vector2 dim = new Vector2( bgTex.Width, bgTex.Height );
 
-			return new AnkhHUD( pos, dim );
+			return new AnkhHUD( posOffset, posPerc, dim );
 		}
 
 
@@ -52,7 +56,8 @@ namespace Necrotis.HUD {
 
 		////////////////
 
-		private AnkhHUD( Vector2 pos, Vector2 dim ) : base( "Anima Gauge", pos, dim, () => true )  {
+		private AnkhHUD( Vector2 posOffset, Vector2 posPerc, Vector2 dim )
+					: base( "Anima Gauge", posOffset, posPerc, dim, () => true )  {
 			var mymod = NecrotisMod.Instance;
 			this.AnkhDripSource = mymod.GetTexture( "HUD/AnkhDripSource" );
 			this.AnkhBgTex = mymod.GetTexture( "HUD/AnkhBG" );
