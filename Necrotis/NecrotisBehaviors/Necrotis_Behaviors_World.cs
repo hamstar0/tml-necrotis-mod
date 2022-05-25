@@ -75,7 +75,7 @@ namespace Necrotis.NecrotisBehaviors {
 			CursedBramblesAPI.SetPlayerToCreateBrambleWake(
 				player: player,
 				isElevationChecked: true,
-				radius: radius,
+				tileRadius: radius,
 				tickRate: tickRate,
 				validateAt: ValidateAt
 			);
