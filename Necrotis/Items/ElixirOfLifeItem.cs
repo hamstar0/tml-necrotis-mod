@@ -18,6 +18,9 @@ namespace Necrotis.Items {
 		}
 
 		public override void SetDefaults() {
+			var config = NecrotisConfig.Instance;
+			int seconds = config.Get<int>( nameof(config.ElixirDurationInSeconds) );
+
 			this.item.UseSound = SoundID.Item3;
 			this.item.useStyle = ItemUseStyleID.EatingUsing;
 			this.item.useTurn = true;
@@ -29,7 +32,7 @@ namespace Necrotis.Items {
 			this.item.height = 24;
 			//item.potion = true;
 			this.item.buffType = ModContent.BuffType<RespiritedBuff>();
-			this.item.buffTime = 30 * 60;
+			this.item.buffTime = seconds * 60;
 			this.item.value = 1000;
 			this.item.rare = ItemRarityID.Orange;
 		}

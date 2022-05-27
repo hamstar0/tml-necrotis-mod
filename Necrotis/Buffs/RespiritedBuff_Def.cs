@@ -7,10 +7,13 @@ namespace Necrotis.Buffs {
 	public partial class RespiritedBuff : ModBuff {
 		public override void SetDefaults() {
 			var config = NecrotisConfig.Instance;
+			float drainMul = config.Get<float>( nameof(config.ElixirAnimaDrainMultiplier) );
 
 			string desc;
-			if( config.Get<float>( nameof(config.ElixirAnimaDrainMultiplier) ) > 0f ) {
+			if( drainMul > 0f && drainMul < 1f ) {
 				desc = "reduced";
+			} else if( drainMul > 1f ) {
+				desc = "increased";
 			} else {
 				desc = "nullified";
 			}
